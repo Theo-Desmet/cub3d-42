@@ -6,15 +6,15 @@
 #    By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/06/14 09:47:04 by tdesmet          ###   ########.fr        #
+#    Updated: 2022/06/15 11:35:44 by tdesmet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -g3 -I includes/ -Wall -Werror -Wextra
+CFLAGS = -g3 -I includes/ #-Wall -Werror -Wextra
 
-FILES = $(wildcard parser/*.c) main.c
+FILES = $(wildcard parsing/*.c) main.c
 
 OBJS = $(FILES:.c=.o)
 
@@ -22,7 +22,7 @@ NAME = cub3d
 
 %.o: %.c
 	@printf "\033[0;33mCompiling camarade: %-33.33s\r" $@
-	@$(CC) $(CFLAGS)  -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@$(CC) $(CFLAGS)  -I/usr/include -Imlx_linux -c $< -o $@
 
 $(NAME): $(OBJS)
 	@ $(MAKE) -C libft all --no-print-directory

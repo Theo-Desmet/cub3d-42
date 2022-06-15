@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/15 14:18:22 by tdesmet          ###   ########.fr       */
+/*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
+/*   Updated: 2022/06/14 10:21:33 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# include "../mlx_linux/mlx.h"
-# include "../libft/includes/libft.h"
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <math.h>
-# include "struct.h"
-# include "parsing.h"
-
-# define SPRITE_SIZE 64
+int	ft_parsing(t_data *data, char **argv);
 
 #endif

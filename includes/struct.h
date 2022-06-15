@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/14 09:40:31 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/06/15 14:23:21 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ typedef struct s_img
 
 typedef struct s_assets
 {
-	t_img	*floor;
-	t_img	*wall;
-	t_img	*collec;
-	t_img	*collec2;
-	t_img	*collec3;
-	t_img	*exit;
+	int	floor;
+	int	ceiling;
+	t_img	*w_east;
+	t_img	*w_weast;
+	t_img	*w_south;
+	t_img	*w_north;
 }	t_assets;
 
 typedef struct s_map
