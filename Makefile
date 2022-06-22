@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/06/14 09:47:04 by tdesmet          ###   ########.fr        #
+#    Updated: 2022/06/21 16:11:56 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -g3 -I includes/ -Wall -Werror -Wextra
+CFLAGS = -g3 -I includes/ -Wall -Werror -Wextra -O3
 
-FILES = $(wildcard parser/*.c) main.c
+FILES = raycasting/raycasting.c
 
 OBJS = $(FILES:.c=.o)
 
@@ -22,7 +22,7 @@ NAME = cub3d
 
 %.o: %.c
 	@printf "\033[0;33mCompiling camarade: %-33.33s\r" $@
-	@$(CC) $(CFLAGS)  -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $< -o $@
 
 $(NAME): $(OBJS)
 	@ $(MAKE) -C libft all --no-print-directory
