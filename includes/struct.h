@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/21 12:38:58 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:24:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define STRUCT_H
 
 # include <stdbool.h>
-
-#define screenWidth 1200
-#define screenHeight 600
 
 typedef struct s_img
 {

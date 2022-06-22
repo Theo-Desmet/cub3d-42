@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/06/21 17:40:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:35:28 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,11 +215,11 @@ t_game		*ft_init_game(void)
 	if (!game->mlx)
 		return (NULL); // protect + error
 	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
-	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "Hello world!");
+	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
 	game->assets = ft_init_assets(game->mlx);
 	game->player = ft_init_player();
 	game->ray = ft_init_ray();
-	game->plane = ft_init_vector(0, 1);
+	game->plane = ft_init_vector(0, 0.66);
 	game->object = ft_init_obj(game);
 	ft_init_dir(game);
 	return (game);
@@ -306,6 +306,8 @@ void	ft_put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x < 0 || y < 0)
+		return ;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -318,6 +320,25 @@ unsigned int	ft_get_pixel(t_img *img, int x, int y)
 	pix = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	color = *(unsigned int *)pix;
 	return (color);
+}
+
+void	ft_draw_circle(t_img *img, t_vector *pos, int r, int color)
+{
+	double	i;
+	double	angle;
+	double	x;
+	double	y;
+
+	i = 0;
+	while (i < 360)
+	{
+		angle = i;
+		x = r * cos(angle * M_PI / 180);
+		y = r * sin(angle * M_PI / 180);
+		ft_put_pixel(img, x + pos->x, y + pos->y, color);
+		i += 0.1;
+	}
+	free(pos);
 }
 
 void	ft_draw_square(t_img *img, t_vector *pos, int size, int color)
@@ -336,6 +357,7 @@ void	ft_draw_square(t_img *img, t_vector *pos, int size, int color)
 		}
 		i++;
 	}
+	free(pos);
 }
 
 void	ft_prepare_ray(t_game *game, int x)
@@ -383,8 +405,6 @@ void	ft_dda(t_ray *ray)
 		ray->sidedist_y = (ray->map_y + 1.0 - ray->pos->y) * ray->ddy;
 	}
 }
-
-void	ft_draw_line(t_img *img, t_vector *pos, t_vector *pos2);
 
 void	ft_wall_hit(t_ray *ray)
 {
@@ -490,7 +510,7 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 	if (render->start < 0)
 		render->start = 0;
 	if (render->end >= screenHeight)
-		render->end = screenHeight - 1;	
+		render->end = screenHeight;	
 	if (render->end < 0)
 		render->end = screenHeight;
 	if (game->ray->side == 1)
@@ -547,7 +567,6 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 	// 		ft_put_pixel(game->img, render->x, render->y, 0xf2f2f2);
 	// 	render->y++;
 	// }
-
 	ft_prepare_proj(game, render);
 	if (ray->side == 0 && ray->dir->x > 0.0)
 		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
@@ -582,6 +601,24 @@ t_render	*ft_init_render(void)
 	return (render);
 }
 
+void	ft_draw_square2(t_img *img, t_vector *pos, int size, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i <= size)
+	{
+		j = 0;
+		while (j <= size)
+		{
+			ft_put_pixel(img, (int)pos->x + i, (int)pos->y + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_paint(t_img *element, t_img *mlx_img, t_vector *pos, int scale)
 {
 	int				x1;
@@ -599,13 +636,14 @@ void	ft_paint(t_img *element, t_img *mlx_img, t_vector *pos, int scale)
 		{
 			color = ft_get_pixel(element, x1, y1);
 			if (!(color == (unsigned int)(0xFF << 24)))
-				ft_draw_square(mlx_img, pos, scale, color);
+				ft_draw_square2(mlx_img, pos, scale, color);
 			pos->x += scale;
 			x1++;
 		}
 		pos->y += scale;
 		y1++;
-	}	
+	}
+	free(pos);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -629,7 +667,7 @@ void	ft_sort_sprite(t_object *obj)
 	while (++i < obj->nb_obj)
 	{
 		j = -1;
-		while (++j < obj->nb_obj)
+		while (++j + 1 < obj->nb_obj)
 		{
 			if (obj->dist[j + 1] > obj->dist[j])
 			{
@@ -744,37 +782,57 @@ void	ft_sprite_cast(t_game *game)
 
 //MINIMAP
 
+t_vector	*ft_vector_dup(t_vector *vector)
+{
+	t_vector	*dup;
+
+	dup = malloc(sizeof(t_vector));
+	if (!vector)
+		return (NULL);
+	dup->x = vector->x;
+	dup->y = vector->y;
+	return (dup);
+}
+
 void	ft_draw_line(t_img *img, t_vector *pos, t_vector *pos2)
 {
 	double	dx;
 	double	dy;
 	int		pixels;
-	t_vector	coord;
+	t_vector	*coord;
+	t_vector	*temp;
 	
 	dx = pos2->x - pos->x;
 	dy = pos2->y - pos->y;
 	pixels = sqrt(pow(dx, 2.0) + pow(dy, 2.0));
 	dx /= pixels;
 	dy /= pixels;
-	coord.x = pos->x;
-	coord.y = pos->y;
+	coord = ft_init_vector(pos->x, pos->y);
+	temp = ft_vector_dup(coord);
 	while (pixels)
 	{
 		// ft_put_pixel(img, coord.x, coord.y, 0xFF0000);
-		ft_draw_square(img, &coord, 1, 0x00FF00);
-		coord.x += dx;
-		coord.y += dy;
+		temp->x += dx;
+		temp->y += dy;
+
+		ft_draw_square(img, coord, 1, 0x00FF00);
+		coord = ft_vector_dup(temp);
 		pixels--;
 	}
+	free(pos);
+	free(pos2);
+	free(temp);
+	free(coord);
 }
 
 void	ft_draw_player_minimap(t_game *game)
 {
 	int	size = 10;
-	ft_draw_square(game->img, ft_init_vector((game->player->pos->x * size), (game->player->pos->y * size)), 8, 0xFF0000);
-	ft_draw_line(game->img, ft_init_vector(((game->player->pos->x) * size) + 3, ((game->player->pos->y) * size) + 3),
-		ft_init_vector((game->player->pos->x * size + game->player->dir->x * game->player->walk_speed * 400),
-			(game->player->pos->y * size + game->player->dir->y * game->player->walk_speed * 400)));
+	// ft_draw_circle(game->img, ft_init_vector((mapWidth * size - game->player->pos->x * size), (game->player->pos->y * size)), 4, 0xFF0000);
+	ft_draw_square(game->img, ft_init_vector((mapWidth * size - game->player->pos->x * size), (game->player->pos->y * size)), 8, 0xFF0000);
+	ft_draw_line(game->img, ft_init_vector((mapWidth * size - game->player->pos->x * size) + 3, (game->player->pos->y * size) + 3),
+		ft_init_vector((mapWidth * size - game->player->pos->x * size - game->player->dir->x * game->player->walk_speed * 200),
+			(game->player->pos->y * size + game->player->dir->y * game->player->walk_speed * 200)));
 	// ft_draw_line(game->img, ft_init_vector(0, 0), ft_init_vector(100, 100));
 	
 }
@@ -797,11 +855,11 @@ void	ft_draw_minimap(t_game *game)
 		while (++x < mapWidth)
 		{
 			if (worldMap[x][y] == 1)
-				ft_draw_square(game->img, ft_init_vector(screen_x, screen_y), size, 0);
+				ft_draw_square(game->img, ft_init_vector(mapWidth * size - screen_x - size, screen_y), size, 0);
 			else if (worldMap[x][y] == 2)
-				ft_draw_square(game->img, ft_init_vector(screen_x, screen_y), size, 0x00FFFF);
+				ft_draw_square(game->img, ft_init_vector(mapWidth * size - screen_x - size, screen_y), size, 0x00FFFF);
 			else
-				ft_draw_square(game->img, ft_init_vector(screen_x, screen_y), size, 0xFFFFFF);
+				ft_draw_square(game->img, ft_init_vector(mapWidth * size - screen_x - size, screen_y), size, 0xFFFFFF);
 			screen_x += size;
 		}
 		screen_y += size;
@@ -844,11 +902,11 @@ void	ft_render(t_game *game)
 
 int	ft_key_down(int keycode, t_game *game)
 {
-	if (keycode == 'z')
+	if (keycode == 'w')
 		game->forward = true;
 	if (keycode == 's')
 		game->backward = true;
-	if (keycode == 'q')
+	if (keycode == 'a')
 		game->left = true;
 	if (keycode == 'd')
 		game->right = true;
@@ -856,16 +914,18 @@ int	ft_key_down(int keycode, t_game *game)
 		game->rotate_right = true;
 	if (keycode == 65361)
 		game->rotate_left = true;
+	if (keycode == 65307)
+		exit(EXIT_SUCCESS);
 	return (0);
 }
 
 int	ft_key_up(int keycode, t_game *game)
 {
-	if (keycode == 'z')
+	if (keycode == 'w')
 		game->forward = false;
 	if (keycode == 's')
 		game->backward = false;
-	if (keycode == 'q')
+	if (keycode == 'a')
 		game->left = false;
 	if (keycode == 'd')
 		game->right = false;
@@ -879,6 +939,7 @@ int	ft_key_up(int keycode, t_game *game)
 int	ft_loop(t_game *game)
 {
 	ft_render(game);
+	mlx_do_sync(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	return (0);
 }
