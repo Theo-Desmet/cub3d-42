@@ -22,6 +22,11 @@ t_data	*ft_init(void)
 	data->assets = malloc(sizeof(t_assets));
 	if (!data->assets)
 		return (NULL);//leak
+	data->map = malloc(sizeof(t_map));
+	if (!data->map)
+		return (NULL);//leak
+	data->map->width = 0;
+	data->map->height = 0;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (NULL);//leak
