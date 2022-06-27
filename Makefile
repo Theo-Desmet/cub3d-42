@@ -6,15 +6,15 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/06/21 16:11:56 by bbordere         ###   ########.fr        #
+#    Updated: 2022/06/27 12:46:09 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
+CC = clang
 
-CFLAGS = -g3 -I includes/ -Wall -Werror -Wextra -O3
+CFLAGS = -g3 -I includes/ -Ofast# -Wall -Werror -Wextra 
 
-FILES = raycasting/raycasting.c
+FILES = $(wildcard src/*.c) $(wildcard src/raycasting/*.c)
 
 OBJS = $(FILES:.c=.o)
 

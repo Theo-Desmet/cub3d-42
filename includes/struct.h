@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/22 16:24:17 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/06/27 18:34:18 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_assets
 	t_img	*ceil;
 	t_img	*gun;
 	t_img	*obj;
+	t_img	*door;
 }	t_assets;
 
 typedef struct s_map
@@ -43,7 +44,7 @@ typedef struct s_map
 	int		width;
 	int		start;
 	int		height;
-	int	**map;
+	int		**map;
 	int		fd_map;
 }	t_map;
 
@@ -63,16 +64,19 @@ typedef	struct s_render
 	int		sprite_y;
 	int		color;
 	int		height_line;
+	t_img	*wall_tex;
 	double	wall_x;
 	double	perp_wall_dist;
+	double	x_offset;
+	double	y_offset;
 
 	double	floor_x;
 	double	floor_y;
-	double	weight;
-	double	cur_x;
-	double	cur_y;
-	double	dist_player;
-	double	cur_dist;
+	double	step_x;
+	double	step_y;
+	double	row_dist;
+	int		tex_y;
+	int		tex_x;
 }	t_render;
 
 typedef struct s_ray
@@ -142,7 +146,6 @@ typedef struct s_game
 {
 	t_assets	*assets;
 	t_vector	*plane;
-	
 	t_map		*map;
 	t_img		*img;
 	t_player	*player;
@@ -156,6 +159,7 @@ typedef struct s_game
 	bool		right;
 	bool		rotate_left;
 	bool		rotate_right;
+	int			opening;
 }	t_game;
 
 #endif
