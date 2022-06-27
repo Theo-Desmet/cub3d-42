@@ -26,26 +26,24 @@ int	ft_check_valid_path(char *line, char *str)
 	return (1);
 }
 
-t_img	*ft_init_img(void *mlx, char *path, int width, int height)
+int	ft_init_img(t_img *img, void *mlx, char *path, int area[2])
 {
-	t_img	*img;
 	int		size;
 
 	size = SPRITE_SIZE;
-	img = malloc(sizeof(t_img));
 	if (!img)
-		return (NULL);
+		return (0);
 	if (path)
 		img->mlx_img = mlx_xpm_file_to_image(mlx, path, &size, &size);
 	else
-		img->mlx_img = mlx_new_image(mlx, width, height);
+		img->mlx_img = mlx_new_image(mlx, area[0], area[1]);
 	if (!img->mlx_img)
-		return (NULL);
+		return (0);
 	img->addr = mlx_get_data_addr(img->mlx_img, &img->bpp,
 			&img->line_len, &img->endian);
 	if (!img->addr)
-		return (NULL);
-	return (img);
+		return (0);
+	return (1);
 }
 
 int	ft_atorgb(char *str)
@@ -134,34 +132,18 @@ char	*ft_getpath(char *line)
 
 int	ft_check_map_head_cond(t_data *data, char *line, int check[])
 {
+	int	area[2];
+
+	area[0] = 0;
+	area[1] = 0;
 	if (ft_check_valid_path(line, "EA ") && !check[0])
-	{
-		data->assets->w_east = ft_init_img(data->mlx, ft_getpath(line), 0, 0);
-		if (!data->assets->w_east)
-			return (-2);
-		return (0);
-	}
+		return (ft_init_img(data->assets->w_east, data->mlx, ft_getpath(line), area), 0);
 	else if (ft_check_valid_path(line, "WE ") && !check[1])
-	{
-		data->assets->w_weast = ft_init_img(data->mlx, ft_getpath(line), 0, 0);
-		if (!data->assets->w_weast)
-			return (-2);
-		return (1);
-	}
+		return (ft_init_img(data->assets->w_weast, data->mlx, ft_getpath(line), area), 1);
 	else if (ft_check_valid_path(line, "NO ") && !check[2])
-	{
-		data->assets->w_north = ft_init_img(data->mlx, ft_getpath(line), 0, 0);
-		if (!data->assets->w_north)
-			return (-2);
-		return (2);
-	}
+		return (ft_init_img(data->assets->w_north, data->mlx, ft_getpath(line), area), 2);
 	else if (ft_check_valid_path(line, "SO ") && !check[3])
-	{
-		data->assets->w_south = ft_init_img(data->mlx, ft_getpath(line), 0, 0);
-		if (!data->assets->w_south)
-			return (-2);
-		return (3);
-	}
+		return (ft_init_img(data->assets->w_south, data->mlx, ft_getpath(line), area), 3);
 	else if (ft_check_is_rgb(line, "F ") && !check[4])
 	{
 		data->assets->floor = ft_check_is_rgb(line, "F ");
@@ -172,7 +154,7 @@ int	ft_check_map_head_cond(t_data *data, char *line, int check[])
 		data->assets->ceiling = ft_check_is_rgb(line, "C ");
 		return (5);//leak error
 	}
-	return (-1);
+	return (-2);
 }
 
 int	ft_check_is_head(char *str)
@@ -271,6 +253,24 @@ int	ft_check_spawn(char *line, int spawn)
 	return (spawn);
 }
 
+int	ft_check_valid_head(t_data *data, int check[])
+{
+	int valid;
+
+	valid = 1;
+	if (!check[0] || !check[1] || !check[2]
+		|| !check[3] || !check[4] || !check[5])
+		valid = 0;
+	if (!data->assets->w_east->mlx_img
+			|| !data->assets->w_weast->mlx_img
+			|| !data->assets->w_north->mlx_img
+			|| !data->assets->w_south->mlx_img
+			|| !data->assets->floor
+			|| !data->assets->ceiling)
+		valid = 0;
+	return (valid);
+}
+
 int	ft_check_map(t_data *data, int fd)
 {
 	char *line;
@@ -300,9 +300,8 @@ int	ft_check_map(t_data *data, int fd)
 			check[temp] = 1;
 			continue ;
 		}
-		if (!check[0] || !check[1] || !check[2]
-			|| !check[3] || !check[4] || !check[5])
-			return (-1);
+		if (!ft_check_valid_head(data, check))
+			return (0);
 		if (!ft_is_valid_map_line(data, line))
 			return (0);
 		check[6] = ft_check_spawn(line, check[6]);
