@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/15 14:18:22 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/06/29 08:37:22 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # include "parsing.h"
 
 # define SPRITE_SIZE 64
+void    ft_free_map(t_data *data, int i);
 
 #endif

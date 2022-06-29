@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/15 14:23:21 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/06/29 10:39:44 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ typedef struct s_assets
 	t_img	*w_south;
 	t_img	*w_north;
 }	t_assets;
+
+typedef struct s_check
+{
+	int	east;
+	int	weast;
+	int	north;
+	int	south;
+	int	floor;
+	int	ceiling;
+	int	spwan;
+}	t_check;
 
 typedef struct s_map
 {

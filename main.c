@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:06:07 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/15 15:00:28 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/06/28 11:01:11 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ t_data	*ft_init(void)
 	return (data);
 }
 
+void    ft_free_map(t_data *data, int i)
+{
+        while (i >= 0)
+        {
+                free(data->map->map[i]);
+                i--;
+        }
+        free(data->map->map);
+        free(data->map);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -44,5 +55,11 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (1);
 	ft_parsing(data, argv);
+	mlx_destroy_display(data->mlx);
+	free(data->assets);
+	ft_free_map(data, data->map->height - 1);
+	free(data->mlx);
+	free(data);
+	exit(EXIT_SUCCESS);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/15 17:33:04 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/06/29 10:40:56 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,29 @@ int	ft_check_valid_path(char *line, char *str)
 	return (1);
 }
 
-int	ft_init_img(t_img *img, void *mlx, char *path, int area[2])
+t_img	*ft_init_img(void *mlx, char *path, int area[2])
 {
 	int		size;
+	t_img	*img;
 
 	size = SPRITE_SIZE;
+	img = malloc(sizeof(t_img));
 	if (!img)
-		return (0);
+		return (NULL);
 	if (path)
+	{
 		img->mlx_img = mlx_xpm_file_to_image(mlx, path, &size, &size);
+		free(path);
+	}
 	else
 		img->mlx_img = mlx_new_image(mlx, area[0], area[1]);
 	if (!img->mlx_img)
-		return (0);
+		return (NULL);
 	img->addr = mlx_get_data_addr(img->mlx_img, &img->bpp,
 			&img->line_len, &img->endian);
 	if (!img->addr)
-		return (0);
-	return (1);
+		return (NULL);
+	return (img);
 }
 
 int	ft_atorgb(char *str)
@@ -130,29 +135,27 @@ char	*ft_getpath(char *line)
 	return (path);
 }
 
-int	ft_check_map_head_cond(t_data *data, char *line, int check[])
+int	ft_check_map_head(t_data *data, char *line, t_check *check)
 {
-	int	area[2];
-
-	area[0] = 0;
-	area[1] = 0;
-	if (ft_check_valid_path(line, "EA ") && !check[0])
-		return (ft_init_img(data->assets->w_east, data->mlx, ft_getpath(line), area), 0);
-	else if (ft_check_valid_path(line, "WE ") && !check[1])
-		return (ft_init_img(data->assets->w_weast, data->mlx, ft_getpath(line), area), 1);
-	else if (ft_check_valid_path(line, "NO ") && !check[2])
-		return (ft_init_img(data->assets->w_north, data->mlx, ft_getpath(line), area), 2);
-	else if (ft_check_valid_path(line, "SO ") && !check[3])
-		return (ft_init_img(data->assets->w_south, data->mlx, ft_getpath(line), area), 3);
-	else if (ft_check_is_rgb(line, "F ") && !check[4])
+	if (*line == '\n')
+		return (-1);
+	else if (ft_check_valid_path(line, "EA ") && !check->east)
+		check->east = 1;
+	else if (ft_check_valid_path(line, "WE ") && !check->weast)
+		check->weast = 1;
+	else if (ft_check_valid_path(line, "NO ") && !check->north)
+		check->north = 1;
+	else if (ft_check_valid_path(line, "SO ") && !check->south)
+		check->south = 1;
+	else if (ft_check_is_rgb(line, "F ") && !check->south)
 	{
 		data->assets->floor = ft_check_is_rgb(line, "F ");
-		return (4);//leak error
+		check->floor = 1;
 	}
-	else if (ft_check_is_rgb(line, "C ") && !check[5])
+	else if (ft_check_is_rgb(line, "C ") && !check->south)
 	{
 		data->assets->ceiling = ft_check_is_rgb(line, "C ");
-		return (5);//leak error
+		check->ceiling = 1;
 	}
 	return (-2);
 }
@@ -173,18 +176,6 @@ int	ft_check_is_head(char *str)
 			|| str[i] == '\n')
 		return (1);
 	return (0);
-}
-
-int	ft_check_map_head(t_data *data, char *line, int check[9])
-{
-	int	i;
-
-	if (*line != '\n')
-	{
-		i = ft_check_map_head_cond(data, line, check);
-			return (i);
-	}
-	return (-1);
 }
 
 int     ft_check_ext_file(char *str, char *ext)
@@ -253,104 +244,144 @@ int	ft_check_spawn(char *line, int spawn)
 	return (spawn);
 }
 
-int	ft_check_valid_head(t_data *data, int check[])
+int	ft_check_valid_head(t_data *data, t_check *check)
 {
-	int valid;
-
-	valid = 1;
-	if (!check[0] || !check[1] || !check[2]
-		|| !check[3] || !check[4] || !check[5])
-		valid = 0;
-	if (!data->assets->w_east->mlx_img
-			|| !data->assets->w_weast->mlx_img
-			|| !data->assets->w_north->mlx_img
-			|| !data->assets->w_south->mlx_img
-			|| !data->assets->floor
-			|| !data->assets->ceiling)
-		valid = 0;
-	return (valid);
+	if (!check->east || !check->weast || !check->north
+		|| !check->south || !check->floor || !check->ceiling)
+		return (0);
+	return (1);
 }
 
-int	ft_check_map(t_data *data, int fd)
+t_check	*ft_init_check(t_check *check)
 {
-	char *line;
-	int	temp;
-	int	check[9];
+	check->east = 0;
+	check->weast = 0;
+	check->north = 0;
+	check->south = 0;
+	check->floor = 0;
+	check->ceiling = 0;
+	check->spwan = 0;
+	return (check);
+}
 
-	check[0] = 0;//EA
-	check[1] = 0;//WE
-	check[2] = 0;//NO
-	check[3] = 0;//SO
-	check[4] = 0;//F
-	check[5] = 0;//C
-	check[6] = 0;//spawn
-	check[7] = 0;//if_head
+int	ft_do_check_map_head(t_data *data, char *line, t_check *check)
+{
+	int	temp;
+
+	temp = ft_check_map_head(data, line, check);
+	free(line);
+	if (temp < -1)
+		return (0);
+	return (1);
+}
+
+int	ft_check_map(t_data *data, char *line, t_check *check)
+{
+	if (!ft_check_valid_head(data, check))
+	{
+		free(line);
+		return (0);
+	}
+	if (!ft_is_valid_map_line(data, line))
+	{
+		free(line);
+		return (0);
+	}
+	check->spwan = ft_check_spawn(line, check->spwan);
+	if (check->spwan < 0)
+	{
+		free(line);
+		return (0);
+	}
+	data->map->height++;
+	return (1);
+}
+
+int	ft_check_file(t_data *data, int fd, t_check *check)
+{
+	char	*line;
+	int		ishead;
+
+	check = ft_init_check(check);
+	ishead = 1;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		if (ft_check_is_head(line))
-		{
-			temp = ft_check_map_head(data, line, check);
-			if (temp < -1)
-				return (0);
-			if (temp == -1)
-				continue;
-			check[temp] = 1;
-			continue ;
-		}
-		if (!ft_check_valid_head(data, check))
-			return (0);
-		if (!ft_is_valid_map_line(data, line))
-			return (0);
-		check[6] = ft_check_spawn(line, check[6]);
-		if (check[6] < 0)
-			return (0);
-		data->map->height++;
+		if (ishead && !ft_check_is_head(line))
+			ishead = 0;
+		if (ishead && !ft_do_check_map_head(data, line, check))
+			return (0);//add msg error
+		if (!ishead && !ft_check_map(data, line, check))
+			return (0);//add msg error
+		free(line);
 	}
-	if (!check[6])
+	if (!check->spwan)
 		return (0);
+	free(check);
 	return (1);
 }
 
-int	ft_copy_map(t_data *data, int **map, char *str)
+int	*ft_fill_line(t_data *data, char *line, int *map)
+{
+	int	y;
+
+	y = 0;
+	while (y < data->map->width)
+	{
+		if (!line[y] || line[y] == '\n')
+			while (y < data->map->width)
+				map[y++] = -1;
+		else if (line[y] == ' ')
+			map[y] = -1;
+		else if (line[y] == 'W' || line[y] == 'E'
+			|| line[y] == 'N' || line[y] == 'S')
+			map[y] = line[y];
+		else
+			map[y] = line[y] - '0';
+		y++;
+	}
+	return (map);
+}
+
+int	**ft_fill_map(t_data *data, int **map, char *line, int fd)
 {
 	int	x;
-	int	y;
-	int	fd;
-	char	*line;
 
 	x = 0;
-	fd = open(str, O_RDONLY);
-	if (!open)
-		return (0);
-	line = get_next_line(fd);
-	while (ft_check_is_head(line))
-		line = get_next_line(fd);
 	while (x < data->map->height)
 	{
-		y = 0;
 		map[x] = malloc(sizeof(int) * data->map->width);
-		while (y < data->map->width)
-		{
-			if (!line[y] || line[y] == '\n')
-				while (y < data->map->width)
-					map[x][y++] = -1;
-			else if (line[y] == ' ')
-				map[x][y] = -1;
-			else if (line[y] == 'W' || line[y] == 'E'
-					|| line[y] == 'N' || line[y] == 'S')
-				map[x][y] = line[y];
-			else
-				map[x][y] = line[y] - '0';
-			y++;
-		}
+		if (!map[x])
+			return (ft_free_map(data, x - 1), NULL);
+		map[x] = ft_fill_line(data, line, map[x]);
+		free(line);
 		line = get_next_line(fd);
 		if (!line)
 			break ;
 		x++;
 	}
+	return (map);
+}
+
+int	ft_copy_map(t_data *data, int **map, char *path)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(path, O_RDONLY);
+	if (!fd)
+		return (0);
+	line = get_next_line(fd);
+	while (ft_check_is_head(line))
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	map = ft_fill_map(data, map, line, fd);
+	if (!map)
+		return (0);
 	return (1);
 }
 
@@ -401,7 +432,7 @@ int	ft_check_border(t_data *data, int **map)
 
 	x = 1;
 	if (!ft_is_line_bordere(data, map[0]))
-		return(printf("ERROR: l.1"), 0);
+		return (printf("ERROR: l.1"), 0);
 	while (x < data->map->height - 1)
 	{
 		y = 0;
@@ -415,19 +446,23 @@ int	ft_check_border(t_data *data, int **map)
 		x++;
 	}
 	if (!ft_is_line_bordere(data, map[data->map->height - 1]))
-		return(printf("ERROR: l.1"), 0);
+		return (printf("ERROR: l.1"), 0);
 	return (1);
 }
 
 int	ft_parsing(t_data *data, char **argv)
 {
 	int		fd;
+	t_check *check;
 
 	fd = ft_check_ext_file(argv[1], ".cub");
 	if (!fd)
 		return (0);
-	if (!ft_check_map(data, fd))
+	check = malloc(sizeof(t_check));
+	if (!check)
 		return (0);
+	if (!ft_check_file(data, fd, check))
+		return (free(check), 0);
 	close(fd);
 	data->map->map = malloc(sizeof(int *) * data->map->height);
 	if (!ft_copy_map(data, data->map->map, argv[1]))
