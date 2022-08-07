@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/27 18:34:18 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/07/20 14:57:13 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,14 @@ typedef struct s_object
 	int			index;
 }	t_object;
 
+typedef struct s_door
+{
+	int		x;
+	int		y;
+	double	factor;
+	int		state;
+}	t_door;
+
 typedef struct s_game
 {
 	t_assets	*assets;
@@ -151,6 +159,8 @@ typedef struct s_game
 	t_player	*player;
 	t_ray		*ray;
 	t_object	*object;
+	t_door		**doors;
+	int			nb_doors;
 	void		*mlx;
 	void		*win;
 	bool		forward;
@@ -159,7 +169,6 @@ typedef struct s_game
 	bool		right;
 	bool		rotate_left;
 	bool		rotate_right;
-	int			opening;
 }	t_game;
 
 #endif

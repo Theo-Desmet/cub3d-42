@@ -6,14 +6,18 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/20 17:08:11 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:27:02 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	ft_key_down(int keycode, t_game *game)
 {
+	if (keycode == 65505)
+		game->player->walk_speed = 0.16;
+	if (keycode == 65513)
+		game->player->walk_speed = 0.04;
 	if (keycode == 'z')
 		game->forward = true;
 	if (keycode == 's')
@@ -31,14 +35,28 @@ int	ft_key_down(int keycode, t_game *game)
 	return (0);
 }
 
+void	ft_door(t_game *game)
+{
+	t_door	*door;
+
+	door = ft_get_cur_door(game,(int)(game->player->pos->x + game->player->dir->x),
+				(int)(game->player->pos->y + game->player->dir->y));
+	if (door)
+		door->state *= -1;
+}
+
 int	ft_key_up(int keycode, t_game *game)
 {
+	if (keycode == 65505 || keycode == 65513)
+		game->player->walk_speed = 0.08;
 	if (keycode == 'z')
 		game->forward = false;
 	if (keycode == 'm')
 		factor = 1;
 	if (keycode == 'k')
 		factor = 0;
+	if (keycode == ' ')
+		ft_door(game);
 	if (keycode == 's')
 		game->backward = false;
 	if (keycode == 'q')
@@ -54,17 +72,23 @@ int	ft_key_up(int keycode, t_game *game)
 
 int	ft_loop(t_game *game)
 {
-	if (factor > 1.0)
-		factor = 1;
-	if (factor < 0.0)
-		factor = 0.0;
-	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
+	int i;
+
+	i = -1;
+	while (++i < game->nb_doors)
+	{
+		if (game->doors[i]->factor > 1.0)
+			game->doors[i]->factor = 1;
+		if (game->doors[i]->factor < 0.0)
+			game->doors[i]->factor = 0.0;
+		game->doors[i]->factor -= 0.008 * game->doors[i]->state;
+	}
 	ft_render(game);
 	mlx_do_sync(game->mlx);
 	mlx_do_key_autorepeatoff(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
-	mlx_destroy_image(game->mlx, game->img->mlx_img);
-	free(game->img);
-	game->img = NULL;
+	// mlx_destroy_image(game->mlx, game->img->mlx_img);
+	// free(game->img);
+	// game->img = NULL;
 	return (0);
 }

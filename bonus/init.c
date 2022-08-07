@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/19 14:38:08 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:17:52 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 t_img	*ft_init_img(void *mlx, char *path, int width, int height)
 {
@@ -81,8 +81,8 @@ t_player	*ft_init_player(void)
 		return (NULL);
 	player->dir = ft_init_vector(0, 1); // N x=-1, S x=1, E y=1, W y=-1;
 	player->pos = ft_init_vector(11, 3);
-	player->rot_speed = 0.02;
-	player->walk_speed = 0.05;
+	player->rot_speed = 0.033;
+	player->walk_speed = 0.08;
 	if (!player->dir || !player->pos)
 		return (ft_free_player(player), NULL);
 	return (player);

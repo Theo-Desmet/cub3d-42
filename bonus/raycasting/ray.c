@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/03 14:00:37 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:52:26 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_prepare_ray(t_game *game, int x)
 {
@@ -58,58 +58,6 @@ void	ft_dda(t_ray *ray)
 	}
 }
 
-double	factor = 0.5;
-
-void	ft_door_hit(t_ray *ray, t_render *render, t_game *game)
-{
-	ray->hit = 1;
-	render->wall_tex = game->assets->door;
-	if (ray->side == 1)
-	{
-		render->y_offset = 0.5 * ray->step_y;
-		render->perp_wall_dist = (ray->map_y - game->ray->pos->y + render->y_offset + (1 - ray->step_y) / 2) / ray->dir->y;
-		render->wall_x = game->ray->pos->x + render->perp_wall_dist * ray->dir->x;
-		render->wall_x -= floor(render->wall_x);
-		if (ray->sidedist_y - (ray->ddy / 2) < ray->sidedist_x)
-		{
-			if (1.0 - render->wall_x <= factor)
-			{
-				ray->hit = 0;
-				render->y_offset = 0.0;
-			}
-		}
-		else
-		{
-			ray->map_x += ray->step_x;
-			ray->side = 0;
-			render->wall_tex = game->assets->ceil;
-			render->y_offset = 0.0;
-		}
-	}
-	else
-	{
-		render->x_offset = 0.5 * ray->step_x;
-		render->perp_wall_dist = (ray->map_x - game->ray->pos->x + render->x_offset + (1 - ray->step_x) / 2) / ray->dir->x;
-		render->wall_x = game->ray->pos->y + render->perp_wall_dist * ray->dir->y;
-		render->wall_x -= floor(render->wall_x);
-		if (ray->sidedist_x - (ray->ddx / 2) < ray->sidedist_y)
-		{
-			if (1.0 - render->wall_x <= factor)
-			{
-				ray->hit = 0;
-				render->x_offset = 0.0;
-			}
-		}
-		else
-		{
-			ray->map_y += ray->step_y;
-			ray->side = 1;
-			render->wall_tex = game->assets->ceil;
-			render->x_offset = 0.0;
-		}		
-	}
-}
-
 void	ft_get_wall_tex(t_ray *ray, t_render *render, t_game *game)
 {
 	if (render->wall_tex)
@@ -141,12 +89,22 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 		}
 		if (worldMap[ray->map_x][ray->map_y] == 3)
 			ft_door_hit(ray, render, game);
+		else if (worldMap[ray->map_x][ray->map_y] == 4)
+		{
+			ft_harbor(ray, render, game);
+			if ((int)factor == 0 && worldMap[ray->map_x][ray->map_y] == 4)
+				worldMap[ray->map_x][ray->map_y] = 3;
+		}
 		else if (worldMap[ray->map_x][ray->map_y] == 1)
 		{
 			render->wall_tex = NULL;
 			if (ray->side == 1 && worldMap[ray->map_x][ray->map_y - ray->step_y] == 3)
 				render->wall_tex = game->assets->ceil;
 			else if (ray->side == 0 && worldMap[ray->map_x - ray->step_x][ray->map_y] == 3)
+				render->wall_tex = game->assets->ceil;
+			else if (ray->side == 1 && worldMap[ray->map_x][ray->map_y - ray->step_y] == 4)
+				render->wall_tex = game->assets->ceil;
+			else if (ray->side == 0 && worldMap[ray->map_x - ray->step_x][ray->map_y] == 4)
 				render->wall_tex = game->assets->ceil;
 			ray->hit = 1;
 		}
@@ -210,6 +168,9 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 	// 	render->y++;
 	// }
 
+	t_door	*door;
+
+	door = ft_get_cur_door(game, ray->map_x, ray->map_y);
 	if (ray->side == 0 && ray->dir->x > 0.0)
 		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
 	if (ray->side == 1 && ray->dir->y < 0.0)
@@ -221,17 +182,22 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 		render->sprite_y = (render->y * 2 - screenHeight + render->height_line)
 			* (SPRITE_SIZE / 2) / render->height_line;
 		if (render->wall_tex == game->assets->door)
-			// render->color = ft_get_pixel(render->wall_tex,
-			// 	render->sprite_x - ((int)(factor * SPRITE_SIZE * floor(game->player->dir->x))), render->sprite_y);
-		render->color = ft_get_pixel(render->wall_tex,
-				render->sprite_x - ((int)(factor * SPRITE_SIZE)), render->sprite_y);
-	
+		{
+							// render->color = ft_get_pixel(render->wall_tex,
+				// 	render->sprite_x - ((int)(factor * SPRITE_SIZE * floor(game->player->dir->x))), render->sprite_y);
+			if ((ray->side == 0 && ray->dir->x > 0) || (ray->side == 1 && ray->dir->y < 0))
+				render->color = ft_get_pixel(render->wall_tex,
+						render->sprite_x - ((int)(door->factor * SPRITE_SIZE)), render->sprite_y);
+			else
+				render->color = ft_get_pixel(render->wall_tex,
+						render->sprite_x + ((int)(door->factor * SPRITE_SIZE)), render->sprite_y);
+		}
 		else
 			render->color = ft_get_pixel(render->wall_tex,
 				render->sprite_x, render->sprite_y);
-		// if (ray->side == 1)
-		// 	render->color = (render->color >> 1) & 0x7F7F7F;
-		// ft_fog(render->perp_wall_dist, &render->color);
+		if (ray->side == 1)
+			render->color = (render->color >> 1) & 0x7F7F7F;
+		ft_fog(render->perp_wall_dist, &render->color);
 		ft_put_pixel(game->img, render->x, render->y, render->color);
 		render->y++;
 	}

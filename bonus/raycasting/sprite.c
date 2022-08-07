@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/18 14:16:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:17:52 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_swap(double *a, double *b)
 {
@@ -84,7 +84,10 @@ void	ft_color_sprite(t_game *game, int x, int y, int i)
 	obj->color = ft_get_pixel(game->assets->obj,
 		obj->tex_x, obj->tex_y);
 	if (obj->color != (0xFF << 24))
+	{
+		ft_fog(obj->dist[i] / SHADING_DISTANCE, &obj->color);
 		ft_put_pixel(game->img, x, y, obj->color);
+	}	
 }
 
 void	ft_draw_sprite(t_game *game, t_object *obj, int i)

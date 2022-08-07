@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/06/27 18:35:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:45:14 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_render(t_game *game)
 		return ;
 	ft_move(game);
 
-	ft_floor(game, render);
+	// ft_floor(game, render);
 
 	while (render->x < screenWidth)
 	{
@@ -95,65 +95,20 @@ void	ft_render(t_game *game)
 		render->y_offset = 0;
 		ft_prepare_ray(game, render->x);
 		ft_dda(game->ray);
-		ft_wall_hit(game->ray, render, game);		
+		ft_wall_hit(game->ray, render, game);
 		ft_wall_proj(game->ray, render, game);
 
-		// ft_draw_sky_floor(game, render);
+		ft_draw_sky_floor(game, render);
 
 		game->object->zbuff[render->x] = render->perp_wall_dist;
 		render->x++;
 	}
-	ft_sprite_cast(game);
+	// ft_sprite_cast(game);
 
-	int size = (screenWidth / screenHeight) * (screenHeight / SPRITE_SIZE) / 3;
-	ft_paint(game->assets->gun, game->img, ft_init_vector((screenWidth - (SPRITE_SIZE * size) ) / 2, (screenHeight - SPRITE_SIZE * size)), size);
-	ft_draw_minimap(game);
+	// int size = (screenWidth / screenHeight) * (screenHeight / SPRITE_SIZE) / 3;
+	// ft_paint(game->assets->gun, game->img, ft_init_vector((screenWidth - (SPRITE_SIZE * size) ) / 2, (screenHeight - SPRITE_SIZE * size)), size);
+	// ft_draw_minimap(game);
 
 	free(render);
 }
 
-int worldMap[mapWidth][mapHeight]=
-{
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 1},
-	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1},
-	{1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1},
-	{1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1},
-	{1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1},
-	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
-	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};
-
-int main(void)
-{
-	t_game	*game;
-
-	game = ft_init_game();
-	if (!game)
-		exit(EXIT_FAILURE);
-	game->opening = 1;
-	mlx_hook(game->win, 2, 1L, ft_key_down, game);
-	mlx_hook(game->win, 3, 1L << 1, ft_key_up, game);
-	mlx_hook(game->win, 17, 1L, ft_free_all, game);
-	mlx_loop_hook(game->mlx, ft_loop, game);
-	mlx_loop(game->mlx);
-	ft_free_all(game);
-	return (0);
-}
