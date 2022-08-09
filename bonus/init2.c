@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/20 15:43:01 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:09:07 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_door	*ft_init_door(int x, int y)
 {
 	t_door	*door;
 
-	door = malloc(sizeof(door));
+	door = malloc(sizeof(t_door));
 	if (!door)
 		return (NULL);
 	door->x = x;

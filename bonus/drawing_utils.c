@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/25 15:39:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:43:52 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void	ft_fog(double dist, int *color)
 	int		b;
 	double	intensity;
 
+	if (*color == 0)
+		return ;
 	intensity = (dist) / SHADING_DISTANCE;
-	// intensity = 0;
 	if (intensity > 1)
 		intensity = 1;
 	else if (intensity < 0)

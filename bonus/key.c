@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/25 14:27:02 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:26:21 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_door(t_game *game)
 int	ft_key_up(int keycode, t_game *game)
 {
 	if (keycode == 65505 || keycode == 65513)
-		game->player->walk_speed = 0.08;
+		game->player->walk_speed = MOVING_SPEED;
 	if (keycode == 'z')
 		game->forward = false;
 	if (keycode == 'm')
@@ -77,14 +77,13 @@ int	ft_loop(t_game *game)
 	i = -1;
 	while (++i < game->nb_doors)
 	{
+		game->doors[i]->factor -= DOOR_SPEED * game->doors[i]->state;
 		if (game->doors[i]->factor > 1.0)
 			game->doors[i]->factor = 1;
 		if (game->doors[i]->factor < 0.0)
 			game->doors[i]->factor = 0.0;
-		game->doors[i]->factor -= 0.008 * game->doors[i]->state;
 	}
 	ft_render(game);
-	mlx_do_sync(game->mlx);
 	mlx_do_key_autorepeatoff(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	// mlx_destroy_image(game->mlx, game->img->mlx_img);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/07/21 00:23:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:44:31 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,13 @@
 # define screenWidth 1200
 # define screenHeight 600
 # define SHADING_DISTANCE 10
+# define MOVING_SPEED 0.15
+# define ROTATE_SPEED 0.06
+# define DOOR_SPEED 0.07
+
+# define FORWARD_KEY 'z'
+# define BACKWARD_KEY 's'
+# define STRAFE_LEFT_KEY 'q'
+# define STRAFE_RIGHT_KEY 'd'
 
 #endif
