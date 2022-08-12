@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:21:01 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/08 14:55:11 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/12 09:46:46 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	**ft_fill_map(t_data *data, int **map, char *line, int fd)
 	{
 		map[x] = malloc(sizeof(int) * data->map->width);
 		if (!map[x])
-			return (ft_free_map(data, x - 1), NULL);
+			return (ft_err_copy_map(data, x), NULL);
 		map[x] = ft_fill_line(data, line, map[x]);
 		free(line);
 		line = get_next_line(fd);

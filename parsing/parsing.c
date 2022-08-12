@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/08 14:55:33 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/12 11:56:08 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_getpath(char *line)
 	return (path);
 }
 
-int	ft_check_ext_file(char *str, char *ext)
+int	ft_check_ext_file(t_data *data, char *str, char *ext)
 {
 	int	i;
 	int	fd;
@@ -56,34 +56,39 @@ int	ft_check_ext_file(char *str, char *ext)
 	while (str[i])
 		i++;
 	if (ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
-		return (ft_putstr_fd("bad extension file: need .cub\n", 2), 0);
+		return (ft_err_file_name(data, 2, 1), 0);
 	i -= ft_strlen(ext) + 1;
 	if (str[i] == '/')
-		return (ft_putstr_fd("bad extension file: need .cub\n", 2), 0);
+		return (ft_err_file_name(data, 2, 2), 0);
 	fd = open (str, O_RDONLY);
 	if (fd == -1)
-		return (perror(""), 0);
+		return (ft_err_file_name(data, 2, 3), 0);
 	return (fd);
 }
 
-int	ft_parsing(t_data *data, char **argv)
+int	ft_parsing(t_data *data, int argc, char **argv)
 {
 	int		fd;
 	t_check	*check;
 
-	fd = ft_check_ext_file(argv[1], ".cub");
+	if (argc != 2)
+		return (ft_err_file_name(data, argc, 0), 0);
+	fd = ft_check_ext_file(data, argv[1], ".cub");
 	if (!fd)
 		return (0);
 	check = malloc(sizeof(t_check));
 	if (!check)
-		return (0);
+		return (ft_free_data(data), 0);
 	if (!ft_check_file(data, fd, check))
-		return (free(check), 0);
+		return (ft_free_data(data), free(check), 0);
 	close(fd);
+	free(check);
 	data->map->map = malloc(sizeof(int *) * data->map->height);
+	if (!data->map->map)
+		return (ft_free_data(data), 0);
 	if (!ft_copy_map(data, data->map->map, argv[1]))
-		return (0);
+		return (ft_free_data(data), 0);
 	if (!ft_check_border(data, data->map->map))
-		return (0);
+		return (ft_free_data(data), 0);
 	return (printf("YYYYEEEEESSSS\n"), 1);
 }

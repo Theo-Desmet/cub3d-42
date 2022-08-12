@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/08 14:51:22 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/10 11:50:28 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,17 @@ int	ft_check_is_head(char *str)
 
 int	ft_check_valid_head(t_data *data, t_check *check)
 {
-	if (!check->east || !check->weast || !check->north
-		|| !check->south || !check->floor || !check->ceiling)
-		return (0);
-	return (1);
+	if (!check->east)
+		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	if (!check->weast)
+		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	if (!check->north)
+		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	if (!check->south)
+		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	if (!check->floor)
+		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	if (!check->ceiling)
+		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/08 16:57:52 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/12 10:26:00 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,21 @@
 /*                                atorgb                                      */
 /* ************************************************************************** */
 
-int		ft_check_is_rgb(char *line, char *str);
 int		ft_atorgb(char *str);
+int		ft_check_is_rgb(char *line, char *str);
 
 /* ************************************************************************** */
 /*                              check_border                                  */
 /* ************************************************************************** */
 
 int		ft_check_is_a_border(t_data *data, int **map, int x, int y);
-int		ft_is_line_bordere(t_data *data, int *line);
 int		ft_check_border(t_data *data, int **map);
 
 /* ************************************************************************** */
 /*                               check_map                                    */
 /* ************************************************************************** */
 
-int		ft_check_map(t_data *data, char *line, t_check *check);
+int		ft_check_map(t_data *data, char *line, t_check *check, int line_cnt);
 int		ft_is_valid_map_line(t_data *data, char *line);
 int		ft_check_spawn(char *line, int spawn);
 t_check	*ft_init_check(t_check *check);
@@ -60,7 +59,17 @@ int		ft_copy_map(t_data *data, int **map, char *path);
 
 int		ft_check_valid_path(const char *line, const char *str);
 char	*ft_getpath(char *line);
-int		ft_check_ext_file(char *str, char *ext);
-int		ft_parsing(t_data *data, char **argv);
+int		ft_check_ext_file(t_data *data, char *str, char *ext);
+int		ft_parsing(t_data *data, int argc, char **argv);
+
+/* ************************************************************************** */
+/*                              err_parsing                                   */
+/* ************************************************************************** */
+
+void	ft_err_file_name(t_data *data, int argc, int error);
+void	ft_free_data(t_data *data);
+void	ft_err_in_file(t_data *data, t_check *check, int error, int line);
+void	ft_err_bordere(int x, int y);
+void	ft_err_copy_map(t_data *data, int nb_line);
 
 #endif
