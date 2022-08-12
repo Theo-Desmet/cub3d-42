@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 15:43:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:53:41 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_fog(double dist, int *color)
 	int		b;
 	double	intensity;
 
-	if (*color == 0)
+	if (*color == FOG_COLOR)
 		return ;
 	intensity = (dist) / SHADING_DISTANCE;
 	if (intensity > 1)
@@ -40,14 +40,14 @@ void	ft_fog(double dist, int *color)
 		intensity = 0;
 	if (intensity == 1)
 	{
-		*color = 0;
+		*color = FOG_COLOR;
 		return ;
 	}
-	else if (intensity < 0.05)
-		return ;
+	// else if (intensity < 0.05)
+	// 	return ;
 	ft_itorgb(*color, &r, &g, &b);
-	r = (1 - intensity) * r; // + intensity * 0;
-	g = (1 - intensity) * g; // + intensity * 0;
-	b = (1 - intensity) * b; // + intensity * 0;
+	r = (1 - intensity) * r + intensity * (double)((FOG_COLOR >> 16) & 0xFF);
+	g = (1 - intensity) * g + intensity * (double)((FOG_COLOR >> 8) & 0xFF);
+	b = (1 - intensity) * b + intensity * (double)(FOG_COLOR & 0xFF);
 	*color = ft_rgbtoi(r, g, b);
 }

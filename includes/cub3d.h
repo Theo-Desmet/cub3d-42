@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/27 17:37:10 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:23:03 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 # include <stdio.h>
 # include <math.h>
 # include "define.h"
+# include "parsing.h"
 
 extern int worldMap[mapWidth][mapHeight];
+void    ft_free_map(t_game *game, int i);
 extern double factor;
 
 /* -------------------------------------------------------------------------- */

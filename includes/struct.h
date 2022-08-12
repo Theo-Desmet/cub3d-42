@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/07/20 14:57:13 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:09:35 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
+
+typedef struct s_check
+{
+	int	east;
+	int	weast;
+	int	north;
+	int	south;
+	int	floor;
+	int	ceiling;
+	int	spwan;
+}	t_check;
 
 typedef struct s_assets
 {

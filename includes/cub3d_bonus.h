@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/07/20 15:31:42 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:24:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@
 # include <stdio.h>
 # include <math.h>
 # include "define.h"
+# include "parsing.h"
+
+
 
 extern int worldMap[mapWidth][mapHeight];
 extern double factor;
 
+int		ft_parsing(t_game *data, int argc, char **argv);
 t_door	*ft_get_cur_door(t_game *game, int x, int y);
 
 /* -------------------------------------------------------------------------- */

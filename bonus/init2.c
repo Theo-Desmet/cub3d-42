@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 14:09:07 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:14:35 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,9 @@ t_game	*ft_init_game(void)
 	game->object = ft_init_obj(game);
 	game->doors	= ft_get_doors(game);
 	ft_init_dir(game);
+	game->map = malloc(sizeof(t_map));
+	game->map->width = 0;
+	game->map->height = 0;
 	if (!game->win || !game->assets || !game->player || !game->ray
 		|| !game->plane || !game->object || !game->doors)
 		return (ft_free_all(game), NULL);

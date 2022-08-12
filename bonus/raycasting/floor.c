@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:45:40 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 15:30:25 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:36:35 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ inline void	ft_color_floor(t_game *game, t_render *render)
 		render->floor_x += render->step_x;
 		render->floor_y += render->step_y;
 		if (render->row_dist > SHADING_DISTANCE || render->tex_x < 0 || render->tex_y < 0)
-			render->color = 0;
+			render->color = FOG_COLOR;
 		else
 			render->color = ft_get_pixel(game->assets->floor, render->tex_x, 
 				render->tex_y);
 		ft_fog(render->row_dist, &render->color);
 		ft_put_pixel(game->img, x, render->y, render->color);
-		if (render->color != 0)
+		if (render->color != FOG_COLOR)
 			render->color = ft_get_pixel(game->assets->ceil, render->tex_x,
 				render->tex_y);
 		ft_fog(render->row_dist, &render->color);

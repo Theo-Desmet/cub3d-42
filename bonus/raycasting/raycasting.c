@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 15:16:57 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:16:02 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_render(t_game *game)
 	ft_sprite_cast(game);
 
 	int size = (screenWidth / screenHeight) * (screenHeight / SPRITE_SIZE) / 3;
-	ft_paint(game->assets->gun, game->img, ft_init_vector((screenWidth - (SPRITE_SIZE * size) ) / 2, (screenHeight - SPRITE_SIZE * size)), size);
+	ft_paint(game->assets->gun, game->img, ft_init_vector((screenWidth - (SPRITE_SIZE * size)) / 2, (screenHeight - SPRITE_SIZE * size)), size);
 	ft_draw_minimap(game);
 
 	free(render);
@@ -141,20 +141,3 @@ int worldMap[mapWidth][mapHeight]=
 	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
-
-int main(void)
-{
-	t_game	*game;
-
-	game = ft_init_game();
-	if (!game)
-		exit(EXIT_FAILURE);
-	// game->opening = 1;
-	mlx_hook(game->win, 2, 1L, ft_key_down, game);
-	mlx_hook(game->win, 3, 1L << 1, ft_key_up, game);
-	mlx_hook(game->win, 17, 1L, ft_free_all, game);
-	mlx_loop_hook(game->mlx, ft_loop, game);
-	mlx_loop(game->mlx);
-	ft_free_all(game);
-	return (0);
-}

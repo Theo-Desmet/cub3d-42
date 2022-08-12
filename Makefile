@@ -6,17 +6,17 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/07/25 15:07:19 by bbordere         ###   ########.fr        #
+#    Updated: 2022/08/12 15:25:12 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
 
-CFLAGS = -I includes/ -Ofast #-Wall -Werror -Wextra -g3
+CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti #-Wall -Werror -Wextra -g3
 
 FILES = $(wildcard src/*.c) $(wildcard src/raycasting/*.c)
 
-BFILES = $(wildcard bonus/*.c) $(wildcard bonus/raycasting/*.c)
+BFILES = $(wildcard bonus/*.c) $(wildcard bonus/raycasting/*.c) $(wildcard bonus/parsing/*.c)
 
 OBJS = $(FILES:.c=.o)
 

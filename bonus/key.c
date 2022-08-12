@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 15:26:21 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 11:51:57 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	ft_key_down(int keycode, t_game *game)
 		game->player->walk_speed = 0.16;
 	if (keycode == 65513)
 		game->player->walk_speed = 0.04;
-	if (keycode == 'z')
+	if (keycode == FORWARD_KEY)
 		game->forward = true;
-	if (keycode == 's')
+	if (keycode == BACKWARD_KEY)
 		game->backward = true;
-	if (keycode == 'q')
+	if (keycode == STRAFE_LEFT_KEY)
 		game->left = true;
-	if (keycode == 'd')
+	if (keycode == STRAFE_RIGHT_KEY)
 		game->right = true;
 	if (keycode == 65363)
 		game->rotate_right = true;
@@ -49,7 +49,7 @@ int	ft_key_up(int keycode, t_game *game)
 {
 	if (keycode == 65505 || keycode == 65513)
 		game->player->walk_speed = MOVING_SPEED;
-	if (keycode == 'z')
+	if (keycode == FORWARD_KEY)
 		game->forward = false;
 	if (keycode == 'm')
 		factor = 1;
@@ -57,11 +57,11 @@ int	ft_key_up(int keycode, t_game *game)
 		factor = 0;
 	if (keycode == ' ')
 		ft_door(game);
-	if (keycode == 's')
+	if (keycode == BACKWARD_KEY)
 		game->backward = false;
-	if (keycode == 'q')
+	if (keycode == STRAFE_LEFT_KEY)
 		game->left = false;
-	if (keycode == 'd')
+	if (keycode == STRAFE_RIGHT_KEY)
 		game->right = false;
 	if (keycode == 65363)
 		game->rotate_right = false;
@@ -84,7 +84,7 @@ int	ft_loop(t_game *game)
 			game->doors[i]->factor = 0.0;
 	}
 	ft_render(game);
-	mlx_do_key_autorepeatoff(game->mlx);
+	mlx_do_sync(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	// mlx_destroy_image(game->mlx, game->img->mlx_img);
 	// free(game->img);

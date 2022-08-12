@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 15:43:29 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:59:00 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 	while (render->y < render->end)
 	{
 		if (render->perp_wall_dist > SHADING_DISTANCE)
-			render->color = 0;
+			render->color = FOG_COLOR;
 		else
 		{
 			render->sprite_y = (render->y * 2 - screenHeight + render->height_line)
@@ -204,8 +204,8 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 			else
 				render->color = ft_get_pixel(render->wall_tex,
 					render->sprite_x, render->sprite_y);
-			if (ray->side == 1)
-				render->color = (render->color >> 1) & 0x7F7F7F;
+			// if (ray->side == 1)
+			// 	render->color = (render->color >> 1) & 0x7F7F7F;
 			ft_fog(render->perp_wall_dist, &render->color);
 		}
 		ft_put_pixel(game->img, render->x, render->y, render->color);
