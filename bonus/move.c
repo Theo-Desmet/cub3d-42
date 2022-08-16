@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 15:47:48 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:51:23 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-#define FAC 2
+#define FAC 0.5
 
 int	ft_is_valid_tiles(t_game *game, int x, int y)
 {
@@ -27,20 +27,16 @@ void	ft_strafe(t_game *game)
 	g = game;
 	if (g->right)
 	{
-		if (ft_is_valid_tiles(game, (int)(g->player->pos->x + g->plane->x
-				* g->player->walk_speed * FAC), (int)g->player->pos->y))
+		if (ft_is_valid_tiles(game, (int)(g->player->pos->x + g->plane->x * FAC), (int)g->player->pos->y))
 			g->player->pos->x += g->plane->x * g->player->walk_speed;
-		if (ft_is_valid_tiles(game, (int)g->player->pos->x, (int)(g->player->pos->y
-			+ g->plane->y * g->player->walk_speed * FAC)))
+		if (ft_is_valid_tiles(game, (int)g->player->pos->x, (int)(g->player->pos->y + g->plane->y * FAC)))
 			g->player->pos->y += g->plane->y * g->player->walk_speed;
 	}
 	if (g->left)
 	{
-		if (ft_is_valid_tiles(game, (int)(g->player->pos->x - g->plane->x
-				* g->player->walk_speed * FAC), (int)g->player->pos->y))
+		if (ft_is_valid_tiles(game, (int)(g->player->pos->x - g->plane->x * FAC), (int)g->player->pos->y))
 			g->player->pos->x -= g->plane->x * g->player->walk_speed;
-		if (ft_is_valid_tiles(game, (int)g->player->pos->x, (int)(g->player->pos->y
-			- g->plane->y * g->player->walk_speed * FAC)))
+		if (ft_is_valid_tiles(game, (int)g->player->pos->x, (int)(g->player->pos->y - g->plane->y * FAC)))
 			g->player->pos->y -= g->plane->y * g->player->walk_speed;
 	}
 }
@@ -76,19 +72,18 @@ void	ft_move(t_game *game)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		if (ft_is_valid_tiles(game, (int)(player->pos->x + player->dir->x * player->walk_speed * FAC), (int)(player->pos->y)))
+		if (ft_is_valid_tiles(game, (int)(player->pos->x + player->dir->x * FAC), (int)(player->pos->y)))
 			player->pos->x += player->dir->x * player->walk_speed;
 
-		if (ft_is_valid_tiles(game, (int)(player->pos->x), (int)(player->pos->y + player->dir->y * player->walk_speed * FAC)))
+		if (ft_is_valid_tiles(game, (int)(player->pos->x), (int)(player->pos->y + player->dir->y * FAC)))
 			player->pos->y += player->dir->y * player->walk_speed;
 	}
 	if (game->backward)
 	{
-		if (ft_is_valid_tiles(game, (int)(player->pos->x - player->dir->x \
-			* player->walk_speed * FAC), (int)player->pos->y))
+		if (ft_is_valid_tiles(game, (int)(player->pos->x - player->dir->x * FAC), (int)player->pos->y))
 			player->pos->x -= player->dir->x * player->walk_speed;
 		if (ft_is_valid_tiles(game, (int)player->pos->x, (int)(player->pos->y \
-			- player->dir->y * player->walk_speed * FAC)))
+			- player->dir->y * FAC)))
 			player->pos->y -= player->dir->y * player->walk_speed;
 	}
 	if (game->rotate_left || game->rotate_right)

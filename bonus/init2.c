@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/12 15:14:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 12:10:14 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ t_object	*ft_alloc_objs(t_object *obj)
 	int	j;
 
 	i = -1;
-	while (++i < mapWidth)
+	while (++i < mapHeight)
 	{
 		j = -1;
-		while (++j < mapHeight)
+		while (++j < mapWidth)
 			if (worldMap[i][j] == 2)
 				obj->nb_obj++;
 	}
@@ -54,10 +54,10 @@ void	ft_get_objs(t_object *obj)
 	ft_alloc_objs(obj);
 	if (!obj->objects)
 		return ;
-	while (++i < mapWidth)
+	while (++i < mapHeight)
 	{
 		j = -1;
-		while (++j < mapHeight)
+		while (++j < mapWidth)
 		{
 			if (worldMap[i][j] == 2)
 			{
@@ -112,10 +112,10 @@ t_door	**ft_alloc_doors(t_game *game)
 	int	j;
 
 	i = -1;
-	while (++i < mapWidth)
+	while (++i < mapHeight)
 	{
 		j = -1;
-		while (++j < mapHeight)
+		while (++j < mapWidth)
 			if (worldMap[i][j] == 3)
 				game->nb_doors++;
 	}
@@ -135,10 +135,10 @@ t_door	**ft_get_doors(t_game *game)
 	game->nb_doors = 0;
 	ft_alloc_doors(game);
 	x = -1;
-	while (++x < mapWidth)
+	while (++x < mapHeight)
 	{
 		y = -1;
-		while (++y < mapHeight)
+		while (++y < mapWidth)
 		{
 			if (worldMap[x][y] == 3)
 			{
@@ -153,7 +153,23 @@ t_door	**ft_get_doors(t_game *game)
 	return (game->doors);
 }
 
-t_game	*ft_init_game(void)
+void	printTab(int **tab, int x, int y)
+{
+	int i = 0;
+	while (i < x)
+	{
+		int j = 0;
+		while (j < y)
+		{
+			printf("%d", tab[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
+t_game	*ft_init_game(int ac, char **av)
 {
 	t_game	*game;
 
@@ -165,6 +181,12 @@ t_game	*ft_init_game(void)
 		return (free(game), NULL);
 	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
 	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
+	game->map = malloc(sizeof(t_map));
+	game->map->width = 0;
+	game->map->height = 0;
+	ft_parsing(game, ac, av);
+	worldMap = game->map->map;
+	printf("%d - %d\n", game->map->width, game->map->height);
 	game->assets = ft_init_assets(game->mlx);
 	game->player = ft_init_player();
 	game->ray = ft_init_ray();
@@ -172,9 +194,6 @@ t_game	*ft_init_game(void)
 	game->object = ft_init_obj(game);
 	game->doors	= ft_get_doors(game);
 	ft_init_dir(game);
-	game->map = malloc(sizeof(t_map));
-	game->map->width = 0;
-	game->map->height = 0;
 	if (!game->win || !game->assets || !game->player || !game->ray
 		|| !game->plane || !game->object || !game->doors)
 		return (ft_free_all(game), NULL);

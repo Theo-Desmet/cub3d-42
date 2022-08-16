@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/08/12 15:24:16 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:45:31 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 
 
-extern int worldMap[mapWidth][mapHeight];
+extern int **worldMap;
 extern double factor;
 
 int		ft_parsing(t_game *data, int argc, char **argv);
@@ -141,7 +141,7 @@ t_object	*ft_init_obj(t_game *game);
 t_door	*ft_init_door(int x, int y);
 t_door	**ft_alloc_doors(t_game *game);
 t_door	**ft_get_doors(t_game *game);
-t_game	*ft_init_game(void);
+t_game	*ft_init_game(int ac, char **av);
 
 
 #endif

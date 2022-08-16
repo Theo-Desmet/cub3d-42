@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 14:40:36 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:02:22 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	ft_put_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-static	int cache_x;
-static	int	cache_y;
-static	t_img	*cache_img;
-static	unsigned int	cache_color;
-
 inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
 {
 	unsigned int	color;
 	char			*pix;
+
+	static	int cache_x;
+	static	int	cache_y;
+	static	t_img	*cache_img;
+	static	unsigned int	cache_color;
 
 	if (x < 0)
 		x = 0;

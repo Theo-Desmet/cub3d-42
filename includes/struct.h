@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/12 15:09:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:33:37 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ typedef struct s_game
 	bool		right;
 	bool		rotate_left;
 	bool		rotate_right;
+	int			ceiling_color;
+	int			floor_color;
 }	t_game;
 
 #endif

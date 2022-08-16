@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/20 17:08:11 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:00:31 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_key_down(int keycode, t_game *game)
 {
-	if (keycode == 'z')
+	if (keycode == FORWARD_KEY)
 		game->forward = true;
-	if (keycode == 's')
+	if (keycode == BACKWARD_KEY)
 		game->backward = true;
-	if (keycode == 'q')
+	if (keycode == STRAFE_LEFT_KEY)
 		game->left = true;
-	if (keycode == 'd')
+	if (keycode == STRAFE_RIGHT_KEY)
 		game->right = true;
 	if (keycode == 65363)
 		game->rotate_right = true;
@@ -33,17 +33,13 @@ int	ft_key_down(int keycode, t_game *game)
 
 int	ft_key_up(int keycode, t_game *game)
 {
-	if (keycode == 'z')
+	if (keycode == FORWARD_KEY)
 		game->forward = false;
-	if (keycode == 'm')
-		factor = 1;
-	if (keycode == 'k')
-		factor = 0;
-	if (keycode == 's')
+	if (keycode == BACKWARD_KEY)
 		game->backward = false;
-	if (keycode == 'q')
+	if (keycode == STRAFE_LEFT_KEY)
 		game->left = false;
-	if (keycode == 'd')
+	if (keycode == STRAFE_RIGHT_KEY)
 		game->right = false;
 	if (keycode == 65363)
 		game->rotate_right = false;
@@ -54,17 +50,11 @@ int	ft_key_up(int keycode, t_game *game)
 
 int	ft_loop(t_game *game)
 {
-	if (factor > 1.0)
-		factor = 1;
-	if (factor < 0.0)
-		factor = 0.0;
-	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
 	ft_render(game);
 	mlx_do_sync(game->mlx);
-	mlx_do_key_autorepeatoff(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
-	mlx_destroy_image(game->mlx, game->img->mlx_img);
-	free(game->img);
-	game->img = NULL;
+	// mlx_destroy_image(game->mlx, game->img->mlx_img);
+	// free(game->img);
+	// game->img = NULL;
 	return (0);
 }

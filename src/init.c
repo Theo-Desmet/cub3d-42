@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/09 14:14:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:42:23 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,7 @@ t_assets	*ft_init_assets(void *mlx)
 	// asset->wall_N = ft_init_img(mlx, "wall2_1k.xpm", 0, 0);
 	// asset->wall_S = ft_init_img(mlx, "wall3_1k.xpm", 0, 0);
 	// asset->wall_W = ft_init_img(mlx, "wall4_1k.xpm", 0, 0);
-	asset->ceil = ft_init_img(mlx, "assets/wood.xpm", 0, 0);
-	asset->floor = ft_init_img(mlx, "assets/colorstone.xpm", 0, 0);
-	asset->gun = ft_init_img(mlx, "assets/gun.xpm", 0, 0);
-	asset->obj = ft_init_img(mlx, "assets/barrel.xpm", 0, 0);
-	asset->door = ft_init_img(mlx, "assets/door.xpm", 0, 0);
-	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W
-		|| !asset->gun || !asset->ceil || !asset->floor || !asset->door)
+	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W)
 		return (ft_free_assets(asset, mlx), NULL);
 	return (asset);
 }

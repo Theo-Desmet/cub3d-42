@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:11:12 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/07 23:16:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:52:51 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <fstream>
 #include <stdlib.h>
 #include <dirent.h>
-#include <set>
 
 
 #define MINWIDTH  3
@@ -295,6 +294,21 @@ Rectangle *getBiggestRect(std::vector<Rectangle *>	*rects)
 	return (biggest);
 }
 
+template <typename N>
+N randomRange(N min, N max)
+{
+	std::random_device	random;
+	N range = max - min + 1;
+	return (random() % range + min);
+}
+
+template <typename T>
+typename T::iterator choice(T *container)
+{
+	int	end = container->size() - 1;
+	return (container->begin() + randomRange<int>(0, end));
+}
+
 std::vector<std::vector <int>> *generateLevel(int const mapWidth, int const mapHeight)
 {
 	std::vector<std::vector <int>> *level;
@@ -315,6 +329,18 @@ std::vector<std::vector <int>> *generateLevel(int const mapWidth, int const mapH
 		biggest = getBiggestRect(rects);
 		area = biggest->getArea();
 	}
+	
+	std::vector<int> directions = {5, 6, 7, 8};
+	int x = randomRange<int>(1, level->size() - 2);
+	int y = randomRange<int>(1, level[0].size() - 2);
+	while ((*level)[y][x] == 1)
+	{
+		x = randomRange<int>(1, level->size() - 2);
+		y = randomRange<int>(1, level[0].size() - 2);
+	}
+	std::vector<int>::iterator	element = choice(&directions);
+	(*level)[y][x] = *element;
+
 	for (std::size_t i = 0; i < (*rects).size(); i++)
 		delete (*rects)[i];
 	delete rects;
@@ -322,25 +348,15 @@ std::vector<std::vector <int>> *generateLevel(int const mapWidth, int const mapH
 	return (level);
 }
 
-#define WALL_CHAR "#"
-#define EMPTY_CHAR " "
-#define DOOR_CHAR "§"
+#define WALL_CHAR "1"
+#define EMPTY_CHAR "0"
+#define DOOR_CHAR "0"
 
-template <typename N>
-N randomRange(N min, N max)
+void	exportPlayerSpawn(std::fstream &file, int dir)
 {
-	std::random_device	random;
-	N range = max - min + 1;
-	return (random() % range + min);
+	std::vector<std::string> directions = {"W", "E", "N", "S"};
+	file << directions[dir % 5];
 }
-
-template <typename T>
-typename T::iterator choice(T *container)
-{
-	int	end = container->size() - 1;
-	return (container->begin() + randomRange<int>(0, end));
-}
-
 
 void	exportLevelToFile(std::vector<std::vector <int>> const level, std::fstream &file)
 {
@@ -359,6 +375,10 @@ void	exportLevelToFile(std::vector<std::vector <int>> const level, std::fstream 
 					else
 						file << EMPTY_CHAR;
 					break;
+				case 5: case 6: case 7: case 8:
+					exportPlayerSpawn(file, level[i][j]);
+					break;
+
 				default:
 					file << EMPTY_CHAR;
 					break;
@@ -426,7 +446,7 @@ int main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-	exportToFile(80, 35, "test.cub", "./");
+	exportToFile(25, 25, "test.cub", "./");
 	// std::vector<std::string> *files = getTexturesFiles(".");
 	return 0;
 }
