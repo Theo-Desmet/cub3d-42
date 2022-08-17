@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 15:52:21 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:26:02 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # define mapHeight 25
 # define screenWidth 1200
 # define screenHeight 600
-# define SHADING_DISTANCE 15
+# define SHADING_DISTANCE 10
 # define MOVING_SPEED 0.15
 # define ROTATE_SPEED 0.06
 # define DOOR_SPEED 0.07
-# define FOG_COLOR 0x757575
+// # define FOG_COLOR 0x757575
+# define FOG_COLOR 0x222222
 
 # define FORWARD_KEY 'w'
 # define BACKWARD_KEY 's'

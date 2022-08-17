@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 12:10:14 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:24:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->assets = ft_init_assets(game->mlx);
 	game->player = ft_init_player();
 	game->ray = ft_init_ray();
-	game->plane = ft_init_vector(1, 0); // fov=1=90 N : y=fov, S : -fov, E x=fov, W x=-fov 
+	game->plane = ft_init_vector(0.66, 0); // fov=1=90 N : y=fov, S : -fov, E x=fov, W x=-fov 
 	game->object = ft_init_obj(game);
 	game->doors	= ft_get_doors(game);
 	ft_init_dir(game);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 15:37:18 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:14:24 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,25 +114,116 @@ void	ft_draw_trans(t_game *game, t_vector *vector, int size, int color)
 	free(vector);
 }
 
+// void	ft_draw_minimap(t_game *game)
+// {
+	// int x;
+	// int	y;
+	// 
+	// y = -1;
+	// while (++y < mapHeight)
+	// {
+		// x = -1;
+		// while (++x < mapWidth)
+		// {
+			// if (worldMap[y][x] == 1)
+				// ft_draw_trans(game, ft_init_vector(x * 10, y * 10), 10, 0x60);
+			// else
+				// ft_draw_trans(game, ft_init_vector(10 * x, y * 10), 10, 0x0000FF);
+		// }
+	// }
+	// ft_draw_player_minimap(game);
+// }
+
+#define ZOOM 8
+#define FACT 20
+// void	ft_draw_minimap(t_game *game)
+// {
+// 	int	x;
+// 	int	y;
+// 	int	end_x;
+// 	int	end_y;
+// 	int	start_x;
+// 	int	start_y;
+
+// 	x = game->player->pos->x - ZOOM;
+// 	if (x < 0)
+// 		x = 0;	
+// 	y = game->player->pos->y - ZOOM;
+// 	if (y < 0)
+// 		y = 0;
+
+// 	start_x	= x;
+// 	start_y = y;
+
+// 	end_y = game->player->pos->y + ZOOM;
+// 	if (end_y > game->map->height - 1)
+// 		end_y = game->map->height - 1;
+// 	end_x = game->player->pos->x + ZOOM;
+// 		if (end_x > game->map->width - 1)
+// 			end_x = game->map->width - 1;
+// 	while (x <= end_x)
+// 	{
+// 		y = game->player->pos->x - ZOOM;
+// 		if (y < 0)
+// 			y = 0;
+// 		while (y <= end_y)
+// 		{
+// 			if (worldMap[y][x] == 1)
+// 				ft_draw_trans(game, ft_init_vector((x - start_x) * FACT + 10, (y - start_y) * FACT + 10), FACT, 0x60);
+// 			else
+// 				ft_draw_trans(game, ft_init_vector((x - start_x) * FACT + 10, (y - start_y) * FACT + 10), FACT, 0x0000FF);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+#define OFFSET 10
+#define NUMBER 21
+#define SIZE 13
 void	ft_draw_minimap(t_game *game)
 {
-	int x;
+	ft_draw_trans(game, ft_init_vector(OFFSET, OFFSET), SIZE * NUMBER, 0x0000FF);
+	int	x;
 	int	y;
-	
-	y = -1;
-	while (++y < mapHeight)
+	int	end_x;
+	int	end_y;
+	int	start_x;
+	int	start_y;
+
+	x = game->player->pos->x - ZOOM;
+	if (x < 0)
+		x = 0;	
+	y = game->player->pos->y - ZOOM;
+	if (y < 0)
+		y = 0;
+
+	start_x	= x;
+	start_y = y;
+
+	end_y = game->player->pos->y + ZOOM;
+	if (end_y > game->map->height - 1)
+		end_y = game->map->height - 1;
+	end_x = game->player->pos->x + ZOOM;
+		if (end_x > game->map->width - 1)
+			end_x = game->map->width - 1;
+	while (y <= end_y)
 	{
-		x = -1;
-		while (++x < mapWidth)
+		x = game->player->pos->x - ZOOM;
+		if (x < 0)
+			x = 0;
+		while (x <= end_x)
 		{
 			if (worldMap[y][x] == 1)
-				ft_draw_trans(game, ft_init_vector(x * 10, y * 10), 10, 0x60);
+				ft_draw_trans(game, ft_init_vector((x - start_x) * FACT + 10, (y - start_y) * FACT + 10), FACT, 0x60);
 			else
-				ft_draw_trans(game, ft_init_vector(10 * x, y * 10), 10, 0x0000FF);
+				ft_draw_trans(game, ft_init_vector((x - start_x) * FACT + 10, (y - start_y) * FACT + 10), FACT, 0x0000FF);
+			x++;
 		}
+		y++;
 	}
-	ft_draw_player_minimap(game);
 }
+
 
 // void	ft_color_minimap(t_game *game, int *data)
 // {
