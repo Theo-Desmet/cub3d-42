@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/08/16 11:45:31 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:01:02 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <math.h>
+# include <time.h>
 # include "define.h"
 # include "parsing.h"
 
