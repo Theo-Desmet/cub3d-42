@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/12 11:55:09 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/18 12:12:58 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	ft_free_data(t_data *data)
 {
 	mlx_destroy_display(data->mlx);
 	free(data->assets);
+	free(data->enemy->act);
+	free(data->enemy->dest);
+	free(data->enemy);
 	if (data->map->width == 0 || data->map->height == 0)
 		free(data->map);
 	else

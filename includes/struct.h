@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/29 10:39:44 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/17 15:20:14 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ typedef struct s_check
 	int	spwan;
 }	t_check;
 
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
+typedef struct s_enemy
+{
+	t_vector	*act;
+	t_vector	*dest;
+	t_vector	**path;
+}	t_enemy;
+
 typedef struct s_map
 {
 	int		x;
@@ -62,14 +75,6 @@ typedef struct s_player
 	int		move;
 
 }	t_player;
-
-typedef struct s_enemy
-{
-	t_img	*img_b;
-	t_img	*img_f;
-	int		dir;
-	int		on_wall;
-}	t_enemy;
 
 typedef struct s_data
 {

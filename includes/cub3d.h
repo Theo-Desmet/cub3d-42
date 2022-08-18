@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/06/29 08:37:22 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/17 10:17:52 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <time.h>
 # include <math.h>
 # include "struct.h"
 # include "parsing.h"

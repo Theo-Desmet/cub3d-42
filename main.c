@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:06:07 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/10 08:43:10 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/18 12:18:44 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ t_data	*ft_init(void)
 		return (NULL);//leak
 	data->map = malloc(sizeof(t_map));
 	if (!data->map)
+		return (NULL);//leak
+	data->enemy = malloc(sizeof(t_enemy));
+	if (!data->enemy)
+		return (NULL);//leak
+	data->enemy->act = malloc(sizeof(t_vector));
+	if (!data->enemy->act)
+		return (NULL);//leak
+	data->enemy->dest = malloc(sizeof(t_vector));
+	if (!data->enemy->dest)
 		return (NULL);//leak
 	data->map->width = 0;
 	data->map->height = 0;
@@ -50,11 +59,15 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = ft_init();
+	data->enemy->act->x = 8;
+	data->enemy->act->y = 19;
+	srand(time(NULL));
 	if (!data)
 		return (1);
 	if (!ft_parsing(data, argc, argv))
 		return (0);
+	for (int i = 0; i < 100; i++)
+		ft_pathfinding(data->enemy, data->map);
 	ft_free_data(data);
-	exit(EXIT_SUCCESS);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/12 10:26:00 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/08/18 11:42:38 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,14 @@ void	ft_free_data(t_data *data);
 void	ft_err_in_file(t_data *data, t_check *check, int error, int line);
 void	ft_err_bordere(int x, int y);
 void	ft_err_copy_map(t_data *data, int nb_line);
+
+
+
+void    ft_pathfinding(t_enemy *enemy, t_map *map);
+
+void	ft_random_place(t_enemy *enemy, t_map *map);
+void	ft_mod_size(t_map *map, int *mod_x, int *mod_y);
+
+
 
 #endif
