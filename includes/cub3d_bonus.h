@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/08/16 11:45:31 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:36:54 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # include "parsing.h"
 
 
-
-extern int **worldMap;
-extern double factor;
 
 int		ft_parsing(t_game *data, int argc, char **argv);
 t_door	*ft_get_cur_door(t_game *game, int x, int y);
@@ -135,8 +132,8 @@ void	ft_wall_color(t_game *game, t_ray *ray, t_render *render);
 /*                            FILE = bonus/init2.c                            */
 /* -------------------------------------------------------------------------- */
 void	ft_init_dir(t_game *game);
-t_object	*ft_alloc_objs(t_object *obj);
-void	ft_get_objs(t_object *obj);
+t_object	*ft_alloc_objs(t_game *game, t_object *obj);
+void	ft_get_objs(t_game *game, t_object *obj);
 t_object	*ft_init_obj(t_game *game);
 t_door	*ft_init_door(int x, int y);
 t_door	**ft_alloc_doors(t_game *game);

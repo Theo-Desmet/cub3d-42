@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/17 16:24:38 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 14:41:03 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	ft_sprite_cast(t_game *game)
 	{
 		game->object->order[i] = i;
 		game->object->dist[i] = (pow(game->player->pos->x
-					- game->object->objects[i]->x, 2)
-				+ pow(game->player->pos->y - game->object->objects[i]->y, 2));
+					- game->object->objects[i]->pos->x, 2)
+				+ pow(game->player->pos->y - game->object->objects[i]->pos->y, 2));
 	}
 	ft_sort_sprite(game->object);
 	i = -1;

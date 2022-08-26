@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/17 16:24:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 14:51:59 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_init_dir(t_game *game)
 	game->rotate_right = false;
 }
 
-t_object	*ft_alloc_objs(t_object *obj)
+t_object	*ft_alloc_objs(t_game *game, t_object *obj)
 {
 	int	i;
 	int	j;
@@ -32,10 +32,10 @@ t_object	*ft_alloc_objs(t_object *obj)
 	{
 		j = -1;
 		while (++j < mapWidth)
-			if (worldMap[i][j] == 2)
+			if (game->map->map[i][j] == 2 ||game->map->map[i][j] == 5)
 				obj->nb_obj++;
 	}
-	obj->objects = malloc(sizeof(t_vector) * obj->nb_obj);
+	obj->objects = malloc(sizeof(t_sprite) * obj->nb_obj);
 	if (!obj->objects)
 		return (NULL);
 	obj->index = 0;
@@ -45,13 +45,52 @@ t_object	*ft_alloc_objs(t_object *obj)
 	return (obj);
 }
 
-void	ft_get_objs(t_object *obj)
+t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
+{
+	t_sprite	*res;
+
+	res = malloc(sizeof(t_sprite));
+	if (!res)
+		return (NULL);
+	res->pos = ft_init_vector(x, y);
+	if (!res->pos)
+		return (free(res), NULL);
+	res->texture = img;
+	res->frame = &game->frame;
+	return (res);
+}
+
+int	ft_type_object(t_game *game, t_object *obj, int i, int j)
+{
+	if (game->map->map[i][j] == 2)
+	{
+		obj->objects[obj->index++] = ft_init_sprite(game, i + 0.5, j + 0.5, game->assets->obj);
+		if (!obj->objects[obj->index - 1])
+			return (ft_free_obj_tab(obj), -1);
+		obj->objects[obj->index - 1]->h_div = 1;
+		obj->objects[obj->index - 1]->v_div = 1;
+		obj->objects[obj->index - 1]->v_offset = 0;
+		}
+	else if (game->map->map[i][j] == 5)
+	{
+		obj->objects[obj->index++] = ft_init_sprite(game, i + 0.5, j + 0.5
+		, game->assets->wall_E);
+		if (!obj->objects[obj->index - 1])
+			return (ft_free_obj_tab(obj), -1);
+		obj->objects[obj->index - 1]->h_div = 1;
+		obj->objects[obj->index - 1]->v_div = 1;
+		obj->objects[obj->index - 1]->v_offset = -128;
+	}
+	return (0);
+}
+
+void	ft_get_objs(t_game *game, t_object *obj)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	ft_alloc_objs(obj);
+	ft_alloc_objs(game, obj);
 	if (!obj->objects)
 		return ;
 	while (++i < mapHeight)
@@ -59,15 +98,8 @@ void	ft_get_objs(t_object *obj)
 		j = -1;
 		while (++j < mapWidth)
 		{
-			if (worldMap[i][j] == 2)
-			{
-				obj->objects[obj->index++] = ft_init_vector(i + 0.5, j + 0.5);
-				if (!obj->objects[obj->index - 1])
-				{
-					ft_free_obj_tab(obj);
-					return ;
-				}
-			}
+			if (ft_type_object(game, obj, i, j) == -1)
+				return ;
 		}
 	}
 }
@@ -76,13 +108,12 @@ t_object	*ft_init_obj(t_game *game)
 {
 	t_object	*objs;
 
-	(void)game;
 	objs = malloc(sizeof(t_object));
 	if (!objs)
 		return (NULL);
 	objs->nb_obj = 0;
 	objs->objects = NULL;
-	ft_get_objs(objs);
+	ft_get_objs(game, objs);
 	objs->index = 0;
 	objs->zbuff = (double *)malloc(sizeof(double) * screenWidth);
 	objs->dist = (double *)malloc(sizeof(double) * objs->nb_obj);
@@ -116,7 +147,7 @@ t_door	**ft_alloc_doors(t_game *game)
 	{
 		j = -1;
 		while (++j < mapWidth)
-			if (worldMap[i][j] == 3)
+			if (game->map->map[i][j] == 3)
 				game->nb_doors++;
 	}
 	game->doors = malloc(sizeof(t_door *) * game->nb_doors);
@@ -140,7 +171,7 @@ t_door	**ft_get_doors(t_game *game)
 		y = -1;
 		while (++y < mapWidth)
 		{
-			if (worldMap[x][y] == 3)
+			if (game->map->map[x][y] == 3)
 			{
 				game->doors[i] = ft_init_door(x, y);
 				if (!game->doors[i])
@@ -184,13 +215,13 @@ t_game	*ft_init_game(int ac, char **av)
 	game->map = malloc(sizeof(t_map));
 	game->map->width = 0;
 	game->map->height = 0;
+	game->frame = 0;
 	ft_parsing(game, ac, av);
-	worldMap = game->map->map;
 	printf("%d - %d\n", game->map->width, game->map->height);
 	game->assets = ft_init_assets(game->mlx);
 	game->player = ft_init_player();
 	game->ray = ft_init_ray();
-	game->plane = ft_init_vector(0.66, 0); // fov=1=90 N : y=fov, S : -fov, E x=fov, W x=-fov 
+	game->plane = ft_init_vector(0, 1); // fov=1=90 N : y=fov, S : -fov, E x=fov, W x=-fov 
 	game->object = ft_init_obj(game);
 	game->doors	= ft_get_doors(game);
 	ft_init_dir(game);

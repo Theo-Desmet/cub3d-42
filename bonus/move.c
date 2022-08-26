@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 15:51:23 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:32:48 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 int	ft_is_valid_tiles(t_game *game, int x, int y)
 {
-	(void)game;
-	return (worldMap[x][y] == 0 || worldMap[x][y] == 4);
+	return (game->map->map[x][y] == 0 || game->map->map[x][y] == 4);
 }
 
 void	ft_strafe(t_game *game)

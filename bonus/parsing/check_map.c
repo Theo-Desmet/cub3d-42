@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 14:18:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	ft_is_valid_map_line(t_game *game, char *line)
 	while (line[i] == '0' || line[i] == '1'
 		|| line[i] == 'W' || line[i] == 'E'
 		|| line[i] == 'S' || line[i] == 'N'
-		|| line[i] == ' ')
+		|| line[i] == ' ' || line[i] == '3'
+		|| line[i] == '2' || line[i] == '5')
 		i++;
 	if (!line[i] || line[i] == '\n')
 	{

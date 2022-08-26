@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/20 15:17:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 14:42:59 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,43 @@ void	ft_sort_sprite(t_object *obj)
 	
 }
 
+t_sprite	*ft_get_cur_sprite(t_game *game)
+{
+	int	i;
+	
+	i = -1;
+	while (++i < game->object->nb_obj)
+	{
+		if (game->object->objects[i]->pos->x == game->object->s_x + game->player->pos->x
+			&& game->object->objects[i]->pos->y == game->object->s_y + game->player->pos->y)
+			return (game->object->objects[i]);
+	}
+	return (NULL);
+}
+
 void	ft_prepare_sprite(t_game *game, t_object *obj, int *i)
 {
-	obj->s_x = obj->objects[obj->order[*i]]->x - game->player->pos->x;
-	obj->s_y = obj->objects[obj->order[*i]]->y - game->player->pos->y;
+	t_sprite	*cur;
+
+	obj->s_x = obj->objects[obj->order[*i]]->pos->x - game->player->pos->x;
+	obj->s_y = obj->objects[obj->order[*i]]->pos->y - game->player->pos->y;
 	obj->inv = 1.0 / (game->plane->x * game->player->dir->y
 		- game->player->dir->x * game->plane->y);
 	obj->tr_x = obj->inv * (game->player->dir->y * obj->s_x
 		- game->player->dir->x * obj->s_y);
 	obj->tr_y = obj->inv * (-(game->plane->y) * obj->s_x
 		+ game->plane->x * obj->s_y);
-	obj->move_screen = (int)(obj->v_offset / obj->tr_y);
+	cur = ft_get_cur_sprite(game);
+	obj->move_screen = (int)(cur->v_offset / obj->tr_y);
 	obj->screen_x = (int)((screenWidth / 2) * (1 + obj->tr_x / obj->tr_y));
-	obj->s_height = abs((int)(screenHeight / (obj->tr_y))) / obj->v_div;
+	obj->s_height = abs((int)(screenHeight / (obj->tr_y))) / cur->v_div;
 	obj->start_y = -obj->s_height / 2 + screenHeight / 2 + obj->move_screen;
 	if (obj->start_y < 0)
 		obj->start_y = 0;
 	obj->end_y = obj->s_height / 2 + screenHeight / 2 + obj->move_screen;
 	if (obj->end_y >= screenHeight)
 		obj->end_y = screenHeight - 1;
-	obj->s_width = abs((int)(screenHeight / (obj->tr_y))) / obj->h_div;
+	obj->s_width = abs((int)(screenHeight / (obj->tr_y))) / cur->h_div;
 	obj->start_x = -obj->s_width / 2 + obj->screen_x;
 	if (obj->start_x < 0)
 		obj->start_x = 0;
@@ -81,8 +98,9 @@ void	ft_color_sprite(t_game *game, int x, int y, int i)
 	obj->d = (y - obj->move_screen) * 256 - screenHeight
 		* 128 + obj->s_height * 128;
 	obj->tex_y = ((obj->d * SPRITE_SIZE) / obj->s_height) / 256;
-	obj->color = ft_get_pixel(game->assets->obj,
-		obj->tex_x, obj->tex_y);
+	// obj->color = ft_get_pixel(game->assets->obj,
+	// 	obj->tex_x, obj->tex_y);
+	obj->color = ft_get_pixel(ft_get_cur_sprite(game)->texture, obj->tex_x, obj->tex_y);
 	if (obj->color != (0xFF << 24))
 	{
 		ft_fog(obj->dist[i] / SHADING_DISTANCE, &obj->color);

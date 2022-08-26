@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/12 11:51:12 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:12:22 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ inline void	ft_put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || ft_get_pixel(img, x, y) == color)
+	if (x < 0 || y < 0 || x >= img->width || y >= img->height || ft_get_pixel(img, x, y) == color)
 		return ;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;

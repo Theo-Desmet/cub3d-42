@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/17 16:29:42 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:08:28 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_img	*ft_init_img(void *mlx, char *path, int width, int height)
 			&img->line_len, &img->endian);
 	if (!img->addr)
 		return (free(img), NULL);
+	img->height = height;
+	img->width = width;
 	return (img);
 }
 
@@ -52,16 +54,16 @@ t_assets	*ft_init_assets(void *mlx)
 	// asset->wall_S = ft_init_img(mlx, "assets/wall3_1k.xpm", 0, 0);
 	// asset->wall_W = ft_init_img(mlx, "assets/wall4_1k.xpm", 0, 0);
 
-	asset->wall_E = ft_init_img(mlx, "assets/back.xpm", 0, 0);
-	asset->wall_N = ft_init_img(mlx, "assets/back.xpm", 0, 0);
-	asset->wall_S = ft_init_img(mlx, "assets/back.xpm", 0, 0);
-	asset->wall_W = ft_init_img(mlx, "assets/back.xpm", 0, 0);
+	asset->wall_E = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->wall_N = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->wall_S = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->wall_W = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
 
-	asset->ceil = ft_init_img(mlx, "assets/ceiling1.xpm", 0, 0);
-	asset->floor = ft_init_img(mlx, "assets/floor_yellow1.xpm", 0, 0);
-	asset->gun = ft_init_img(mlx, "assets/gun.xpm", 0, 0);
-	asset->obj = ft_init_img(mlx, "assets/barrel.xpm", 0, 0);
-	asset->door = ft_init_img(mlx, "assets/door.xpm", 0, 0);
+	asset->ceil = ft_init_img(mlx, "assets/ceiling1.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->floor = ft_init_img(mlx, "assets/floor_yellow1.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->gun = ft_init_img(mlx, "assets/gun.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->obj = ft_init_img(mlx, "assets/barrel.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->door = ft_init_img(mlx, "assets/door.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W
 		|| !asset->gun || !asset->ceil || !asset->floor || !asset->door)
 		return (ft_free_assets(asset, mlx), NULL);
@@ -87,8 +89,8 @@ t_player	*ft_init_player(void)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
-	player->dir = ft_init_vector(0, 1); // N x=-1, S x=1, E y=1, W y=-1;
-	player->pos = ft_init_vector(11, 3);
+	player->dir = ft_init_vector(-1, 0); // N x=-1, S x=1, E y=1, W y=-1;
+	player->pos = ft_init_vector(2, 2);
 	player->rot_speed = ROTATE_SPEED;
 	player->walk_speed = MOVING_SPEED;
 	if (!player->dir || !player->pos)

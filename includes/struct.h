@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:33:37 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 14:38:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_check
@@ -123,6 +125,16 @@ typedef struct s_enemy
 	int		on_wall;
 }	t_enemy;
 
+typedef struct s_sprite
+{
+	t_vector	*pos;
+	t_img		*texture;
+	int			*frame;
+	double		h_div;
+	double		v_div;
+	double		v_offset;
+}	t_sprite;
+
 typedef struct s_object
 {
 	double		*zbuff;
@@ -148,7 +160,7 @@ typedef struct s_object
 	int			tex_y;
 	int			d;
 	int			color;
-	t_vector	**objects;
+	t_sprite	**objects;
 	int			nb_obj;
 	int			index;
 }	t_object;
@@ -172,6 +184,7 @@ typedef struct s_game
 	t_object	*object;
 	t_door		**doors;
 	int			nb_doors;
+	int			frame;
 	void		*mlx;
 	void		*win;
 	bool		forward;

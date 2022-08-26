@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:23:17 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/25 14:30:59 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/08/25 11:01:29 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ t_door	*ft_get_cur_door(t_game *game, int x, int y)
 
 void	ft_harbor(t_ray *ray, t_render *render, t_game *game)
 {
+	t_door	*door;
+
+	door = ft_get_cur_door(game, ray->map_x, ray->map_y);
+	if ((int)door->factor == 0 && game->map->map[ray->map_x][ray->map_y] == 4)
+		game->map->map[ray->map_x][ray->map_y] = 3;
 	ray->hit = 1;
 	if (ray->side == 1)
 	{
@@ -117,6 +122,6 @@ void	ft_door_hit(t_ray *ray, t_render *render, t_game *game)
 		ft_update_x_offset(ray, render, game, door);
 	else
 		ft_update_y_offset(ray, render, game, door);
-	if ((int)door->factor == 1 && worldMap[ray->map_x][ray->map_y] == 3)
-		worldMap[ray->map_x][ray->map_y] = 4;
+	if ((int)door->factor == 1 && game->map->map[ray->map_x][ray->map_y] == 3)
+		game->map->map[ray->map_x][ray->map_y] = 4;
 }
