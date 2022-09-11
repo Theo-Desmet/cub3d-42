@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:11:12 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 15:52:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/11 22:47:51 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,6 @@ std::ostream& operator<<(std::ostream &output, Rectangle const &rect)
 	return (output);
 }
 
-std::ostream& operator<<(std::ostream &output, Rectangle const *rect)
-{
-	output << "(" << rect->getX1() << ", " << rect->getY1() << ", " << rect->getX2() << ", " << rect->getY2() << ")";
-	return (output);
-}
-
 void	printLevel(const std::vector<std::vector<int>> &level)
 {
 	for (std::size_t i = 0; i < level.size(); i++)
@@ -153,8 +147,6 @@ void	subdivideVertical(std::vector<std::vector <int>> *level, Rectangle rect)
 	if ((*level)[doorY][r - 1] == 1)
 		(*level)[doorY][r - 1] = 4;
 }
-
-
 
 void	subdivideHorizontal(std::vector<std::vector <int>> *level, Rectangle rect)
 {
@@ -281,7 +273,7 @@ std::vector<Rectangle *>	*getRects(std::vector<std::vector <int>> *level)
 Rectangle *getBiggestRect(std::vector<Rectangle *>	*rects)
 {
 	unsigned int	max = 0;
-	Rectangle		*biggest;
+	Rectangle		*biggest = NULL;
 
 	for (std::size_t i = 0; i < (*rects).size(); i++)
 	{
@@ -321,8 +313,7 @@ std::vector<std::vector <int>> *generateLevel(int const mapWidth, int const mapH
 	std::vector<Rectangle *>	*rects = getRects(inversed);
 	Rectangle					*biggest = getBiggestRect(rects);
 	unsigned	int				area = biggest->getArea();
-	int							it = -1;
-	while (area >= (static_cast<unsigned int>((mapHeight * mapWidth)  / 6)) && ++it < 50)
+	while (area >= (static_cast<unsigned int>((mapHeight * mapWidth)  / 6)))
 	{
 		subdivide(*biggest, level);
 		rects = getRects(inverseLevel(level));
@@ -378,7 +369,6 @@ void	exportLevelToFile(std::vector<std::vector <int>> const level, std::fstream 
 				case 5: case 6: case 7: case 8:
 					exportPlayerSpawn(file, level[i][j]);
 					break;
-
 				default:
 					file << EMPTY_CHAR;
 					break;
@@ -401,17 +391,23 @@ std::vector<std::string>	*getTexturesFiles(std::string const dir)
 	return (files);
 }
 
-
-
 void	exportHeaderToFile(std::fstream &file, std::string const dirname)
 {
-	std::string	directions[] = {"NO", "SO", "WE", "EA"};
-	std::vector<std::string> *textures = getTexturesFiles(dirname);
+	std::string					directions[] = {"NO", "SO", "WE", "EA"};
+	std::vector<std::string>	*textures = getTexturesFiles(dirname);
+	bool						enough = textures->size() >= 4;
+	if (textures->size() == 0)
+	{
+		std::cout << "Textures folder have to contain almost 1 texture !" << std::endl;
+		delete textures;
+		exit(EXIT_FAILURE);
+	}
 	for (size_t	i = 0; i < 4; i++)
 	{
 		std::vector<std::string>::iterator	element = choice(textures);
 		file << directions[i] << " " << *element << std::endl;
-		textures->erase(element);
+		if (enough)
+			textures->erase(element);
 	}
 	delete textures;
 	file << std::endl << "F ";
@@ -435,6 +431,11 @@ void	exportToFile(int const mapWidth, int const mapHeight, std::string const fil
 		std::cout << "Can't create or open file !" << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	if (mapWidth < 3 || mapHeight < 3)
+	{
+		std::cout << "Map dimensions too small !" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	exportHeaderToFile(file, dirPath);
 	level = generateLevel(mapWidth, mapHeight);
 	exportLevelToFile(*level, file);
@@ -444,9 +445,11 @@ void	exportToFile(int const mapWidth, int const mapHeight, std::string const fil
 
 int main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	exportToFile(25, 25, "test.cub", "./");
-	// std::vector<std::string> *files = getTexturesFiles(".");
+	if (ac != 5)
+	{
+		std::cout << "Usage: ./generator [width] [height] [path_to_file] [path_of_textures]" << std::endl;
+		return (1);
+	}
+	exportToFile(atoi(av[1]), atoi(av[2]), std::string(av[3]), std::string(av[4]));
 	return 0;
 }
