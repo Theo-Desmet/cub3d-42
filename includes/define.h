@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/24 10:09:02 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/11 21:53:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # define SHADING_DISTANCE 10
 # define MOVING_SPEED 0.15
 # define ROTATE_SPEED 0.06
+
+// # define MOVING_SPEED 0.03
+// # define ROTATE_SPEED 0.01
+
 # define DOOR_SPEED 0.07
 // # define FOG_COLOR 0x757575
 # define FOG_COLOR 0x222222

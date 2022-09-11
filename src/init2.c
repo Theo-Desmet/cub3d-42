@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 11:00:43 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/11 22:13:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_init_dir(t_game *game)
 	game->rotate_right = false;
 }
 
-t_game	*ft_init_game(void)
+t_game	*ft_init_game(int ac, char **av)
 {
 	t_game	*game;
 
@@ -34,6 +34,11 @@ t_game	*ft_init_game(void)
 		return (free(game), NULL);
 	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
 	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
+	game->map = malloc(sizeof(t_map));
+	game->map->width = 0;
+	game->map->height = 0;
+	ft_parsing(game, ac, av);
+	printf("%d - %d\n", game->map->width, game->map->height);
 	game->assets = ft_init_assets(game->mlx);
 	game->player = ft_init_player();
 	game->ray = ft_init_ray();

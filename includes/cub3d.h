@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:32:26 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:39:35 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@
 # include "define.h"
 # include "parsing.h"
 
-extern int worldMap[mapWidth][mapHeight];
 void    ft_free_map(t_game *game, int i);
-extern double factor;
 /* -------------------------------------------------------------------------- */
 /*                            FILE = src/minimap.c                            */
 /* -------------------------------------------------------------------------- */
@@ -102,7 +100,6 @@ int	ft_free_all(t_game *game);
 t_render	*ft_init_render(void);
 void	ft_sprite_cast(t_game *game);
 void	ft_render(t_game *game);
-int main(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = src/raycasting/sprite.c                       */
@@ -129,7 +126,7 @@ void	ft_init_dir(t_game *game);
 t_object	*ft_alloc_objs(t_object *obj);
 void	ft_get_objs(t_object *obj);
 t_object	*ft_init_obj(t_game *game);
-t_game	*ft_init_game(void);
+t_game	*ft_init_game(int ac, char **av);
 
 
 #endif

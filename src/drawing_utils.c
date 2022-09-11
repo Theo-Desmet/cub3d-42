@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/06/27 12:26:13 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:49:53 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_rgbtoi(int r, int g, int b)
+int	ft_rgbtoi(int r, int g, int b)
 {
 	return (((r & 0xFF) << 16) + ((g & 0xFF) << 8) + ((b & 0xFF)));
 }

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 11:02:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:25:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ void	ft_put_pixel(t_img *img, int x, int y, int color)
 
 inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
 {
-	unsigned int	color;
-	char			*pix;
-
-	static	int cache_x;
-	static	int	cache_y;
-	static	t_img	*cache_img;
-	static	unsigned int	cache_color;
+	static int			cache_x;
+	static int			cache_y;
+	static t_img		*cache_img;
+	static unsigned int	cache_color;
 
 	if (x < 0)
 		x = 0;
@@ -38,33 +35,13 @@ inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
 		y = 0;
 	if (x != cache_x || y != cache_y || img != cache_img)
 	{
-		pix = img->addr + (y * img->line_len + x * (img->bpp / 8));
-		color = *(unsigned int *)pix;
+		cache_color = *(unsigned int *)(img->addr
+				+ (y * img->line_len + x * (img->bpp / 8)));
 		cache_x = x;
 		cache_y = y;
 		cache_img = img;
-		cache_color = color;
 	}
 	return (cache_color);
-}
-
-void	ft_draw_circle(t_img *img, t_vector *pos, int r, int color)
-{
-	double	i;
-	double	angle;
-	double	x;
-	double	y;
-
-	i = 0;
-	while (i < 360)
-	{
-		angle = i;
-		x = r * cos(angle * M_PI / 180);
-		y = r * sin(angle * M_PI / 180);
-		ft_put_pixel(img, x + pos->x, y + pos->y, color);
-		i += 0.1;
-	}
-	free(pos);
 }
 
 void	ft_draw_square(t_img *img, t_vector *pos, int size, int color)

@@ -6,13 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/06/27 18:44:53 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:52:40 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define FAC 4
 
 void	ft_strafe(t_game *game)
 {
@@ -21,20 +19,20 @@ void	ft_strafe(t_game *game)
 	g = game;
 	if (g->right)
 	{
-		if (worldMap[(int)(g->player->pos->x + g->plane->x
-				* g->player->walk_speed * FAC)][(int)g->player->pos->y] == 0)
+		if (g->player->pos->x + g->plane->x >= 0.5 && g->player->pos->x
+			+ g->plane->x <= g->map->width - 0.5)
 			g->player->pos->x += g->plane->x * g->player->walk_speed;
-		if (worldMap[(int)g->player->pos->x][(int)(g->player->pos->y
-			+ g->plane->y * g->player->walk_speed * FAC)] == 0)
+		if (g->player->pos->y + g->plane->y >= 0.5 && g->player->pos->y
+			+ g->plane->y <= g->map->width - 0.5)
 			g->player->pos->y += g->plane->y * g->player->walk_speed;
 	}
 	if (g->left)
 	{
-		if (worldMap[(int)(g->player->pos->x - g->plane->x
-				* g->player->walk_speed * FAC)][(int)g->player->pos->y] == 0)
+		if (g->player->pos->x - g->plane->x >= 0.5 && g->player->pos->x
+			- g->plane->x <= g->map->width - 0.5)
 			g->player->pos->x -= g->plane->x * g->player->walk_speed;
-		if (worldMap[(int)g->player->pos->x][(int)(g->player->pos->y
-			- g->plane->y * g->player->walk_speed * FAC)] == 0)
+		if (g->player->pos->y - g->plane->y >= 0.5 && g->player->pos->y
+			- g->plane->y <= g->map->width - 0.5)
 			g->player->pos->y -= g->plane->y * g->player->walk_speed;
 	}
 }
@@ -61,30 +59,39 @@ void	ft_rotate(t_game *game)
 		+ game->plane->y * cos(r_speed);
 }
 
+void	ft_reset_pos(t_game *game)
+{
+	if (game->player->pos->x < 1.5)
+		game->player->pos->x = 1.5;
+	if (game->player->pos->y < 1.5)
+		game->player->pos->y = 1.5;
+	if (game->player->pos->x > game->map->width - 1.5)
+		game->player->pos->x = game->map->width - 1.5;
+	if (game->player->pos->y > game->map->height - 1.5)
+		game->player->pos->y = game->map->height - 1.5;
+}
+
 void	ft_move(t_game *game)
 {
-	t_player	*player;
+	t_player	*play;
 
-	player = game->player;
+	play = game->player;
+	ft_reset_pos(game);
 	if (game->left || game->right)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		if (worldMap[(int)(player->pos->x + player->dir->x \
-			* player->walk_speed * FAC)][(int)(player->pos->y)] == 0)
-			player->pos->x += player->dir->x * player->walk_speed;
-		if (worldMap[(int)(player->pos->x)][(int)(player->pos->y \
-			+ player->dir->y * player->walk_speed * FAC)] == 0)
-			player->pos->y += player->dir->y * player->walk_speed;
+		if (play->pos->x >= 1.5 && play->pos->x <= game->map->width - 1.5)
+			play->pos->x += play->dir->x * play->walk_speed;
+		if (play->pos->y >= 1.5 && play->pos->y <= game->map->height - 1.5)
+			play->pos->y += play->dir->y * play->walk_speed;
 	}
 	if (game->backward)
 	{
-		if (worldMap[(int)(player->pos->x - player->dir->x \
-			* player->walk_speed * FAC)][(int)player->pos->y] == 0)
-			player->pos->x -= player->dir->x * player->walk_speed;
-		if (worldMap[(int)player->pos->x][(int)(player->pos->y \
-			- player->dir->y * player->walk_speed * FAC)] == 0)
-			player->pos->y -= player->dir->y * player->walk_speed;
+		if (play->pos->x >= 1.5 && play->pos->x <= game->map->width - 1.5)
+			play->pos->x -= play->dir->x * play->walk_speed;
+		if (play->pos->y >= 1.5 && play->pos->y <= game->map->height - 1.5)
+			play->pos->y -= play->dir->y * play->walk_speed;
 	}
 	if (game->rotate_left || game->rotate_right)
 		ft_rotate(game);

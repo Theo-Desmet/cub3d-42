@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 10:46:11 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/11 22:11:35 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int	ft_free_all(t_game *game)
 {
+	mlx_destroy_image(game->mlx, game->img->mlx_img);
 	free(game->img);
 	if (game->assets)
 		ft_free_assets(game->assets, game->mlx);
@@ -71,4 +72,3 @@ void	ft_render(t_game *game)
 	}
 	free(render);
 }
-

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 10:54:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/07 20:22:39 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_prepare_ray(t_game *game, int x)
 	ray->ddx = fabs(1 / ray->dir->x);
 	ray->ddy = fabs(1 / ray->dir->y);
 
-	ray->pos->x = game->player->pos->x; 
+	ray->pos->x = game->player->pos->x;
 	ray->pos->y = game->player->pos->y;
 	ray->map_x = (int)ray->pos->x;
 	ray->map_y = (int)ray->pos->y;
@@ -85,7 +85,7 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (worldMap[ray->map_x][ray->map_y] == 1)
+		if (game->map->map[ray->map_x][ray->map_y] == 1)
 			ray->hit = 1;
 	}
 }
@@ -95,16 +95,14 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 	t_ray	*ray;
 
 	ray = game->ray;
-
-	// if (game->ray->side == 0)
-	// 	render->perp_wall_dist = game->ray->sidedist_x - game->ray->ddx;
-	// else
-	// 	render->perp_wall_dist = game->ray->sidedist_y - game->ray->ddy;
-
 	if (game->ray->side == 0)
-		render->perp_wall_dist = (((double)game->ray->map_x - game->ray->pos->x + render->x_offset + (1.0 - (double)game->ray->step_x) / 2.0) / game->ray->dir->x);
+		render->perp_wall_dist = game->ray->sidedist_x - game->ray->ddx;
 	else
-		render->perp_wall_dist = (((double)game->ray->map_y - game->ray->pos->y + render->y_offset + (1.0 - (double)game->ray->step_y) / 2.0) / game->ray->dir->y);
+		render->perp_wall_dist = game->ray->sidedist_y - game->ray->ddy;
+	// if (game->ray->side == 0)
+	// 	render->perp_wall_dist = (((double)game->ray->map_x - game->ray->pos->x + render->x_offset + (1.0 - (double)game->ray->step_x) / 2.0) / game->ray->dir->x);
+	// else
+	// 	render->perp_wall_dist = (((double)game->ray->map_y - game->ray->pos->y + render->y_offset + (1.0 - (double)game->ray->step_y) / 2.0) / game->ray->dir->y);
 	
 	render->height_line = ((int)(screenHeight / render->perp_wall_dist));
 	render->start = - (render->height_line) / 2 + screenHeight / 2;
@@ -117,17 +115,16 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 		render->end = screenHeight;
 
 	// if (game->ray->side == 1)
-		// render->wall_x = ray->pos->x + (((double)ray->map_y - ray->pos->y 
-			// + (1.0 - (double)ray->step_y) / 2.0) / ray->dir->y) * ray->dir->x;
+	// 	render->wall_x = ray->pos->x + (((double)ray->map_y - ray->pos->y 
+	// 		+ (1.0 - (double)ray->step_y) / 2.0) / ray->dir->y) * ray->dir->x;
 	// else
-		// render->wall_x = ray->pos->y + (((double)ray->map_x - ray->pos->x 
-			// + (1.0 - (double)ray->step_x) / 2.0) / ray->dir->x) * ray->dir->y;
+	// 	render->wall_x = ray->pos->y + (((double)ray->map_x - ray->pos->x 
+	// 		+ (1.0 - (double)ray->step_x) / 2.0) / ray->dir->x) * ray->dir->y;
 
 	if (game->ray->side == 0)
 		render->wall_x = ray->pos->y + render->perp_wall_dist * ray->dir->y;
 	else
 		render->wall_x = ray->pos->x + render->perp_wall_dist * ray->dir->x;
-
 	render->wall_x -= floor(render->wall_x);
 	render->sprite_x = (int)(render->wall_x * (double)SPRITE_SIZE);
 }
@@ -136,18 +133,6 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 {
 
 	ft_prepare_proj(game, render);
-
-
-	// render->y = render->start;
-	// while (render->y < render->end)
-	// {
-	// 	if (game->ray->side == 1)
-	// 		ft_put_pixel(game->img, render->x, render->y, 0xCCCCCC);
-	// 	else
-	// 		ft_put_pixel(game->img, render->x, render->y, 0xf2f2f2);
-	// 	render->y++;
-	// }
-
 	if (ray->side == 0 && ray->dir->x > 0.0)
 		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
 	if (ray->side == 1 && ray->dir->y < 0.0)
@@ -158,10 +143,8 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 	{
 		render->sprite_y = (render->y * 2 - screenHeight + render->height_line)
 			* (SPRITE_SIZE / 2) / render->height_line;
-		render->color = ft_get_pixel(render->wall_tex, render->sprite_x, render->sprite_y);
-		// if (ray->side == 1)
-		// 	render->color = (render->color >> 1) & 0x7F7F7F;
-		// ft_fog(render->perp_wall_dist, &render->color);
+		render->color = ft_get_pixel(render->wall_tex, render->sprite_x,
+				render->sprite_y);
 		ft_put_pixel(game->img, render->x, render->y, render->color);
 		render->y++;
 	}
