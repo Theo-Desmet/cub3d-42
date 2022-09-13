@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:14:24 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_check_map(t_game *game, char *line, t_check *check, int line_cnt)
 		free(line);
 		return (ft_err_in_file(game, check, 1, line_cnt), 0);
 	}
-	check->spwan = ft_check_spawn(line, check->spwan);
+	check->spwan = ft_check_spawn(game, line, check->spwan, line_cnt);
 	if (check->spwan < 0)
 	{
 		free(line);
@@ -48,7 +48,7 @@ int	ft_is_valid_map_line(t_game *game, char *line)
 	return (0);
 }
 
-int	ft_check_spawn(char *line, int spawn)
+int	ft_check_spawn(t_game *game, char *line, int spawn, int line_cnt)
 {
 	int	i;
 
@@ -58,6 +58,9 @@ int	ft_check_spawn(char *line, int spawn)
 		if (line[i] == 'W' || line[i] == 'E'
 			|| line[i] == 'S' || line[i] == 'N')
 		{
+			game->player->heading = line[i];
+			game->player->parsed_x = i;
+			game->player->parsed_y = line_cnt;
 			if (!spawn)
 				spawn++;
 			else if (spawn)
@@ -85,10 +88,12 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 	char	*line;
 	int		ishead;
 	int		line_cnt;
+	int		len_header;
 
 	check = ft_init_check(check);
 	ishead = 1;
 	line_cnt = 0;
+	len_header = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -100,7 +105,9 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 		if (ishead && !ft_check_map_head(game, line, check))
 			return (free(line),
 				ft_err_in_file(game, check, 0, line_cnt), 0);
-		if (!ishead && !ft_check_map(game, line, check, line_cnt))
+		if (ishead)
+			len_header++;
+		if (!ishead && !ft_check_map(game, line, check, line_cnt - len_header - 1))
 			return (0);
 		free(line);
 	}

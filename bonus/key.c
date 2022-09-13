@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 14:54:50 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:22:59 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,22 @@ int	ft_loop(t_game *game)
 			game->doors[i]->factor = 1;
 		if (game->doors[i]->factor < 0.0)
 			game->doors[i]->factor = 0.0;
+	}
+	i = -1;
+	game->object->tick++;
+	while (++i < game->object->nb_obj)
+	{
+		if (game->object->tick == 25)
+			game->object->objects[i]->frame = 1;
+		if (game->object->tick == 50)
+			game->object->objects[i]->frame = 2;
+		if (game->object->tick == 75)
+			game->object->objects[i]->frame = 3;
+		if (game->object->tick == 120)
+		{
+			game->object->objects[i]->frame = 0;
+			game->object->tick = 0;
+		}
 	}
 	ft_render(game);
 	mlx_do_sync(game->mlx);

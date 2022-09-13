@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 11:08:28 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:27:44 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_assets	*ft_init_assets(void *mlx)
 	asset->ceil = ft_init_img(mlx, "assets/ceiling1.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	asset->floor = ft_init_img(mlx, "assets/floor_yellow1.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	asset->gun = ft_init_img(mlx, "assets/gun.xpm", SPRITE_SIZE, SPRITE_SIZE);
-	asset->obj = ft_init_img(mlx, "assets/barrel.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->obj = ft_init_img(mlx, "assets/barrel2.xpm", SPRITE_SIZE * 4, SPRITE_SIZE * 4);
 	asset->door = ft_init_img(mlx, "assets/door.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W
 		|| !asset->gun || !asset->ceil || !asset->floor || !asset->door)
@@ -89,8 +89,8 @@ t_player	*ft_init_player(void)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
-	player->dir = ft_init_vector(-1, 0); // N x=-1, S x=1, E y=1, W y=-1;
-	player->pos = ft_init_vector(2, 2);
+	player->dir = ft_init_vector(0, 0);
+	player->pos = ft_init_vector(0, 0);
 	player->rot_speed = ROTATE_SPEED;
 	player->walk_speed = MOVING_SPEED;
 	if (!player->dir || !player->pos)

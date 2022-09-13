@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:21:01 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:22:15 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	*ft_fill_line(t_game *game, char *line, int *map)
 			map[y] = -1;
 		else if (line[y] == 'W' || line[y] == 'E'
 			|| line[y] == 'N' || line[y] == 'S')
-			map[y] = line[y];
+			map[y] = 0;
 		else
 			map[y] = line[y] - '0';
 		y++;

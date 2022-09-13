@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 14:51:59 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:19:02 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
 	res->pos = ft_init_vector(x, y);
 	if (!res->pos)
 		return (free(res), NULL);
+	res->last_pos = ft_init_vector(x, y);
+	if (!res->pos)
+		return (free(res->pos), free(res), NULL);
 	res->texture = img;
-	res->frame = &game->frame;
+	res->frame = 0;
 	return (res);
 }
 
@@ -111,6 +114,7 @@ t_object	*ft_init_obj(t_game *game)
 	objs = malloc(sizeof(t_object));
 	if (!objs)
 		return (NULL);
+	objs->tick = 0;
 	objs->nb_obj = 0;
 	objs->objects = NULL;
 	ft_get_objs(game, objs);
@@ -200,6 +204,31 @@ void	printTab(int **tab, int x, int y)
 	}
 }
 
+void	ft_update_heading(t_game *game, double x, double y)
+{
+	double half_fov;
+
+	half_fov = FOV / 2;
+	game->player->dir->x = x;
+	game->player->dir->y = y;
+	game->plane->x = -y * ((half_fov * M_PI) / 180);
+	game->plane->y = x * ((half_fov * M_PI) / 180);
+}
+
+void	ft_update_player(t_game *game)
+{
+	game->player->pos->x = (double)game->player->parsed_x + 0.5;
+	game->player->pos->y = (double)game->player->parsed_y + 0.5;
+	if (game->player->heading == 'W')
+		ft_update_heading(game, -1.0, 0.0);
+	else if (game->player->heading == 'E')
+		ft_update_heading(game, 1.0, 0.0);
+	else if (game->player->heading == 'S')
+		ft_update_heading(game, 0.0, 1.0);
+	else
+		ft_update_heading(game, 0.0, -1.0);
+}
+
 t_game	*ft_init_game(int ac, char **av)
 {
 	t_game	*game;
@@ -215,13 +244,14 @@ t_game	*ft_init_game(int ac, char **av)
 	game->map = malloc(sizeof(t_map));
 	game->map->width = 0;
 	game->map->height = 0;
+	game->plane = ft_init_vector(0, 0);
+	game->player = ft_init_player();
 	game->frame = 0;
 	ft_parsing(game, ac, av);
 	printf("%d - %d\n", game->map->width, game->map->height);
+	ft_update_player(game);
 	game->assets = ft_init_assets(game->mlx);
-	game->player = ft_init_player();
 	game->ray = ft_init_ray();
-	game->plane = ft_init_vector(0, 1); // fov=1=90 N : y=fov, S : -fov, E x=fov, W x=-fov 
 	game->object = ft_init_obj(game);
 	game->doors	= ft_get_doors(game);
 	ft_init_dir(game);

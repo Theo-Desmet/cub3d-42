@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:38:59 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:00:47 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_check_border(t_game *game, int **map);
 
 int		ft_check_map(t_game *game, char *line, t_check *check, int line_cnt);
 int		ft_is_valid_map_line(t_game *game, char *line);
-int		ft_check_spawn(char *line, int spawn);
+int		ft_check_spawn(t_game *game, char *line, int spawn, int line_cnt);
 t_check	*ft_init_check(t_check *check);
 int		ft_check_file(t_game *game, int fd, t_check *check);
 

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 14:41:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:08:10 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ t_render	*ft_init_render(void)
 	return (render);
 }
 
+void	ft_update_sprite(t_game *game, t_sprite *sprite)
+{
+	int	type;
+
+	if (((int)sprite->pos->x != (int)sprite->last_pos->x) ||
+		((int)sprite->pos->y != (int)sprite->last_pos->y))
+	{
+		type = game->map->map[(int)sprite->last_pos->x][(int)sprite->last_pos->y];
+		game->map->map[(int)sprite->last_pos->x][(int)sprite->last_pos->y] = 0;
+		sprite->last_pos->y = sprite->pos->y;
+		sprite->last_pos->x = sprite->pos->x;
+		game->map->map[(int)sprite->pos->x][(int)sprite->pos->y] = type;
+	}
+}
+
 void	ft_sprite_cast(t_game *game)
 {
 	int	i;
@@ -75,6 +90,7 @@ void	ft_sprite_cast(t_game *game)
 		if (game->object->end_x < 0)
 			game->object->end_x = 0;
 		ft_draw_sprite(game, game->object, i);
+		ft_update_sprite(game, game->object->objects[i]);
 	}
 }
 
@@ -97,9 +113,6 @@ void	ft_render(t_game *game)
 		ft_dda(game->ray);
 		ft_wall_hit(game->ray, render, game);
 		ft_wall_proj(game->ray, render, game);
-
-
-		// ft_draw_sky_floor(game, render);
 
 		game->object->zbuff[render->x] = render->perp_wall_dist;
 		render->x++;

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 14:42:59 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:29:18 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_prepare_sprite(t_game *game, t_object *obj, int *i)
 void	ft_color_sprite(t_game *game, int x, int y, int i)
 {
 	t_object	*obj;
+	t_sprite	*cur_sprite;
 
 	obj = game->object;
 	obj->d = (y - obj->move_screen) * 256 - screenHeight
@@ -100,7 +101,9 @@ void	ft_color_sprite(t_game *game, int x, int y, int i)
 	obj->tex_y = ((obj->d * SPRITE_SIZE) / obj->s_height) / 256;
 	// obj->color = ft_get_pixel(game->assets->obj,
 	// 	obj->tex_x, obj->tex_y);
-	obj->color = ft_get_pixel(ft_get_cur_sprite(game)->texture, obj->tex_x, obj->tex_y);
+	cur_sprite = ft_get_cur_sprite(game);
+	obj->color = ft_get_pixel(cur_sprite->texture, obj->tex_x
+		+ SPRITE_SIZE * cur_sprite->frame, obj->tex_y);
 	if (obj->color != (0xFF << 24))
 	{
 		ft_fog(obj->dist[i] / SHADING_DISTANCE, &obj->color);

@@ -6,7 +6,7 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/08/24 10:37:45 by bbordere         ###   ########.fr        #
+#    Updated: 2022/09/13 10:35:02 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,12 @@ $(NAME): $(OBJS)
 all: $(NAME)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
-	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o  $(NAME)
+	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME) -D MANDATORY=1
 
 bonus: $(BOBJS)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
-	@ $(CC) $(CFLAGS) $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o  $(BNAME) 
+	@ $(CC) $(CFLAGS) $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o  $(BNAME) -D BONUS=1
 
 clean:
 	@ rm -f $(OBJS)

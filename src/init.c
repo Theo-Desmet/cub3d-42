@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 10:42:23 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:08:08 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ t_player	*ft_init_player(void)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
-	player->dir = ft_init_vector(0, 1); // N x=-1, S x=1, E y=1, W y=-1;
-	player->pos = ft_init_vector(11, 3);
+	player->dir = ft_init_vector(0, 0);
+	player->pos = ft_init_vector(0, 0);
 	player->rot_speed = ROTATE_SPEED;
 	player->walk_speed = MOVING_SPEED;
 	if (!player->dir || !player->pos)

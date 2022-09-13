@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/25 14:38:16 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:18:13 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,13 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	t_vector *pos;
-	t_vector *dir;
-	double walk_speed;
-	double rot_speed;
+	t_vector	*pos;
+	t_vector	*dir;
+	int			parsed_x;
+	int			parsed_y;
+	char		heading;
+	double		walk_speed;
+	double		rot_speed;
 }	t_player;
 
 typedef struct s_enemy
@@ -128,8 +131,9 @@ typedef struct s_enemy
 typedef struct s_sprite
 {
 	t_vector	*pos;
+	t_vector	*last_pos;
 	t_img		*texture;
-	int			*frame;
+	int			frame;
 	double		h_div;
 	double		v_div;
 	double		v_offset;
@@ -163,6 +167,7 @@ typedef struct s_object
 	t_sprite	**objects;
 	int			nb_obj;
 	int			index;
+	int			tick;
 }	t_object;
 
 typedef struct s_door

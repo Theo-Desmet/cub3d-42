@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/11 21:53:49 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:25:27 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 # define screenWidth 1200
 # define screenHeight 600
 # define SHADING_DISTANCE 10
+# define FOV 114
+
 # define MOVING_SPEED 0.15
 # define ROTATE_SPEED 0.06
 
-// # define MOVING_SPEED 0.03
-// # define ROTATE_SPEED 0.01
+// # define MOVING_SPEED 0.08
+// # define ROTATE_SPEED 0.04
 
 # define DOOR_SPEED 0.07
 // # define FOG_COLOR 0x757575
