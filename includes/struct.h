@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/13 18:18:13 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 10:48:59 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ typedef struct s_game
 	t_door		**doors;
 	int			nb_doors;
 	int			frame;
+	char		**textures_path;
 	void		*mlx;
 	void		*win;
 	bool		forward;

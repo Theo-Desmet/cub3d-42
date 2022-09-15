@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/05 12:39:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:00:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_fog(double dist, int *color);
 /*                             FILE = src/init.c                              */
 /* -------------------------------------------------------------------------- */
 t_img	*ft_init_img(void *mlx, char *path, int width, int height);
-t_assets	*ft_init_assets(void *mlx);
+t_assets	*ft_init_assets(t_game *game, void *mlx);
 t_vector	*ft_init_vector(double x, double y);
 t_player	*ft_init_player(void);
 t_ray	*ft_init_ray(void);

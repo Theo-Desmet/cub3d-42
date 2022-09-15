@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/13 11:00:47 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 10:40:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int		ft_copy_map(t_game *game, int **map, char *path);
 /*                               parsing                                      */
 /* ************************************************************************** */
 
-int		ft_check_valid_path(const char *line, const char *str);
-char	*ft_getpath(char *line);
+int		ft_check_valid_path(t_game *game, const char *line, const char *str);
+char	*ft_getpath(const char *line);
 int		ft_check_ext_file(t_game *game, char *str, char *ext);
 int		ft_parsing(t_game *game, int argc, char **argv);
 

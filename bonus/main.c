@@ -6,16 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/16 11:45:55 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:37:04 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
 int		ft_parsing(t_game *game, int argc, char **argv);
-
-int **worldMap = NULL;
-
 
 int main(int ac, char **av)
 {
@@ -24,6 +21,7 @@ int main(int ac, char **av)
 	game = ft_init_game(ac, av);
 	if (!game)
 		exit(EXIT_FAILURE);
+	mlx_mouse_hide(game->mlx, game->win);
 	mlx_hook(game->win, 2, 1L, ft_key_down, game);
 	mlx_hook(game->win, 3, 1L << 1, ft_key_up, game);
 	mlx_hook(game->win, 17, 1L, ft_free_all, game);

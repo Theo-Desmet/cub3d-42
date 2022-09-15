@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/13 14:17:55 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:44:31 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-#define FAC 0.5
+#define FAC 0.6
 
 int	ft_is_valid_tiles(t_game *game, int x, int y)
 {

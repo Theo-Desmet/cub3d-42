@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/13 14:06:44 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:02:18 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,18 @@ t_game	*ft_init_game(int ac, char **av)
 	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
 	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
 	game->map = malloc(sizeof(t_map));
+	game->textures_path = malloc(4 * sizeof(char *));
 	game->map->width = 0;
 	game->map->height = 0;
 	game->plane = ft_init_vector(1, 0);
 	game->player = ft_init_player();
 	ft_parsing(game, ac, av);
 	ft_update_player(game);
-	game->assets = ft_init_assets(game->mlx);
+	game->assets = ft_init_assets(game, game->mlx);
 	game->ray = ft_init_ray();
 	ft_init_dir(game);
 	if (!game->win || !game->assets || !game->player || !game->ray
-		|| !game->plane)
+		|| !game->plane || !game->textures_path)
 		return (ft_free_all(game), NULL);
 	return (game);
 }

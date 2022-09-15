@@ -6,13 +6,24 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/25 11:09:18 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:18:15 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_check_valid_path(const char *line, const char *str)
+size_t	ft_get_texture_index(const char *id)
+{
+	if (!ft_strcmp(id, "EA "))
+		return (0);
+	if (!ft_strcmp(id, "WE "))
+		return (1);
+	if (!ft_strcmp(id, "NO "))
+		return (2);
+	return (3);
+}
+
+int	ft_check_valid_path(t_game *game, const char *line, const char *str)
 {
 	int	i;
 
@@ -24,10 +35,11 @@ int	ft_check_valid_path(const char *line, const char *str)
 	i += 2;
 	while (line[i] && line[i] == ' ')
 		i++;
+	game->textures_path[ft_get_texture_index(str)] = ft_getpath(line);
 	return (1);
 }
 
-char	*ft_getpath(char *line)
+char	*ft_getpath(const char *line)
 {
 	int		i;
 	char	*path;

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:59 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 10:57:28 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	ft_check_map_head(t_game *game, char *line, t_check *check)
 {
 	if (*line == '\n')
 		return (2);
-	else if (ft_check_valid_path(line, "EA ") && !check->east)
+	else if (ft_check_valid_path(game, line, "EA ") && !check->east)
 		check->east = 1;
-	else if (ft_check_valid_path(line, "WE ") && !check->weast)
+	else if (ft_check_valid_path(game, line, "WE ") && !check->weast)
 		check->weast = 1;
-	else if (ft_check_valid_path(line, "NO ") && !check->north)
+	else if (ft_check_valid_path(game, line, "NO ") && !check->north)
 		check->north = 1;
-	else if (ft_check_valid_path(line, "SO ") && !check->south)
+	else if (ft_check_valid_path(game, line, "SO ") && !check->south)
 		check->south = 1;
 	else if (ft_check_is_rgb(line, "F ") && !check->floor)
 	{

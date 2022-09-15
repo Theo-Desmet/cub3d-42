@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/08/25 10:36:54 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:14:53 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <math.h>
 # include "define.h"
 # include "parsing.h"
-
-
 
 int		ft_parsing(t_game *data, int argc, char **argv);
 t_door	*ft_get_cur_door(t_game *game, int x, int y);
@@ -66,7 +64,7 @@ void	ft_fog(double dist, int *color);
 /*                            FILE = bonus/init.c                             */
 /* -------------------------------------------------------------------------- */
 t_img	*ft_init_img(void *mlx, char *path, int width, int height);
-t_assets	*ft_init_assets(void *mlx);
+t_assets	*ft_init_assets(t_game *game, void *mlx);
 t_vector	*ft_init_vector(double x, double y);
 t_player	*ft_init_player(void);
 t_ray	*ft_init_ray(void);

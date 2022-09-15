@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/13 18:27:44 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:15:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_img	*ft_init_img(void *mlx, char *path, int width, int height)
 	return (img);
 }
 
-t_assets	*ft_init_assets(void *mlx)
+t_assets	*ft_init_assets(t_game *game, void *mlx)
 {
 	t_assets	*asset;
 
@@ -44,23 +44,13 @@ t_assets	*ft_init_assets(void *mlx)
 	if (!asset)
 		return (NULL);
 
-	// asset->wall_E = ft_init_img(mlx, "assets/bluestone.xpm", 0, 0);
-	// asset->wall_N = ft_init_img(mlx, "assets/eagle.xpm", 0, 0);
-	// asset->wall_S = ft_init_img(mlx, "assets/greystone.xpm", 0, 0);
-	// asset->wall_W = ft_init_img(mlx, "assets/redbrick.xpm", 0, 0);
+	asset->wall_E = ft_init_img(mlx, game->textures_path[0], SPRITE_SIZE, SPRITE_SIZE);
+	asset->wall_N = ft_init_img(mlx, game->textures_path[2], SPRITE_SIZE, SPRITE_SIZE);
+	asset->wall_S = ft_init_img(mlx, game->textures_path[3], SPRITE_SIZE, SPRITE_SIZE);
+	asset->wall_W = ft_init_img(mlx, game->textures_path[1], SPRITE_SIZE, SPRITE_SIZE);
 
-	// asset->wall_E = ft_init_img(mlx, "assets/wall_1k.xpm", 0, 0);
-	// asset->wall_N = ft_init_img(mlx, "assets/wall2_1k.xpm", 0, 0);
-	// asset->wall_S = ft_init_img(mlx, "assets/wall3_1k.xpm", 0, 0);
-	// asset->wall_W = ft_init_img(mlx, "assets/wall4_1k.xpm", 0, 0);
-
-	asset->wall_E = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
-	asset->wall_N = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
-	asset->wall_S = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
-	asset->wall_W = ft_init_img(mlx, "assets/back.xpm", SPRITE_SIZE, SPRITE_SIZE);
-
-	asset->ceil = ft_init_img(mlx, "assets/ceiling1.xpm", SPRITE_SIZE, SPRITE_SIZE);
-	asset->floor = ft_init_img(mlx, "assets/floor_yellow1.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->ceil = ft_init_img(mlx, "assets/ceiling4.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->floor = ft_init_img(mlx, "assets/floor2.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	asset->gun = ft_init_img(mlx, "assets/gun.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	asset->obj = ft_init_img(mlx, "assets/barrel2.xpm", SPRITE_SIZE * 4, SPRITE_SIZE * 4);
 	asset->door = ft_init_img(mlx, "assets/door.xpm", SPRITE_SIZE, SPRITE_SIZE);
