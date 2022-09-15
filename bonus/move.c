@@ -6,17 +6,17 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 11:44:31 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 16:22:57 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-#define FAC 0.6
+#define FAC 1.2
 
 int	ft_is_valid_tiles(t_game *game, int x, int y)
 {
-	return (game->map->map[x][y] == 0 || game->map->map[x][y] == 4);
+	return (game->map->map[y][x] == 0 || game->map->map[y][x] == 4);
 }
 
 void	ft_strafe(t_game *game)
@@ -71,10 +71,10 @@ void	ft_move(t_game *game)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		if (ft_is_valid_tiles(game, (int)(player->pos->x + player->dir->x * FAC), (int)(player->pos->y)))
+		if (ft_is_valid_tiles(game, (int)(player->pos->x + (player->dir->x * player->walk_speed * 2)), (int)(player->pos->y)))
 			player->pos->x += player->dir->x * player->walk_speed;
 
-		if (ft_is_valid_tiles(game, (int)(player->pos->x), (int)(player->pos->y + player->dir->y * FAC)))
+		if (ft_is_valid_tiles(game, (int)(player->pos->x), (int)(player->pos->y + (player->dir->y * player->walk_speed * 2))))
 			player->pos->y += player->dir->y * player->walk_speed;
 	}
 	if (game->backward)

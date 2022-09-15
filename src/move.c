@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/13 14:14:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 16:00:08 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,22 @@ void	ft_move(t_game *game)
 	t_player	*play;
 
 	play = game->player;
+	printf("%f - %f\n", play->pos->x, play->pos->y);
 	ft_reset_pos(game);
 	if (game->left || game->right)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		if (play->pos->x >= 1.5 && play->pos->x <= game->map->width - 1.5)
+		if (play->pos->x >= 1.5 && play->pos->x <= game->map->width)
 			play->pos->x += play->dir->x * play->walk_speed;
-		if (play->pos->y >= 1.5 && play->pos->y <= game->map->height - 1.5)
+		if (play->pos->y >= 1.5 && play->pos->y <= game->map->height)
 			play->pos->y += play->dir->y * play->walk_speed;
 	}
 	if (game->backward)
 	{
-		if (play->pos->x >= 1.5 && play->pos->x <= game->map->width - 1.5)
+		if (play->pos->x >= 1.5 && play->pos->x <= game->map->width)
 			play->pos->x -= play->dir->x * play->walk_speed;
-		if (play->pos->y >= 1.5 && play->pos->y <= game->map->height - 1.5)
+		if (play->pos->y >= 1.5 && play->pos->y <= game->map->height)
 			play->pos->y -= play->dir->y * play->walk_speed;
 	}
 	if (game->rotate_left || game->rotate_right)

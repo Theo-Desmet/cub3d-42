@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 11:15:55 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:47:23 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ t_object	*ft_alloc_objs(t_game *game, t_object *obj)
 	int	j;
 
 	i = -1;
-	while (++i < mapHeight)
+	while (++i < game->map->height)
 	{
 		j = -1;
-		while (++j < mapWidth)
+		while (++j < game->map->width)
 			if (game->map->map[i][j] == 2 ||game->map->map[i][j] == 5)
 				obj->nb_obj++;
 	}
@@ -96,10 +96,10 @@ void	ft_get_objs(t_game *game, t_object *obj)
 	ft_alloc_objs(game, obj);
 	if (!obj->objects)
 		return ;
-	while (++i < mapHeight)
+	while (++i < game->map->height)
 	{
 		j = -1;
-		while (++j < mapWidth)
+		while (++j < game->map->width)
 		{
 			if (ft_type_object(game, obj, i, j) == -1)
 				return ;
@@ -147,10 +147,10 @@ t_door	**ft_alloc_doors(t_game *game)
 	int	j;
 
 	i = -1;
-	while (++i < mapHeight)
+	while (++i < game->map->height)
 	{
 		j = -1;
-		while (++j < mapWidth)
+		while (++j < game->map->width)
 			if (game->map->map[i][j] == 3)
 				game->nb_doors++;
 	}
@@ -170,10 +170,10 @@ t_door	**ft_get_doors(t_game *game)
 	game->nb_doors = 0;
 	ft_alloc_doors(game);
 	x = -1;
-	while (++x < mapHeight)
+	while (++x < game->map->height)
 	{
 		y = -1;
-		while (++y < mapWidth)
+		while (++y < game->map->width)
 		{
 			if (game->map->map[x][y] == 3)
 			{

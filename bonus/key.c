@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 12:03:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:14:07 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,37 +70,7 @@ int	ft_key_up(int keycode, t_game *game)
 	return (0);
 }
 
-void	ft_mouse_handling(t_game *game)
-{
-	int			x;
-	int			y;
-	static int	last_x;
 
-	mlx_mouse_get_pos(game->mlx, game->win, &x, &y);
-	if (x >= screenWidth - 1)
-		mlx_mouse_move(game->mlx, game->win, 10, y);
-	else if (x <= 0)
-		mlx_mouse_move(game->mlx, game->win, screenWidth - 10, y);
-	if (last_x != x)
-	{
-		if (last_x > x)
-		{
-			game->rotate_right = false;
-			game->rotate_left = true;
-		}
-		else if (last_x < x)
-		{
-			game->rotate_left = false;
-			game->rotate_right = true;
-		}
-		last_x = x;
-	}
-	else
-	{
-		game->rotate_right = false;
-		game->rotate_left = false;
-	}
-}
 
 int	ft_loop(t_game *game)
 {
@@ -117,7 +87,6 @@ int	ft_loop(t_game *game)
 	}
 	i = -1;
 	game->object->tick++;
-	ft_mouse_handling(game);
 	while (++i < game->object->nb_obj)
 	{
 		if (game->object->tick == 25)

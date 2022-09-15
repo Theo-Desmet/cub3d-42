@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 11:02:18 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:56:26 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->plane = ft_init_vector(1, 0);
 	game->player = ft_init_player();
 	ft_parsing(game, ac, av);
+	printf("%d - %d\n", game->map->width, game->map->height);
 	ft_update_player(game);
 	game->assets = ft_init_assets(game, game->mlx);
 	game->ray = ft_init_ray();

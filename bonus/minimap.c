@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 10:36:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/15 16:26:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,11 +302,11 @@ void	ft_draw_minimap(t_game *game)
 		{
 			int a = mapX + (int)game->player->pos->x;
 			int b = mapY + (int)game->player->pos->y;
-			if (a >= 0 && b >= 0 && a < game->map->height && b < game->map->width)
+			if (a >= 0 && b >= 0 && a < game->map->width && b < game->map->height)
 			{
-				if (game->map->map[a][b] == 1)
+				if (game->map->map[b][a] == 1)
 					ft_draw_trans(game, ft_init_vector(rectY, rectX), SIZE, 0x60);
-				else
+				else if (game->map->map[b][a] == 0)
 					ft_draw_trans(game, ft_init_vector(rectY, rectX), SIZE, 0x0000FF);
 			}
 			rectY += SIZE;
@@ -326,10 +326,10 @@ void	ft_draw_minimap2(t_game *game)
 	int	y;
 	
 	y = -1;
-	while (++y < mapHeight)
+	while (++y < game->map->height)
 	{
 		x = -1;
-		while (++x < mapWidth)
+		while (++x < game->map->width)
 		{
 			if (game->map->map[y][x] == 1)
 				ft_draw_trans(game, ft_init_vector(x * 10, y * 10), 10, 0x60);
