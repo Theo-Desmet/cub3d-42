@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/15 10:48:59 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:36:26 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ typedef struct s_sprite
 	t_vector	*pos;
 	t_vector	*last_pos;
 	t_img		*texture;
+	bool		animated;
+	int			type;
 	int			frame;
 	double		h_div;
 	double		v_div;
@@ -199,6 +201,9 @@ typedef struct s_game
 	bool		right;
 	bool		rotate_left;
 	bool		rotate_right;
+	bool		mouse_right;
+	bool		mouse_left;
+	bool		shooting;
 	int			ceiling_color;
 	int			floor_color;
 }	t_game;

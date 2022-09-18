@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:22:21 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:41:28 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_dda(t_ray *ray)
 
 void	ft_get_wall_tex(t_ray *ray, t_render *render, t_game *game)
 {
+	if (render->wall_tex)
+		return ;
 	render->wall_tex = game->assets->wall_E;
 	if (ray->side == 1 && ray->dir->y < 0)
 		render->wall_tex = game->assets->wall_N;
@@ -88,19 +90,25 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 		if (game->map->map[ray->map_y][ray->map_x] == 3)
 			ft_door_hit(ray, render, game);
 		else if (game->map->map[ray->map_y][ray->map_x] == 4)
-		{
 			ft_harbor(ray, render, game);
-		}
 		else if (game->map->map[ray->map_y][ray->map_x] == 1)
 		{
 			render->wall_tex = NULL;
-			if (ray->side == 1 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 3)
+			// if (ray->side == 1 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 3)
+			// 	render->wall_tex = game->assets->ceil;
+			// else if (ray->side == 0 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 3)
+			// 	render->wall_tex = game->assets->ceil;
+			// else if (ray->side == 1 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 4)
+			// 	render->wall_tex = game->assets->ceil;
+			// else if (ray->side == 0 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 4)
+			// 	render->wall_tex = game->assets->ceil;
+			if (ray->side == 1 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 3)
 				render->wall_tex = game->assets->ceil;
-			else if (ray->side == 0 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 3)
+			else if (ray->side == 0 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 3)
 				render->wall_tex = game->assets->ceil;
-			else if (ray->side == 1 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 4)
+			else if (ray->side == 1 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 4)
 				render->wall_tex = game->assets->ceil;
-			else if (ray->side == 0 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 4)
+			else if (ray->side == 0 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 4)
 				render->wall_tex = game->assets->ceil;
 			ray->hit = 1;
 		}
@@ -153,22 +161,9 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 
 void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 {
-
-	ft_prepare_proj(game, render);
-
-
-	// render->y = render->start;
-	// while (render->y < render->end)
-	// {
-	// 	if (game->ray->side == 1)
-	// 		ft_put_pixel(game->img, render->x, render->y, 0xCCCCCC);
-	// 	else
-	// 		ft_put_pixel(game->img, render->x, render->y, 0xf2f2f2);
-	// 	render->y++;
-	// }
-
 	t_door	*door;
 
+	ft_prepare_proj(game, render);
 	door = ft_get_cur_door(game, ray->map_x, ray->map_y);
 	if (ray->side == 0 && ray->dir->x > 0.0)
 		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;

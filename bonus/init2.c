@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 14:47:23 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:37:48 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	ft_init_dir(t_game *game)
 	game->right = false;
 	game->rotate_left = false;
 	game->rotate_right = false;
+	game->shooting = false;
+	game->mouse_left = false;
+	game->mouse_right = false;
 }
 
 t_object	*ft_alloc_objs(t_game *game, t_object *obj)
@@ -60,29 +63,39 @@ t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
 		return (free(res->pos), free(res), NULL);
 	res->texture = img;
 	res->frame = 0;
+	res->animated = false;
 	return (res);
 }
+
+enum TYPE_SPRITE
+{
+	BARREL = 2,
+	LIGHT = 5,
+	GUN = 6
+};
 
 int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 {
 	if (game->map->map[i][j] == 2)
 	{
-		obj->objects[obj->index++] = ft_init_sprite(game, i + 0.5, j + 0.5, game->assets->obj);
+		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5, i + 0.5, game->assets->obj);
 		if (!obj->objects[obj->index - 1])
 			return (ft_free_obj_tab(obj), -1);
 		obj->objects[obj->index - 1]->h_div = 1;
 		obj->objects[obj->index - 1]->v_div = 1;
 		obj->objects[obj->index - 1]->v_offset = 0;
+		obj->objects[obj->index - 1]->animated = true;
 		}
-	else if (game->map->map[i][j] == 5)
+	else if (game->map->map[i][j] == LIGHT)
 	{
-		obj->objects[obj->index++] = ft_init_sprite(game, i + 0.5, j + 0.5
-		, game->assets->wall_E);
+		t_img	*light = ft_init_img(game->mlx, "assets/greenlight.xpm", 64, 64);
+		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5, i + 0.5
+		, light);
 		if (!obj->objects[obj->index - 1])
 			return (ft_free_obj_tab(obj), -1);
 		obj->objects[obj->index - 1]->h_div = 1;
 		obj->objects[obj->index - 1]->v_div = 1;
-		obj->objects[obj->index - 1]->v_offset = -128;
+		obj->objects[obj->index - 1]->v_offset = 0;
 	}
 	return (0);
 }
@@ -162,20 +175,20 @@ t_door	**ft_alloc_doors(t_game *game)
 
 t_door	**ft_get_doors(t_game *game)
 {
-	int	x;
 	int	y;
+	int	x;
 	int	i;
 
 	i = 0;
 	game->nb_doors = 0;
 	ft_alloc_doors(game);
-	x = -1;
-	while (++x < game->map->height)
+	y = -1;
+	while (++y < game->map->height)
 	{
-		y = -1;
-		while (++y < game->map->width)
+		x = -1;
+		while (++x < game->map->width)
 		{
-			if (game->map->map[x][y] == 3)
+			if (game->map->map[y][x] == 3)
 			{
 				game->doors[i] = ft_init_door(x, y);
 				if (!game->doors[i])
@@ -246,7 +259,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->map->height = 0;
 	game->plane = ft_init_vector(0, 0);
 	game->player = ft_init_player();
-	game->frame = 0;
+	game->frame = 50;
 	game->textures_path = malloc(4 * sizeof(char *));
 	ft_parsing(game, ac, av);
 	printf("%d - %d\n", game->map->width, game->map->height);

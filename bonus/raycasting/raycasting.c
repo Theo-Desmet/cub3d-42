@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 13:58:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:47:29 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	ft_update_sprite(t_game *game, t_sprite *sprite)
 	if (((int)sprite->pos->x != (int)sprite->last_pos->x) ||
 		((int)sprite->pos->y != (int)sprite->last_pos->y))
 	{
-		type = game->map->map[(int)sprite->last_pos->x][(int)sprite->last_pos->y];
-		game->map->map[(int)sprite->last_pos->x][(int)sprite->last_pos->y] = 0;
+		type = game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x];
+		game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x] = 0;
 		sprite->last_pos->y = sprite->pos->y;
 		sprite->last_pos->x = sprite->pos->x;
-		game->map->map[(int)sprite->pos->x][(int)sprite->pos->y] = type;
+		game->map->map[(int)sprite->pos->y][(int)sprite->pos->x] = type;
 	}
 }
 
@@ -94,6 +94,61 @@ void	ft_sprite_cast(t_game *game)
 	}
 }
 
+void	ft_draw_gun(t_game *game, int frame)
+{
+	int size = (screenWidth / screenHeight) * (screenHeight / SPRITE_SIZE) / 3;
+	int				x1;
+	int				y1;
+	unsigned int	color;
+	int				save;
+	t_vector		*pos;
+	y1 = 0;
+	pos = ft_init_vector((screenWidth - (SPRITE_SIZE * size)) / 2, (screenHeight - SPRITE_SIZE * size));
+	save = (int)pos->x;
+	while (y1 < SPRITE_SIZE)
+	{
+		pos->x = save;
+		x1 = 0;
+		while (x1 < SPRITE_SIZE)
+		{
+			color = ft_get_pixel(game->assets->gun, x1 + (SPRITE_SIZE * frame), y1);
+			if (!(color == (unsigned int)(0xFF << 24)))
+				ft_draw_square2(game->img, pos, size, color);
+			pos->x += size;
+			x1++;
+		}
+		pos->y += size;
+		y1++;
+	}
+	free(pos);
+}
+
+void	ft_gun(t_game *game)
+{
+	if (game->shooting)
+	{
+		game->frame -= 2;
+		if (game->frame >= 50)
+			ft_draw_gun(game, 0);
+		else if (game->frame >= 40)
+			ft_draw_gun(game, 1);
+		else if (game->frame >= 30)
+			ft_draw_gun(game, 2);
+		else if (game->frame >= 20)
+			ft_draw_gun(game, 3);
+		else if (game->frame >= 10)
+			ft_draw_gun(game, 4);
+		else
+		{
+			game->frame = 50;
+			game->shooting = false;
+			ft_draw_gun(game, 0);
+		}
+	}
+	else
+		ft_draw_gun(game, 0);
+}
+
 void	ft_render(t_game *game)
 {
 	t_render	*render;
@@ -118,9 +173,7 @@ void	ft_render(t_game *game)
 		render->x++;
 	}
 	ft_sprite_cast(game);
-
-	int size = (screenWidth / screenHeight) * (screenHeight / SPRITE_SIZE) / 3;
-	ft_paint(game->assets->gun, game->img, ft_init_vector((screenWidth - (SPRITE_SIZE * size)) / 2, (screenHeight - SPRITE_SIZE * size)), size);
+	ft_gun(game);
 	ft_draw_minimap(game);
 
 	free(render);

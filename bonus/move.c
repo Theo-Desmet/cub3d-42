@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:22:57 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:04:06 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	ft_is_valid_tiles(t_game *game, int x, int y)
 {
-	return (game->map->map[y][x] == 0 || game->map->map[y][x] == 4);
+	return (game->map->map[y][x] == 0 || game->map->map[y][x] == 4 || game->map->map[y][x] == 5);
 }
 
 void	ft_strafe(t_game *game)
@@ -48,7 +48,7 @@ void	ft_rotate(t_game *game)
 	t_player	*p;
 
 	p = game->player;
-	if (game->rotate_left)
+	if (game->rotate_left || game->mouse_left)
 		r_speed = -p->rot_speed;
 	else
 		r_speed = p->rot_speed;
@@ -73,7 +73,6 @@ void	ft_move(t_game *game)
 	{
 		if (ft_is_valid_tiles(game, (int)(player->pos->x + (player->dir->x * player->walk_speed * 2)), (int)(player->pos->y)))
 			player->pos->x += player->dir->x * player->walk_speed;
-
 		if (ft_is_valid_tiles(game, (int)(player->pos->x), (int)(player->pos->y + (player->dir->y * player->walk_speed * 2))))
 			player->pos->y += player->dir->y * player->walk_speed;
 	}
@@ -85,6 +84,7 @@ void	ft_move(t_game *game)
 			- player->dir->y * FAC)))
 			player->pos->y -= player->dir->y * player->walk_speed;
 	}
-	if (game->rotate_left || game->rotate_right)
+	if (game->rotate_left || game->rotate_right || game->mouse_left
+		|| game->mouse_right)
 		ft_rotate(game);
 }

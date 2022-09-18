@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 14:14:07 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:47:35 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_key_down(int keycode, t_game *game)
 {
+	if (keycode == 65507)
+		game->shooting = true;
 	if (keycode == 65505)
 		game->player->walk_speed = 0.16;
 	if (keycode == 65513)
@@ -89,20 +91,22 @@ int	ft_loop(t_game *game)
 	game->object->tick++;
 	while (++i < game->object->nb_obj)
 	{
-		if (game->object->tick == 25)
-			game->object->objects[i]->frame = 1;
-		if (game->object->tick == 50)
-			game->object->objects[i]->frame = 2;
-		if (game->object->tick == 75)
-			game->object->objects[i]->frame = 3;
-		if (game->object->tick == 120)
+		if (game->object->objects[i]->animated)
 		{
-			game->object->objects[i]->frame = 0;
-			game->object->tick = 0;
+			if (game->object->tick == 25)
+				game->object->objects[i]->frame = 1;
+			if (game->object->tick == 50)
+				game->object->objects[i]->frame = 2;
+			if (game->object->tick == 75)
+				game->object->objects[i]->frame = 3;
+			if (game->object->tick == 120)
+			{
+				game->object->objects[i]->frame = 0;
+				game->object->tick = 0;
+			}
 		}
 	}
 	ft_render(game);
-	mlx_do_sync(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	// mlx_destroy_image(game->mlx, game->img->mlx_img);
 	// free(game->img);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:26:56 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:54:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,6 @@ void	ft_draw_trans(t_game *game, t_vector *vector, int size, int color)
 // 	}
 // 	ft_draw_player_minimap(game);
 // }
-
-#define ZOOM 10
-#define FACT 10
-#define OFFSET 10
-#define NUMBER 21
-#define SIZE 15
-
-
 
 // void	ft_draw_minimap(t_game *game)
 // {
@@ -280,63 +272,132 @@ void	ft_draw_trans(t_game *game, t_vector *vector, int size, int color)
 	
 // }
 
-double cacheX = 11;
-double cacheY = 3;
+// double cacheX = 11;
+// double cacheY = 3;
 
-int zoom = 8;
+// int zoom = 8;
+
+// void	ft_draw_minimap(t_game *game)
+// {
+// 	double	rectX;
+// 	double	rectY;
+// 	int		mapX;
+// 	int		mapY;
+
+// 	rectX = -(fmod(game->player->pos->x, 1.0)) * SIZE;
+// 	mapX = -zoom;
+// 	while (++mapX < zoom)
+// 	{
+// 		mapY = -zoom;
+// 		rectY = -(fmod(game->player->pos->y, 1.0)) * SIZE;
+// 		while (mapY < zoom)
+// 		{
+// 			int a = mapX + (int)game->player->pos->x;
+// 			int b = mapY + (int)game->player->pos->y;
+// 			if (a >= 0 && b >= 0 && a < game->map->width && b < game->map->height)
+// 			{
+// 				if (game->map->map[b][a] == 1)
+// 					ft_draw_trans(game, ft_init_vector(rectY, rectX), SIZE, 0x60);
+// 				else if (game->map->map[b][a] == 0)
+// 					ft_draw_trans(game, ft_init_vector(rectY, rectX), SIZE, 0x0000FF);
+// 			}
+// 			rectY += SIZE;
+// 			mapY++;
+// 		}
+// 		rectX += SIZE;
+// 	}
+// 	// ft_draw_square(game->img, ft_init_vector(game->player->pos->y, game->player->pos->x * SIZE), 6, 0xFF);
+
+// 	// ft_draw_square(game->img, ft_init_vector(rectX - game->player->pos->x * SIZE, rectY - game->player->pos->y * SIZE), 6, 0xFF);
+// 	ft_draw_trans(game, ft_init_vector((rectY - (SIZE)) / 2.0, (rectX - (SIZE)) / 2.0), 8, 0);
+// }
+
+// void	ft_draw_minimap2(t_game *game)
+// {
+// 	int x;
+// 	int	y;
+	
+// 	y = -1;
+// 	while (++y < game->map->height)
+// 	{
+// 		x = -1;
+// 		while (++x < game->map->width)
+// 		{
+// 			if (game->map->map[y][x] == 1)
+// 				ft_draw_trans(game, ft_init_vector(x * 10, y * 10), 10, 0x60);
+// 			else
+// 				ft_draw_trans(game, ft_init_vector(10 * x, y * 10), 10, 0x0000FF);
+// 		}
+// 	}
+// 	ft_draw_player_minimap(game);
+// 	ft_draw_minimap2(game);
+// }
+
+
+
+
+enum MAP {
+	OFFSET = 10,
+	SIZE_MAP = 80,
+	VISIBILITY = 15,
+	SIZE_TILE = (SIZE_MAP * 2) / VISIBILITY,
+};
+
+// bool	ft_is_in_limit(double x, double y, int center_circle)
+// {
+// 	double	dist;
+
+// 	dist = hypot(x - center_circle, y - center_circle);
+// 	if (dist <= center_circle - 2)
+// 		return (true);
+// 	return (false);
+// }
+
+bool	ft_is_in_limit(double x, double y)
+{
+	return ((x <= ((SIZE_TILE) * VISIBILITY) && y <= (SIZE_TILE * VISIBILITY)) && x >= OFFSET && y >= OFFSET);
+}
+
+void	ft_draw_squa(t_game *game, t_vector pos, int color, int size)
+{
+	double	x;
+	double	y;
+
+	y = pos.y;
+	while (y++ < pos.y + size)
+	{
+		x = pos.x;
+		while (x++ < pos.x + size)
+			if (ft_is_in_limit(x, y))
+				ft_put_pixel(game->img, (int)x, (int)y, color);
+	}
+}
 
 void	ft_draw_minimap(t_game *game)
 {
-	double	rectX;
-	double	rectY;
-	int		mapX;
-	int		mapY;
-
-	rectX = -(fmod(game->player->pos->x, 1.0)) * SIZE;
-	mapX = -zoom;
-	while (++mapX < zoom)
-	{
-		mapY = -zoom;
-		rectY = -(fmod(game->player->pos->y, 1.0)) * SIZE;
-		while (mapY < zoom)
-		{
-			int a = mapX + (int)game->player->pos->x;
-			int b = mapY + (int)game->player->pos->y;
-			if (a >= 0 && b >= 0 && a < game->map->width && b < game->map->height)
-			{
-				if (game->map->map[b][a] == 1)
-					ft_draw_trans(game, ft_init_vector(rectY, rectX), SIZE, 0x60);
-				else if (game->map->map[b][a] == 0)
-					ft_draw_trans(game, ft_init_vector(rectY, rectX), SIZE, 0x0000FF);
-			}
-			rectY += SIZE;
-			mapY++;
-		}
-		rectX += SIZE;
-	}
-	// ft_draw_square(game->img, ft_init_vector(game->player->pos->y, game->player->pos->x * SIZE), 6, 0xFF);
-
-	// ft_draw_square(game->img, ft_init_vector(rectX - game->player->pos->x * SIZE, rectY - game->player->pos->y * SIZE), 6, 0xFF);
-	ft_draw_trans(game, ft_init_vector((rectY - (SIZE)) / 2.0, (rectX - (SIZE)) / 2.0), 8, 0);
-}
-
-void	ft_draw_minimap2(t_game *game)
-{
-	int x;
+	int	x;
 	int	y;
-	
-	y = -1;
-	while (++y < game->map->height)
+	t_vector	pos;
+
+
+	pos.x = 0;
+	pos.y = 0;
+	ft_draw_squa(game, pos, 0xFFFFFF, (SIZE_TILE + 1) * VISIBILITY);
+	y = fmax(0.0, game->player->pos->y - (VISIBILITY / 2));
+	while (y <= game->player->pos->y + (VISIBILITY / 2) && y < game->map->height)
 	{
-		x = -1;
-		while (++x < game->map->width)
+		x = fmax(0.0, game->player->pos->x - (VISIBILITY / 2));
+		while (x <= game->player->pos->x + (VISIBILITY / 2) && x < game->map->width)
 		{
+			pos.y = (y * SIZE_TILE) - (game->player->pos->y * SIZE_TILE) + OFFSET + SIZE_MAP;
+			pos.x = (x * SIZE_TILE) - (game->player->pos->x * SIZE_TILE) + OFFSET + SIZE_MAP;
 			if (game->map->map[y][x] == 1)
-				ft_draw_trans(game, ft_init_vector(x * 10, y * 10), 10, 0x60);
-			else
-				ft_draw_trans(game, ft_init_vector(10 * x, y * 10), 10, 0x0000FF);
+				ft_draw_squa(game, pos, 0xFF, SIZE_TILE);
+			x++;
 		}
+		y++;
 	}
-	ft_draw_player_minimap(game);
-	ft_draw_minimap2(game);
+	pos.x = OFFSET + SIZE_MAP - 1;
+	pos.y = OFFSET + SIZE_MAP - 1;
+	ft_draw_squa(game, pos, 0xFF0000, 4);
 }

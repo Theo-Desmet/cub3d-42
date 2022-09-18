@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 11:15:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 21:57:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 
 	asset->ceil = ft_init_img(mlx, "assets/ceiling4.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	asset->floor = ft_init_img(mlx, "assets/floor2.xpm", SPRITE_SIZE, SPRITE_SIZE);
-	asset->gun = ft_init_img(mlx, "assets/gun.xpm", SPRITE_SIZE, SPRITE_SIZE);
+	asset->gun = ft_init_img(mlx, "assets/gunFrame.xpm", SPRITE_SIZE * 5, SPRITE_SIZE * 5);
 	asset->obj = ft_init_img(mlx, "assets/barrel2.xpm", SPRITE_SIZE * 4, SPRITE_SIZE * 4);
 	asset->door = ft_init_img(mlx, "assets/door.xpm", SPRITE_SIZE, SPRITE_SIZE);
 	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:11:12 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/11 22:47:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:38:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,7 @@ std::vector<std::vector <int>> *generateLevel(int const mapWidth, int const mapH
 
 #define WALL_CHAR "1"
 #define EMPTY_CHAR "0"
-#define DOOR_CHAR "0"
+#define DOOR_CHAR "3"
 
 void	exportPlayerSpawn(std::fstream &file, int dir)
 {

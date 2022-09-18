@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/25 11:12:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/18 16:37:11 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,24 @@ inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
 	return (cache_color);
 }
 
-void	ft_draw_circle(t_img *img, t_vector *pos, int r, int color)
-{
-	double	i;
-	double	angle;
-	double	x;
-	double	y;
+// void	ft_draw_circle(t_img *img, t_vector *pos, int r, int color)
+// {
+// 	double	i;
+// 	double	angle;
+// 	double	x;
+// 	double	y;
 
-	i = 0;
-	while (i < 360)
-	{
-		angle = i;
-		x = r * cos(angle * M_PI / 180);
-		y = r * sin(angle * M_PI / 180);
-		ft_put_pixel(img, x + pos->x, y + pos->y, color);
-		i += 0.1;
-	}
-	free(pos);
-}
+// 	i = 0;
+// 	while (i < 360)
+// 	{
+// 		angle = i;
+// 		x = r * cos(angle * M_PI / 180);
+// 		y = r * sin(angle * M_PI / 180);
+// 		ft_put_pixel(img, x + pos->x, y + pos->y, color);
+// 		i += 0.1;
+// 	}
+// 	free(pos);
+// }
 
 void	ft_draw_square(t_img *img, t_vector *pos, int size, int color)
 {
