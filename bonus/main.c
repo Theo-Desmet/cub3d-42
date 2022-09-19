@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/18 22:27:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:57:07 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	mouse_handling(int x, int y, t_game *game)
 {
 	static int	last_x;
 	
+	(void)y;
 	mlx_mouse_move(game->mlx, game->win, screenWidth / 2, screenHeight / 2);
 	if (last_x != x)
 	{
@@ -53,7 +54,7 @@ int main(int ac, char **av)
 	mlx_hook(game->win, 2, 1L, ft_key_down, game);
 	mlx_hook(game->win, 3, 1L << 1, ft_key_up, game);
 	mlx_hook(game->win, 17, 1L, ft_free_all, game);
-	// mlx_hook(game->win, 6, 1L << 6, mouse_handling, game);
+	mlx_hook(game->win, 6, 1L << 6, mouse_handling, game);
 	mlx_loop_hook(game->mlx, ft_loop, game);
 	mlx_loop(game->mlx);
 	ft_free_all(game);

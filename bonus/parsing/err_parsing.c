@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:37:46 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:00:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_err_file_name(t_game *game, int argc, int error)
 void	ft_err_in_file(t_game *game, t_check *check, int error, int line)
 {
 	char	*line_nb;
+
+	(void)check;
 
 	line_nb = ft_itoa(line);
 	if (error == 0)

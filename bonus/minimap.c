@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/18 22:54:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/19 13:49:08 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,7 @@ void	ft_draw_trans(t_game *game, t_vector *vector, int size, int color)
 enum MAP {
 	OFFSET = 10,
 	SIZE_MAP = 80,
-	VISIBILITY = 15,
+	VISIBILITY = 20,
 	SIZE_TILE = (SIZE_MAP * 2) / VISIBILITY,
 };
 
@@ -392,7 +392,7 @@ void	ft_draw_minimap(t_game *game)
 			pos.y = (y * SIZE_TILE) - (game->player->pos->y * SIZE_TILE) + OFFSET + SIZE_MAP;
 			pos.x = (x * SIZE_TILE) - (game->player->pos->x * SIZE_TILE) + OFFSET + SIZE_MAP;
 			if (game->map->map[y][x] == 1)
-				ft_draw_squa(game, pos, 0xFF, SIZE_TILE);
+				ft_draw_squa(game, pos, 0xFF, SIZE_TILE - 1);
 			x++;
 		}
 		y++;

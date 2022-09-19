@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/15 11:17:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:59:48 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_check_is_head(char *str)
 
 int	ft_check_valid_head(t_game *game, t_check *check)
 {
+	(void)game;
 	if (!check->east)
 		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
 	if (!check->weast)

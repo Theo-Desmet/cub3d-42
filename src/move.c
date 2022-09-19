@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:00:08 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/19 10:58:24 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_move(t_game *game)
 	t_player	*play;
 
 	play = game->player;
-	printf("%f - %f\n", play->pos->x, play->pos->y);
 	ft_reset_pos(game);
 	if (game->left || game->right)
 		ft_strafe(game);

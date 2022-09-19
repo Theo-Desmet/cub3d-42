@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/18 22:37:48 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:57:44 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
 {
 	t_sprite	*res;
 
+	(void)game;
 	res = malloc(sizeof(t_sprite));
 	if (!res)
 		return (NULL);
