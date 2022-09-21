@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/15 15:55:02 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:00:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_check_map(t_game *game, char *line, t_check *check, int line_cnt)
 		free(line);
 		return (ft_err_in_file(game, check, 1, line_cnt), 0);
 	}
-	check->spwan = ft_check_spawn(game, line, check->spwan, line_cnt);
-	if (check->spwan < 0)
+	check->spawn = ft_check_spawn(game, line, check->spawn, line_cnt);
+	if (check->spawn < 0)
 	{
 		free(line);
 		return (ft_err_in_file(game, check, 2, line_cnt), 0);
@@ -34,10 +34,7 @@ int	ft_is_valid_map_line(t_game *game, char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == '0' || line[i] == '1'
-		|| line[i] == 'W' || line[i] == 'E'
-		|| line[i] == 'S' || line[i] == 'N'
-		|| line[i] == ' ')
+	while (ft_strchr("01EWSN ", line[i]))
 		i++;
 	if (!line[i] || line[i] == '\n')
 	{
@@ -79,39 +76,35 @@ t_check	*ft_init_check(t_check *check)
 	check->south = 0;
 	check->floor = 0;
 	check->ceiling = 0;
-	check->spwan = 0;
+	check->spawn = 0;
 	return (check);
 }
 
 int	ft_check_file(t_game *game, int fd, t_check *check)
 {
-	char	*line;
-	int		ishead;
-	int		line_cnt;
-	int		len_header;
-
 	check = ft_init_check(check);
-	ishead = 1;
-	line_cnt = 0;
-	len_header = 0;
+	check->is_head = true;
+	check->line_cnt = 0;
+	check->len_hdr = 0;
 	while (1)
 	{
-		line = get_next_line(fd);
-		if (!line)
+		check->line = get_next_line(fd);
+		if (!check->line)
 			break ;
-		line_cnt++;
-		if (ishead && !ft_check_is_head(line))
-			ishead = ft_check_valid_head(game, check);
-		if (ishead && !ft_check_map_head(game, line, check))
-			return (free(line),
-				ft_err_in_file(game, check, 0, line_cnt), 0);
-		if (ishead)
-			len_header++;
-		if (!ishead && !ft_check_map(game, line, check, line_cnt - len_header - 1))
+		check->line_cnt++;
+		if (check->is_head && !ft_check_is_head(check->line))
+			check->is_head = ft_check_valid_head(game, check);
+		if (check->is_head && !ft_check_map_head(game, check->line, check))
+			return (free(check->line),
+				ft_err_in_file(game, check, 0, check->line_cnt), 0);
+		if (check->is_head)
+			check->len_hdr++;
+		if (!check->is_head && !ft_check_map(game, check->line, check,
+				check->line_cnt - check->len_hdr - 1))
 			return (0);
-		free(line);
+		free(check->line);
 	}
-	if (!check->spwan)
+	if (!check->spawn)
 		return (ft_err_in_file(game, check, 3, 0), 0);
 	return (1);
 }

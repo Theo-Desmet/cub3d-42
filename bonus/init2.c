@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/19 11:57:44 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/20 23:38:43 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	ft_init_dir(t_game *game)
+void	ft_init_bool(t_game *game)
 {
 	game->forward = false;
 	game->backward = false;
@@ -269,7 +269,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->ray = ft_init_ray();
 	game->object = ft_init_obj(game);
 	game->doors	= ft_get_doors(game);
-	ft_init_dir(game);
+	ft_init_bool(game);
 	if (!game->win || !game->assets || !game->player || !game->ray
 		|| !game->plane || !game->object || !game->doors || !game->textures_path)
 		return (ft_free_all(game), NULL);

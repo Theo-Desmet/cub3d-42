@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 16:18:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 02:43:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,8 @@ void	ft_prepare_ray(t_game *game, int x)
 	ray->camera_x = 2.0 * (double)x / (double)screenWidth - 1.0;
 	ray->dir->x = game->player->dir->x + game->plane->x * ray->camera_x;
 	ray->dir->y = game->player->dir->y + game->plane->y * ray->camera_x;
-
-	// ray->ddx = sqrt(1.0 + pow(ray->dir->y, 2.0) / pow(ray->dir->x, 2.0));
-	// ray->ddy = sqrt(1.0 + pow(ray->dir->x, 2.0) / pow(ray->dir->y, 2.0));
-
 	ray->ddx = fabs(1 / ray->dir->x);
 	ray->ddy = fabs(1 / ray->dir->y);
-
 	ray->pos->x = game->player->pos->x;
 	ray->pos->y = game->player->pos->y;
 	ray->map_x = (int)ray->pos->x;
@@ -99,28 +94,15 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 		render->perp_wall_dist = game->ray->sidedist_x - game->ray->ddx;
 	else
 		render->perp_wall_dist = game->ray->sidedist_y - game->ray->ddy;
-	// if (game->ray->side == 0)
-	// 	render->perp_wall_dist = (((double)game->ray->map_x - game->ray->pos->x + render->x_offset + (1.0 - (double)game->ray->step_x) / 2.0) / game->ray->dir->x);
-	// else
-	// 	render->perp_wall_dist = (((double)game->ray->map_y - game->ray->pos->y + render->y_offset + (1.0 - (double)game->ray->step_y) / 2.0) / game->ray->dir->y);
-	
 	render->height_line = ((int)(screenHeight / render->perp_wall_dist));
 	render->start = - (render->height_line) / 2 + screenHeight / 2;
 	render->end = render->height_line / 2 + screenHeight / 2;
 	if (render->start < 0)
 		render->start = 0;
 	if (render->end >= screenHeight)
-		render->end = screenHeight;	
+		render->end = screenHeight;
 	if (render->end < 0)
 		render->end = screenHeight;
-
-	// if (game->ray->side == 1)
-	// 	render->wall_x = ray->pos->x + (((double)ray->map_y - ray->pos->y 
-	// 		+ (1.0 - (double)ray->step_y) / 2.0) / ray->dir->y) * ray->dir->x;
-	// else
-	// 	render->wall_x = ray->pos->y + (((double)ray->map_x - ray->pos->x 
-	// 		+ (1.0 - (double)ray->step_x) / 2.0) / ray->dir->x) * ray->dir->y;
-
 	if (game->ray->side == 0)
 		render->wall_x = ray->pos->y + render->perp_wall_dist * ray->dir->y;
 	else
@@ -131,7 +113,6 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 
 void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 {
-
 	ft_prepare_proj(game, render);
 	if (ray->side == 0 && ray->dir->x > 0.0)
 		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;

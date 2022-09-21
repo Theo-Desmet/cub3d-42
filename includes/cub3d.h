@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/15 11:00:49 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 04:23:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@
 # include <math.h>
 # include "define.h"
 # include "parsing.h"
+#include <stdbool.h>
+
+enum	e_error_msg
+{
+	NO_FILE,
+	TOO_MANY_FILE,
+	BAD_EXTENSION,
+	BAD_FORMAT,
+	NOT_FOUND,
+	INVALID_SYNTAX,
+	INVALID_CHAR,
+	MULTI_SPAWN,
+	NO_SPAWN,
+	COPY_ERROR,
+	INVALID_HEADER
+};
 
 void    ft_free_map(t_game *game, int i);
 /* -------------------------------------------------------------------------- */
@@ -64,7 +80,7 @@ void	ft_fog(double dist, int *color);
 t_img	*ft_init_img(void *mlx, char *path, int width, int height);
 t_assets	*ft_init_assets(t_game *game, void *mlx);
 t_vector	*ft_init_vector(double x, double y);
-t_player	*ft_init_player(void);
+t_player	*ft_init_player(t_game *game);
 t_ray	*ft_init_ray(void);
 
 /* -------------------------------------------------------------------------- */
@@ -96,7 +112,7 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = src/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
-int	ft_free_all(t_game *game);
+int		ft_free_all(t_game *game);
 t_render	*ft_init_render(void);
 void	ft_sprite_cast(t_game *game);
 void	ft_render(t_game *game);
@@ -122,7 +138,7 @@ void	ft_wall_color(t_game *game, t_ray *ray, t_render *render);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = src/init2.c                             */
 /* -------------------------------------------------------------------------- */
-void	ft_init_dir(t_game *game);
+void	ft_init_bool(t_game *game);
 t_object	*ft_alloc_objs(t_object *obj);
 void	ft_get_objs(t_object *obj);
 t_object	*ft_init_obj(t_game *game);

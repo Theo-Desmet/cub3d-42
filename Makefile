@@ -6,13 +6,15 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/09/13 10:35:02 by bbordere         ###   ########.fr        #
+#    Updated: 2022/09/21 05:39:49 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
 
-CFLAGS = -I includes/ -g3 -Ofast -finline-functions -fno-rtti #-g3 #-Wall -Werror -Wextra -g3
+CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti -flto -g3 #-Wall -Werror -Wextra
+
+BFLAG = 
 
 FILES = $(wildcard src/*.c) $(wildcard src/raycasting/*.c) $(wildcard src/parsing/*.c)
 
@@ -24,11 +26,13 @@ BOBJS = $(BFILES:.c=.o)
 
 NAME = cub3d
 
+DEPS = $(wildcard includes/*.h)
+
 BNAME = cub3d_bonus
 
-%.o: %.c
-	@printf "\033[0;33mCompiling camarade: %-33.33s\r" $@
-	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $< -o $@
+%.o: %.c $(DEPS)
+	@printf "\033[0;33mCompiling file: %-33.33s\r" $@
+	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -D BONUS=1 -c $< -o $@
 
 $(NAME): $(OBJS)
 	@ $(MAKE) -C libft all --no-print-directory
@@ -38,12 +42,12 @@ $(NAME): $(OBJS)
 all: $(NAME)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
-	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME) -D MANDATORY=1
+	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME)
 
 bonus: $(BOBJS)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
-	@ $(CC) $(CFLAGS) $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o  $(BNAME) -D BONUS=1
+	@ $(CC) $(CFLAGS) -D BONUS=1 $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(BNAME)
 
 clean:
 	@ rm -f $(OBJS)

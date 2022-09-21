@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:21:01 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 04:51:01 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	**ft_fill_map(t_game *game, int **map, char *line, int fd)
 	x = 0;
 	while (x < game->map->height)
 	{
-		map[x] = malloc(sizeof(int) * game->map->width);
+		map[x] = ft_calloc(game->map->width, sizeof(int));
 		if (!map[x])
 			return (ft_err_copy_map(game, x), NULL);
 		map[x] = ft_fill_line(game, line, map[x]);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/19 12:00:09 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:00:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void	ft_err_in_file(t_game *game, t_check *check, int error, int line)
 	{	
 		ft_putstr_fd("error in file: line ", 2);
 		ft_putstr_fd(line_nb, 2);
-		ft_putstr_fd(": redifine of spwan, please use only one\n", 2);
+		ft_putstr_fd(": redifine of spawn, please use only one\n", 2);
 		game->map->width = 0;
 		game->map->height = 0;
 	}
 	if (error == 3)
 	{
-		ft_putstr_fd("error in file: no spwan in map\n", 2);
+		ft_putstr_fd("error in file: no spawn in map\n", 2);
 		game->map->width = 0;
 		game->map->height = 0;
 	}

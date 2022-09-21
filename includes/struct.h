@@ -6,13 +6,12 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/18 22:36:26 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:10:39 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
-
 # include <stdbool.h>
 
 typedef struct s_img
@@ -28,13 +27,17 @@ typedef struct s_img
 
 typedef struct s_check
 {
-	int	east;
-	int	weast;
-	int	north;
-	int	south;
-	int	floor;
-	int	ceiling;
-	int	spwan;
+	int		east;
+	int		weast;
+	int		north;
+	int		south;
+	int		floor;
+	int		ceiling;
+	int		spawn;
+	char	*line;
+	bool	is_head;
+	int		line_cnt;
+	int		len_hdr;
 }	t_check;
 
 typedef struct s_assets
@@ -193,6 +196,7 @@ typedef struct s_game
 	int			nb_doors;
 	int			frame;
 	char		**textures_path;
+	char		**error_msg;
 	void		*mlx;
 	void		*win;
 	bool		forward;

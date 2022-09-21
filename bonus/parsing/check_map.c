@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/15 16:36:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:02:15 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_check_map(t_game *game, char *line, t_check *check, int line_cnt)
 		free(line);
 		return (ft_err_in_file(game, check, 1, line_cnt), 0);
 	}
-	check->spwan = ft_check_spawn(game, line, check->spwan, line_cnt);
-	if (check->spwan < 0)
+	check->spawn = ft_check_spawn(game, line, check->spawn, line_cnt);
+	if (check->spawn < 0)
 	{
 		free(line);
 		return (ft_err_in_file(game, check, 2, line_cnt), 0);
@@ -34,11 +34,7 @@ int	ft_is_valid_map_line(t_game *game, char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == '0' || line[i] == '1'
-		|| line[i] == 'W' || line[i] == 'E'
-		|| line[i] == 'S' || line[i] == 'N'
-		|| line[i] == ' ' || line[i] == '3'
-		|| line[i] == '2' || line[i] == '5')
+	while (ft_strchr("01EWSN235 ", line[i]))
 		i++;
 	if (!line[i] || line[i] == '\n')
 	{
@@ -80,7 +76,7 @@ t_check	*ft_init_check(t_check *check)
 	check->south = 0;
 	check->floor = 0;
 	check->ceiling = 0;
-	check->spwan = 0;
+	check->spawn = 0;
 	return (check);
 }
 
@@ -112,7 +108,7 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 			return (0);
 		free(line);
 	}
-	if (!check->spwan)
+	if (!check->spawn)
 		return (ft_err_in_file(game, check, 3, 0), 0);
 	return (1);
 }

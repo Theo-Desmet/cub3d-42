@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/15 10:57:28 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 04:24:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,8 @@ int	ft_check_is_head(char *str)
 
 int	ft_check_valid_head(t_game *game, t_check *check)
 {
-	if (!check->east)
-		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
-	if (!check->weast)
-		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
-	if (!check->north)
-		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
-	if (!check->south)
-		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
-	if (!check->floor)
-		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
-	if (!check->ceiling)
-		return (ft_putstr_fd("error in file: Invalide line in head\n", 2), 1);
+	if (!check->east || !check->weast || !check->north || !check->south
+		|| !check->floor || !check->ceiling)
+		return (ft_putstr_fd(game->error_msg[INVALID_HEADER], 2), 1);
 	return (0);
 }

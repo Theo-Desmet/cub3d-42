@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/19 11:57:07 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 07:01:00 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int main(int ac, char **av)
 	game = ft_init_game(ac, av);
 	if (!game)
 		exit(EXIT_FAILURE);
+	printf("%s\n", test);
 	mlx_mouse_hide(game->mlx, game->win);
 	mlx_do_sync(game->mlx);
 	mlx_hook(game->win, 2, 1L, ft_key_down, game);

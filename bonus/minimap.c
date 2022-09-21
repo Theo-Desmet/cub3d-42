@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/19 13:49:08 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:34:01 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,7 @@ enum MAP {
 	SIZE_MAP = 80,
 	VISIBILITY = 20,
 	SIZE_TILE = (SIZE_MAP * 2) / VISIBILITY,
+	SIZE_PLAYER
 };
 
 // bool	ft_is_in_limit(double x, double y, int center_circle)

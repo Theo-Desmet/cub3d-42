@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/09/18 16:36:34 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/20 23:38:40 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	ft_wall_color(t_game *game, t_ray *ray, t_render *render);
 /* -------------------------------------------------------------------------- */
 /*                            FILE = bonus/init2.c                            */
 /* -------------------------------------------------------------------------- */
-void	ft_init_dir(t_game *game);
+void	ft_init_bool(t_game *game);
 t_object	*ft_alloc_objs(t_game *game, t_object *obj);
 void	ft_get_objs(t_game *game, t_object *obj);
 t_object	*ft_init_obj(t_game *game);

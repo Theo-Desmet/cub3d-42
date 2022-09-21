@@ -6,11 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:20:28 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/15 15:55:58 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 05:20:04 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
 
 int	main(int ac, char **av)
 {
