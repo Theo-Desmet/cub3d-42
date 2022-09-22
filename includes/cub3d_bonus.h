@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/09/20 23:38:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:32:19 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ft_draw_minimap(t_game *game);
 void	ft_free_assets(t_assets *assets, void *mlx);
 void	ft_free_player(t_player *player);
 void	ft_free_ray(t_ray *ray);
-void	ft_free_obj_tab(t_object *obj);
-void	ft_free_obj(t_object *obj);
+void	ft_free_obj_tab(t_game *game, t_object *obj);
+void	ft_free_obj(t_game *game, t_object *obj);
 
 /* -------------------------------------------------------------------------- */
 /*                             FILE = bonus/key.c                             */

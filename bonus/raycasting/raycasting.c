@@ -6,33 +6,33 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/18 22:47:29 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:08:36 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <stdbool.h>
 
-int	ft_free_all(t_game *game)
-{
-	free(game->img);
-	if (game->assets)
-		ft_free_assets(game->assets, game->mlx);
-	if (game->player)
-		ft_free_player(game->player);
-	if (game->ray)
-		ft_free_ray(game->ray);
-	if (game->plane)
-		free(game->plane);
-	if (game->object)
-		ft_free_obj(game->object);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	free(game);
-	exit(EXIT_SUCCESS);
-}
+// int	ft_free_all(t_game *game)
+// {
+// 	free(game->img);
+// 	if (game->assets)
+// 		ft_free_assets(game->assets, game->mlx);
+// 	if (game->player)
+// 		ft_free_player(game->player);
+// 	if (game->ray)
+// 		ft_free_ray(game->ray);
+// 	if (game->plane)
+// 		free(game->plane);
+// 	if (game->object)
+// 		ft_free_obj(game->object);
+// 	if (game->win)
+// 		mlx_destroy_window(game->mlx, game->win);
+// 	mlx_destroy_display(game->mlx);
+// 	free(game->mlx);
+// 	free(game);
+// 	exit(EXIT_SUCCESS);
+// }
 
 t_render	*ft_init_render(void)
 {

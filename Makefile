@@ -6,13 +6,15 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/09/21 05:39:49 by bbordere         ###   ########.fr        #
+#    Updated: 2022/09/22 16:34:52 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
 
 CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti -flto -g3 #-Wall -Werror -Wextra
+
+# CFLAGS = -I includes/ -O0#-Wall -Werror -Wextra
 
 BFLAG = 
 

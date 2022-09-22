@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/07/20 15:17:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:46:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ void	ft_free_assets(t_assets *assets, void *mlx)
 		mlx_destroy_image(mlx, assets->floor->mlx_img);
 	if (assets->gun)
 		mlx_destroy_image(mlx, assets->gun->mlx_img);
-	if (assets->obj)
-		mlx_destroy_image(mlx, assets->obj->mlx_img);
+	if (assets->door)
+		mlx_destroy_image(mlx, assets->door->mlx_img);
 	free(assets->wall_E);
 	free(assets->wall_N);
 	free(assets->wall_S);
 	free(assets->wall_W);
 	free(assets->ceil);
 	free(assets->floor);
+	free(assets->door);
 	free(assets->gun);
-	free(assets->obj);
 	free(assets);
 }
 
@@ -59,29 +59,3 @@ void	ft_free_ray(t_ray *ray)
 	free(ray);
 }
 
-void	ft_free_obj_tab(t_object *obj)
-{
-	int	i;
-
-	i = 0;
-	while (i < obj->nb_obj)
-	{
-		free(obj->objects[i]);
-		i++;
-	}
-	free(obj->objects);
-	obj->objects = NULL;
-}
-
-void	ft_free_obj(t_object *obj)
-{
-	if (obj->zbuff)
-		free(obj->zbuff);
-	if (obj->dist)
-		free(obj->dist);
-	if (obj->objects)
-		ft_free_obj_tab(obj);
-	if (obj->order)
-		free(obj->order);
-	free(obj);
-}

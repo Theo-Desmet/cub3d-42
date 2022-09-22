@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/20 23:32:48 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/21 04:33:37 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	ft_check_ext_file(t_game *game, char *str, char *ext)
 	while (str[i])
 		i++;
 	if (ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
-		return (ft_err_file_name(game, 2, 1), 0);
+		return (ft_err_file_name(game, 2, BAD_EXTENSION), 0);
 	i -= ft_strlen(ext) + 1;
 	if (str[i] == '/')
-		return (ft_err_file_name(game, 2, 2), 0);
+		return (ft_err_file_name(game, 2, BAD_FORMAT), 0);
 	fd = open (str, O_RDONLY);
 	if (fd == -1)
-		return (ft_err_file_name(game, 2, 3), 0);
+		return (ft_err_file_name(game, 2, NOT_FOUND), 0);
 	return (fd);
 }
 
@@ -90,17 +90,17 @@ int	ft_parsing(t_game *game, int argc, char **argv)
 		return (0);
 	check = malloc(sizeof(t_check));
 	if (!check)
-		return (ft_free_game(game), 0);
+		return (0);
 	if (!ft_check_file(game, fd, check))
-		return (ft_free_game(game), free(check), 0);
+		return (free(check), 0);
 	close(fd);
 	free(check);
-	game->map->map = malloc(sizeof(int *) * game->map->height);
+	game->map->map = ft_calloc(game->map->height, sizeof(int *));
 	if (!game->map->map)
-		return (ft_free_game(game), 0);
+		return (0);
 	if (!ft_copy_map(game, game->map->map, argv[1]))
-		return (ft_free_game(game), 0);
+		return (0);
 	if (!ft_check_border(game, game->map->map))
-		return (ft_free_game(game), 0);
+		return (0);
 	return (1);
 }

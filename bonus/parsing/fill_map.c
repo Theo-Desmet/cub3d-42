@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:21:01 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/13 14:22:15 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:00:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	*ft_fill_line(t_game *game, char *line, int *map)
 				map[y++] = -1;
 		else if (line[y] == ' ')
 			map[y] = -1;
-		else if (line[y] == 'W' || line[y] == 'E'
-			|| line[y] == 'N' || line[y] == 'S')
+		else if (ft_strchr("WENS", line[y]))
 			map[y] = 0;
 		else
 			map[y] = line[y] - '0';
@@ -41,7 +40,7 @@ int	**ft_fill_map(t_game *game, int **map, char *line, int fd)
 	x = 0;
 	while (x < game->map->height)
 	{
-		map[x] = malloc(sizeof(int) * game->map->width);
+		map[x] = ft_calloc(game->map->width, sizeof(int));
 		if (!map[x])
 			return (ft_err_copy_map(game, x), NULL);
 		map[x] = ft_fill_line(game, line, map[x]);

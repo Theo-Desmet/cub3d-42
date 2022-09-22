@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/21 05:02:15 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:53:04 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,31 +82,27 @@ t_check	*ft_init_check(t_check *check)
 
 int	ft_check_file(t_game *game, int fd, t_check *check)
 {
-	char	*line;
-	int		ishead;
-	int		line_cnt;
-	int		len_header;
-
 	check = ft_init_check(check);
-	ishead = 1;
-	line_cnt = 0;
-	len_header = 0;
+	check->is_head = true;
+	check->line_cnt = 0;
+	check->len_hdr = 0;
 	while (1)
 	{
-		line = get_next_line(fd);
-		if (!line)
+		check->line = get_next_line(fd);
+		if (!check->line)
 			break ;
-		line_cnt++;
-		if (ishead && !ft_check_is_head(line))
-			ishead = ft_check_valid_head(game, check);
-		if (ishead && !ft_check_map_head(game, line, check))
-			return (free(line),
-				ft_err_in_file(game, check, 0, line_cnt), 0);
-		if (ishead)
-			len_header++;
-		if (!ishead && !ft_check_map(game, line, check, line_cnt - len_header - 1))
+		check->line_cnt++;
+		if (check->is_head && !ft_check_is_head(check->line))
+			check->is_head = ft_check_valid_head(game, check);
+		if (check->is_head && !ft_check_map_head(game, check->line, check))
+			return (free(check->line),
+				ft_err_in_file(game, check, 0, check->line_cnt), 0);
+		if (check->is_head)
+			check->len_hdr++;
+		if (!check->is_head && !ft_check_map(game, check->line, check,
+				check->line_cnt - check->len_hdr - 1))
 			return (0);
-		free(line);
+		free(check->line);
 	}
 	if (!check->spawn)
 		return (ft_err_in_file(game, check, 3, 0), 0);
