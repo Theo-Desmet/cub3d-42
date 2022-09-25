@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:45:40 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/12 14:36:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:50:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,6 @@ void	ft_floor(t_game *game, t_render *render)
 		ft_color_floor(game, render);
 		render->y--;
 	}
-
-	// int x = -1;
-	// t_img *sky = ft_init_img(game->mlx, "assets/sky.xpm", 0, 0);
-	// while (++x < screenWidth)
-	// {
-	// 	int y = -1;
-	// 	while (++y < screenHeight / 2)
-	// 	{
-	// 		render->color = ft_get_pixel(sky, x % 300, y % 225);
-	// 		ft_put_pixel(game->img, x, y, render->color);
-	// 	}
-	// }
 }
 
 void	ft_floor_wall(t_ray *ray, t_render *render)
@@ -110,19 +98,6 @@ void	ft_floor_wall(t_ray *ray, t_render *render)
 	}
 }
 
-void	ft_draw_sky_floor(t_game *game, t_render *render)
-{
-	render->y = render->end;
-	while (render->y < screenHeight)
-	{
-		ft_put_pixel(game->img, render->x, render->y,
-			0x4C5270); // SOL
-		ft_put_pixel(game->img, render->x, screenHeight - render->y - 1,
-			0x00D1D1); // CIEL
-		render->y++;
-	}
-}
-
 void	ft_wall_color(t_game *game, t_ray *ray, t_render *render)
 {
 	render->color = ft_get_pixel(game->assets->wall_S, \
@@ -136,7 +111,5 @@ void	ft_wall_color(t_game *game, t_ray *ray, t_render *render)
 	else if (ray->side == 0 && ray->dir->x > 0)
 		render->color = ft_get_pixel(game->assets->wall_N,\
 			render->sprite_x, render->sprite_y);
-	ft_fog(render->perp_wall_dist, &render->color);
-	
-	
+	ft_fog(render->perp_wall_dist, &render->color);	
 }

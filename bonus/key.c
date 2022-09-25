@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/22 16:28:15 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:22:37 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ int	ft_key_down(int keycode, t_game *game)
 		game->player->walk_speed = 0.16;
 	if (keycode == 65513)
 		game->player->walk_speed = 0.04;
-	if (keycode == 'k')
+	if (keycode == 65432)
 		game->object->objects[0]->pos->x += 0.1;
-	if (keycode == ',')
+	if (keycode == 65430)
 		game->object->objects[0]->pos->x -= 0.1;
+	if (keycode == 65431)
+		game->object->objects[0]->pos->y -= 0.1;
+	if (keycode == 65437)
+		game->object->objects[0]->pos->y += 0.1;
 	if (keycode == FORWARD_KEY)
 		game->forward = true;
 	if (keycode == BACKWARD_KEY)
@@ -101,7 +105,7 @@ int	ft_loop(t_game *game)
 				game->object->objects[i]->frame = 3;
 			if (game->object->tick == 120)
 			{
-				game->object->objects[i]->frame = 0;
+				game->object->objects[i]->frame = 4;
 				game->object->tick = 0;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/08/12 14:53:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:39:24 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	ft_fog(double dist, int *color)
 		*color = FOG_COLOR;
 		return ;
 	}
-	// else if (intensity < 0.05)
-	// 	return ;
 	ft_itorgb(*color, &r, &g, &b);
 	r = (1 - intensity) * r + intensity * (double)((FOG_COLOR >> 16) & 0xFF);
 	g = (1 - intensity) * g + intensity * (double)((FOG_COLOR >> 8) & 0xFF);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/21 04:23:56 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:44:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@
 # include "define.h"
 # include "parsing.h"
 #include <stdbool.h>
-
-enum	e_error_msg
-{
-	NO_FILE,
-	TOO_MANY_FILE,
-	BAD_EXTENSION,
-	BAD_FORMAT,
-	NOT_FOUND,
-	INVALID_SYNTAX,
-	INVALID_CHAR,
-	MULTI_SPAWN,
-	NO_SPAWN,
-	COPY_ERROR,
-	INVALID_HEADER
-};
 
 void    ft_free_map(t_game *game, int i);
 /* -------------------------------------------------------------------------- */

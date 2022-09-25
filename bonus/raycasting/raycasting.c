@@ -6,33 +6,12 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/22 15:08:36 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:54:38 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <stdbool.h>
-
-// int	ft_free_all(t_game *game)
-// {
-// 	free(game->img);
-// 	if (game->assets)
-// 		ft_free_assets(game->assets, game->mlx);
-// 	if (game->player)
-// 		ft_free_player(game->player);
-// 	if (game->ray)
-// 		ft_free_ray(game->ray);
-// 	if (game->plane)
-// 		free(game->plane);
-// 	if (game->object)
-// 		ft_free_obj(game->object);
-// 	if (game->win)
-// 		mlx_destroy_window(game->mlx, game->win);
-// 	mlx_destroy_display(game->mlx);
-// 	free(game->mlx);
-// 	free(game);
-// 	exit(EXIT_SUCCESS);
-// }
 
 t_render	*ft_init_render(void)
 {
@@ -101,26 +80,25 @@ void	ft_draw_gun(t_game *game, int frame)
 	int				y1;
 	unsigned int	color;
 	int				save;
-	t_vector		*pos;
+	t_vector		pos;
 	y1 = 0;
-	pos = ft_init_vector((screenWidth - (SPRITE_SIZE * size)) / 2, (screenHeight - SPRITE_SIZE * size));
-	save = (int)pos->x;
+	pos = (t_vector){(screenWidth - (SPRITE_SIZE * size)) / 2, (screenHeight - SPRITE_SIZE * size)};
+	save = (int)pos.x;
 	while (y1 < SPRITE_SIZE)
 	{
-		pos->x = save;
+		pos.x = save;
 		x1 = 0;
 		while (x1 < SPRITE_SIZE)
 		{
 			color = ft_get_pixel(game->assets->gun, x1 + (SPRITE_SIZE * frame), y1);
 			if (!(color == (unsigned int)(0xFF << 24)))
-				ft_draw_square2(game->img, pos, size, color);
-			pos->x += size;
+				ft_draw_square2(game->img, &pos, size, color);
+			pos.x += size;
 			x1++;
 		}
-		pos->y += size;
+		pos.y += size;
 		y1++;
 	}
-	free(pos);
 }
 
 void	ft_gun(t_game *game)
@@ -178,32 +156,3 @@ void	ft_render(t_game *game)
 
 	free(render);
 }
-
-// int worldMap[mapWidth][mapHeight]=
-// {
-// 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 1},
-// 	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1},
-// 	{1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1},
-// 	{1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1},
-// 	{1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-// 	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-// 	{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1},
-// 	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-// 	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
-// 	{1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1},
-// 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-// };

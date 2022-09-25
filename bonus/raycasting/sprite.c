@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/18 22:24:12 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:26:45 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,25 @@ void	ft_prepare_sprite(t_game *game, t_object *obj, int *i)
 	obj->tr_y = obj->inv * (-(game->plane->y) * obj->s_x
 		+ game->plane->x * obj->s_y);
 	cur = ft_get_cur_sprite(game);
-	obj->move_screen = (int)(cur->v_offset / obj->tr_y);
-	obj->screen_x = (int)((screenWidth / 2) * (1 + obj->tr_x / obj->tr_y));
-	obj->s_height = abs((int)(screenHeight / (obj->tr_y))) / cur->v_div;
-	obj->start_y = -obj->s_height / 2 + screenHeight / 2 + obj->move_screen;
-	if (obj->start_y < 0)
-		obj->start_y = 0;
-	obj->end_y = obj->s_height / 2 + screenHeight / 2 + obj->move_screen;
-	if (obj->end_y >= screenHeight)
-		obj->end_y = screenHeight - 1;
-	obj->s_width = abs((int)(screenHeight / (obj->tr_y))) / cur->h_div;
-	obj->start_x = -obj->s_width / 2 + obj->screen_x;
-	if (obj->start_x < 0)
-		obj->start_x = 0;
-	obj->end_x = obj->s_width / 2 + obj->screen_x;
-	if (obj->end_x >= screenWidth)
-		obj->end_x = screenWidth - 1;
+	if (cur)
+	{
+		obj->move_screen = (int)(cur->v_offset / obj->tr_y);
+		obj->screen_x = (int)((screenWidth / 2) * (1 + obj->tr_x / obj->tr_y));
+		obj->s_height = abs((int)(screenHeight / (obj->tr_y))) / cur->v_div;
+		obj->start_y = -obj->s_height / 2 + screenHeight / 2 + obj->move_screen;
+		if (obj->start_y < 0)
+			obj->start_y = 0;
+		obj->end_y = obj->s_height / 2 + screenHeight / 2 + obj->move_screen;
+		if (obj->end_y >= screenHeight)
+			obj->end_y = screenHeight - 1;
+		obj->s_width = abs((int)(screenHeight / (obj->tr_y))) / cur->h_div;
+		obj->start_x = -obj->s_width / 2 + obj->screen_x;
+		if (obj->start_x < 0)
+			obj->start_x = 0;
+		obj->end_x = obj->s_width / 2 + obj->screen_x;
+		if (obj->end_x >= screenWidth)
+			obj->end_x = screenWidth - 1;
+	}
 }
 
 void	ft_color_sprite(t_game *game, int x, int y, int i)
@@ -100,13 +103,16 @@ void	ft_color_sprite(t_game *game, int x, int y, int i)
 		* 128 + obj->s_height * 128;
 	obj->tex_y = ((obj->d * SPRITE_SIZE) / obj->s_height) / 256;
 	cur_sprite = ft_get_cur_sprite(game);
-	obj->color = ft_get_pixel(cur_sprite->texture, obj->tex_x
-		+ SPRITE_SIZE * cur_sprite->frame, obj->tex_y);
-	if (obj->color != (0xFF << 24))
+	if (cur_sprite)
 	{
-		ft_fog(obj->dist[i] / SHADING_DISTANCE, &obj->color);
-		ft_put_pixel(game->img, x, y, obj->color);
-	}	
+		obj->color = ft_get_pixel(cur_sprite->texture, obj->tex_x
+			+ SPRITE_SIZE * cur_sprite->frame, obj->tex_y);
+		if (obj->color != (0xFF << 24))
+		{
+			ft_fog(obj->dist[i] / SHADING_DISTANCE, &obj->color);
+			ft_put_pixel(game->img, x, y, obj->color);
+		}
+	}
 }
 
 void	ft_draw_sprite(t_game *game, t_object *obj, int i)

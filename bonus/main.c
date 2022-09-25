@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/22 16:34:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:49:34 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ unsigned long	ft_get_time(void)
 
 void	ft_fps(t_game *game)
 {
-	static	unsigned long	last;
 	static	unsigned long	cur;
 	static	int				frames;
 	static	char			*fps;
 
 
-	last = ft_get_time();
 	if (!cur)
 		cur = ft_get_time() + 1000;
 	if (cur <= ft_get_time())

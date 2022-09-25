@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/18 21:41:28 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 20:03:22 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,6 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 		else if (game->map->map[ray->map_y][ray->map_x] == 1)
 		{
 			render->wall_tex = NULL;
-			// if (ray->side == 1 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 3)
-			// 	render->wall_tex = game->assets->ceil;
-			// else if (ray->side == 0 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 3)
-			// 	render->wall_tex = game->assets->ceil;
-			// else if (ray->side == 1 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 4)
-			// 	render->wall_tex = game->assets->ceil;
-			// else if (ray->side == 0 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 4)
-			// 	render->wall_tex = game->assets->ceil;
 			if (ray->side == 1 && game->map->map[ray->map_y - ray->step_y][ray->map_x] == 3)
 				render->wall_tex = game->assets->ceil;
 			else if (ray->side == 0 && game->map->map[ray->map_y][ray->map_x - ray->step_x] == 3)

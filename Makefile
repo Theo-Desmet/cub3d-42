@@ -6,7 +6,7 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/09/22 16:34:52 by bbordere         ###   ########.fr        #
+#    Updated: 2022/09/25 23:46:52 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = clang
 
 CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti -flto -g3 #-Wall -Werror -Wextra
 
-# CFLAGS = -I includes/ -O0#-Wall -Werror -Wextra
+# CFLAGS = -I includes/ -O0 -g3 #-Wall -Werror -Wextra
 
 BFLAG = 
 
@@ -46,7 +46,7 @@ all: $(NAME)
 	@ $(MAKE) -C mlx_linux/ all
 	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME)
 
-bonus: $(BOBJS)
+bonus: $(BOBJS) $(DEPS)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
 	@ $(CC) $(CFLAGS) -D BONUS=1 $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(BNAME)

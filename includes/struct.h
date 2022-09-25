@@ -6,13 +6,28 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/21 05:10:39 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:44:36 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 # include <stdbool.h>
+
+enum	e_error_msg
+{
+	NO_FILE,
+	TOO_MANY_FILE,
+	BAD_EXTENSION,
+	BAD_FORMAT,
+	NOT_FOUND,
+	INVALID_SYNTAX,
+	INVALID_CHAR,
+	MULTI_SPAWN,
+	NO_SPAWN,
+	COPY_ERROR,
+	INVALID_HEADER
+};
 
 typedef struct s_img
 {

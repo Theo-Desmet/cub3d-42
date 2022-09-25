@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/21 05:07:08 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:47:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,17 +160,17 @@ char	**ft_init_error_messages(void)
 	arr = (char **)ft_calloc(12, sizeof(char *));
 	if (!arr)
 		return (NULL);
-	arr[0] = ft_strdup("bad file: please add an file with .cub extension\n");
-	arr[1] = ft_strdup("bad file: too many files, please use only one\n");
-	arr[2] = ft_strdup("bad extension file: filename need .cub extension\n");
-	arr[3] = ft_strdup("bad filename: please use a valid filename\n");
-	arr[4] = ft_strdup("bad filename: file not found\n");
-	arr[5] = ft_strdup(": use or redifine of an invalide syntax\n");
-	arr[6] = ft_strdup(": use of an invalid char on map\n");
-	arr[7] = ft_strdup(": redifine of spawn, please use only one\n");
-	arr[8] = ft_strdup("error in file: no spawn in map\n");
-	arr[9] = ft_strdup("error during the copy of the map\n");
-	arr[10] = ft_strdup("error in file: invalid line in head\n");
+	arr[NO_FILE] = ft_strdup("bad file: please add an file with .cub extension\n");
+	arr[TOO_MANY_FILE] = ft_strdup("bad file: too many files, please use only one\n");
+	arr[BAD_EXTENSION] = ft_strdup("bad extension file: filename need .cub extension\n");
+	arr[BAD_FORMAT] = ft_strdup("bad filename: please use a valid filename\n");
+	arr[NOT_FOUND] = ft_strdup("bad filename: file not found\n");
+	arr[INVALID_SYNTAX] = ft_strdup(": use or redifine of an invalide syntax\n");
+	arr[INVALID_CHAR] = ft_strdup(": use of an invalid char on map\n");
+	arr[MULTI_SPAWN] = ft_strdup(": redifine of spawn, please use only one\n");
+	arr[NO_SPAWN] = ft_strdup("error in file: no spawn in map\n");
+	arr[COPY_ERROR] = ft_strdup("error during the copy of the map\n");
+	arr[INVALID_HEADER] = ft_strdup("error in file: invalid line in head\n");
 	i = -1;
 	while (++i < 11)
 		if (!arr[i])
