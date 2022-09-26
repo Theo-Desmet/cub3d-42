@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/24 19:55:25 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:07:50 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ enum MAP {
 	SIZE_PLAYER
 };
 
-// bool	ft_is_in_limit(double x, double y, int center_circle)
-// {
-// 	double	dist;
-
-// 	dist = hypot(x - center_circle, y - center_circle);
-// 	if (dist <= center_circle - 2)
-// 		return (true);
-// 	return (false);
-// }
-
-bool	ft_is_in_limit(double x, double y)
+bool	ft_is_in_limit(double x, double y, int center_circle)
 {
-	return ((x <= ((SIZE_TILE) * VISIBILITY) && y <= (SIZE_TILE * VISIBILITY)) && x >= OFFSET && y >= OFFSET);
+	double	dist;
+// 
+	dist = hypot(x - center_circle, y - center_circle);
+	if (dist <= center_circle - 2)
+		return (true);
+	return (false);
 }
+
+// bool	ft_is_in_limit(double x, double y)
+// {
+// 	return ((x <= ((SIZE_TILE) * VISIBILITY) && y <= (SIZE_TILE * VISIBILITY)) && x >= OFFSET && y >= OFFSET);
+// }
 
 void	ft_draw_squa(t_game *game, t_vector pos, int color, int size)
 {
@@ -83,7 +83,7 @@ void	ft_draw_squa(t_game *game, t_vector pos, int color, int size)
 	{
 		x = pos.x;
 		while (x++ < pos.x + size)
-			if (ft_is_in_limit(x, y))
+			if (ft_is_in_limit(x, y, SIZE_MAP + OFFSET))
 				ft_put_pixel(game->img, (int)x, (int)y, color);
 	}
 }

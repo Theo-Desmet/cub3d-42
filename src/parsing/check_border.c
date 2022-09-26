@@ -6,29 +6,46 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:17:41 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:45:52 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	ft_get_wall_char(t_game *game, int x, int y)
+{
+	int	**map;
+
+	if (x == 0 || y == 0 || x == game->map->width - 1 || y == game->map->height - 1)
+		return (8);
+	map = game->map->map;
+	if (map[y][x + 1] == -1 || map[y + 1][x + 1] == -1 || map[y + 1][x] == -1
+		|| map[y + 1][x - 1] == -1 || map[y][x - 1] == -1
+			|| map[y - 1][x - 1] == -1 || map[y - 1][x] == -1
+				|| map[y - 1][x + 1] == -1)
+		return (8);
+	return (1);
+}
+
 int	ft_check_border(t_game *game, int **map)
 {
-	int	x;
 	int	y;
+	int	x;
 
-	x = 0;
-	while (x < game->map->height)
+	y = 0;
+	while (y < game->map->height)
 	{
-		y = 0;
-		while (y < game->map->width)
+		x = 0;
+		while (x < game->map->width)
 		{
-			if (map[x][y] != 1 && map[x][y] != -1)
-				if (!ft_check_is_a_border(game, map, x, y))
+			if (map[y][x] != 1 && map[y][x] != -1)
+				if (!ft_check_is_a_border(game, map, y, x))
 					return (0);
-			y++;
+			if (map[y][x] == 1)
+				map[y][x] = ft_get_wall_char(game, x, y);
+			x++;
 		}
-		x++;
+		y++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/24 19:49:34 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:11:02 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ int main(int ac, char **av)
 	game = ft_init_game(ac, av);
 	if (!game)
 		exit(EXIT_FAILURE);
-	// mlx_mouse_hide(game->mlx, game->win);
+	mlx_mouse_hide(game->mlx, game->win);
 	mlx_do_sync(game->mlx);
 	mlx_hook(game->win, 2, 1L, ft_key_down, game);
 	mlx_hook(game->win, 3, 1L << 1, ft_key_up, game);
 	mlx_hook(game->win, 17, 1L, ft_free_all, game);
-	// mlx_hook(game->win, 6, 1L << 6, mouse_handling, game);
+	mlx_hook(game->win, 6, 1L << 6, mouse_handling, game);
 	mlx_loop_hook(game->mlx, ft_loop, game);
 	mlx_loop(game->mlx);
 	ft_free_all(game);

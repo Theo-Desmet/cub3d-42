@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/21 02:43:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:39:58 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->map->map[ray->map_y][ray->map_x] == 1)
+		if (game->map->map[ray->map_y][ray->map_x] == 1 || game->map->map[ray->map_y][ray->map_x] == 8)
 			ray->hit = 1;
 	}
 }

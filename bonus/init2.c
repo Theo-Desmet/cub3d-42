@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/25 23:46:17 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/26 10:40:41 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,13 +420,15 @@ t_game	*ft_init_game(int ac, char **av)
 			return (ft_free_all(game), NULL);
 	ft_update_player(game);
 	game->assets = ft_init_assets(game, game->mlx);
+	if (!game->assets)
+		return (ft_free_all(game), NULL);
 	game->ray = ft_init_ray();
 	game->object = ft_init_obj(game);
 	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
 	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
 	game->frame = 50;
 	game->doors	= ft_get_doors(game);
-	if (!game->assets || !game->ray || !game->object || !game->img
+	if (!game->ray || !game->object || !game->img
 			|| !game->win || !game->doors)
 		return (ft_free_all(game), NULL);
 	return (game);
