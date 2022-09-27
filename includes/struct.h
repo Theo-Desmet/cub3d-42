@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/24 19:44:36 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/27 13:59:33 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ enum	e_error_msg
 	COPY_ERROR,
 	INVALID_HEADER
 };
+typedef	struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
 
 typedef struct s_img
 {

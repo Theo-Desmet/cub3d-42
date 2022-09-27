@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/09/22 15:32:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:04:55 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_door	*ft_get_cur_door(t_game *game, int x, int y);
 /*                           FILE = bonus/minimap.c                           */
 /* -------------------------------------------------------------------------- */
 t_vector	*ft_vector_dup(t_vector *vector);
-void	ft_draw_line(t_img *img, t_vector *pos, t_vector *pos2);
 void	ft_draw_player_minimap(t_game *game);
 int	ft_trans(int color, int back);
 void	ft_draw_trans(t_game *game, t_vector *vector, int size, int color);

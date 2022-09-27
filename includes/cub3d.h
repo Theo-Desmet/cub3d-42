@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/24 19:44:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:04:43 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void    ft_free_map(t_game *game, int i);
 /*                            FILE = src/minimap.c                            */
 /* -------------------------------------------------------------------------- */
 t_vector	*ft_vector_dup(t_vector *vector);
-void	ft_draw_line(t_img *img, t_vector *pos, t_vector *pos2);
 void	ft_draw_player_minimap(t_game *game);
 int	ft_trans(int color, int back);
 void	ft_draw_trans(t_game *game, t_vector *vector, int size, int color);
