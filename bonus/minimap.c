@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/27 23:52:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/28 23:22:06 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	ft_trans(int color, int back)
 	colorRGB.b = (int)(((double)backRGB.b * opacity) + ((double)colorRGB.b * (1.0 - opacity)));
 	return (ft_rgbtoi(colorRGB.r, colorRGB.g, colorRGB.b));
 }
+
 enum MAP {
 	SIZE_MAP = 80,
 	VISIBILITY = 15,
 	SIZE_TILE = (SIZE_MAP * 2) / VISIBILITY,
-	SIZE_PLAYER = 6,
-	LEN_PL = (SIZE_PLAYER * 2) - 1
+	SIZE_PLAYER = 15,
+	LEN_PL = (SIZE_PLAYER)
 };
 
 bool	ft_is_in_limit(double x, double y, int center_circle)
@@ -42,11 +43,6 @@ bool	ft_is_in_limit(double x, double y, int center_circle)
 		return (true);
 	return (false);
 }
-
-// bool	ft_is_in_limit(double x, double y)
-// {
-// 	return ((x <= ((SIZE_TILE) * VISIBILITY) && y <= (SIZE_TILE * VISIBILITY)) && x >= OFFSET && y >= OFFSET);
-// }
 
 void	ft_draw_squa(t_game *game, t_vector pos, int color, int size)
 {
@@ -136,9 +132,34 @@ void	ft_draw_line(t_game *game, t_vector *pos, t_vector *pos2, int color)
 	{
 		temp.x += dx;
 		temp.y += dy;
-		ft_draw_square3(game, coord, color, 1);
+		ft_put_pixel(game->img, coord.x, coord.y, color);
 		coord = (t_vector){temp.x, temp.y};
 		pixels--;
+	}
+}
+
+bool	ft_is_in_limit4(double x, double y, int center_circle)
+{
+	double	dist;
+
+	dist = hypot(x - center_circle, y - center_circle);
+	if (dist < (SIZE_PLAYER / 3))
+		return (true);
+	return (false);
+}
+
+void	ft_draw_squa4(t_game *game, t_vector pos, int color, int size)
+{
+	double	x;
+	double	y;
+
+	y = pos.y;
+	while (y++ < pos.y + size)
+	{
+		x = pos.x;
+		while (x++ < pos.x + size)
+			if (ft_is_in_limit4(x, y, (SIZE_MAP)))
+				ft_put_pixel(game->img, (int)x, (int)y, color);
 	}
 }
 
@@ -151,7 +172,7 @@ void	ft_draw_player(t_game *game, int color)
 
 	i = -1;
 	v2 = (t_vector){(SIZE_MAP) + LEN_PL * game->player->dir->x, ((SIZE_MAP) + LEN_PL * game->player->dir->y)};
-	while (++i <= SIZE_PLAYER / 2)
+	while (++i <= SIZE_PLAYER / 4)
 	{
 		v1 = (t_vector){SIZE_MAP + i, SIZE_MAP};
 		ft_draw_line(game, &v1, &v2, color);
@@ -162,26 +183,8 @@ void	ft_draw_player(t_game *game, int color)
 		v1 = (t_vector){SIZE_MAP, SIZE_MAP - i};
 		ft_draw_line(game, &v1, &v2, color);
 	}
-	while (i >= 0)
-	{
-		v1 = (t_vector){SIZE_MAP - i, SIZE_MAP};
-		v2 = (t_vector){SIZE_MAP, SIZE_MAP + i};
-		ft_draw_line(game, &v1, &v2, color);
-		v1 = (t_vector){SIZE_MAP, SIZE_MAP - i};
-		v2 = (t_vector){SIZE_MAP + i, SIZE_MAP};
-		ft_draw_line(game, &v1, &v2, color);
-
-		v1 = (t_vector){SIZE_MAP - i, SIZE_MAP};
-		v2 = (t_vector){SIZE_MAP, SIZE_MAP - i};
-		ft_draw_line(game, &v1, &v2, color);
-		v1 = (t_vector){SIZE_MAP, SIZE_MAP + i};
-		v2 = (t_vector){SIZE_MAP + i, SIZE_MAP};
-		ft_draw_line(game, &v1, &v2, color);
-		i--;
-	}
-
-	v1 = (t_vector){SIZE_MAP - (SIZE_PLAYER / 2 / 2), SIZE_MAP - (SIZE_PLAYER / 2 / 2)};
-	ft_draw_squa(game, v1, 0xFF, (SIZE_PLAYER / 2)); // PLAYER
+	v1 = (t_vector){SIZE_MAP - (SIZE_PLAYER / 2), SIZE_MAP - (SIZE_PLAYER / 2)};
+	ft_draw_squa4(game, v1, 0xFF, SIZE_PLAYER);
 }
 
 void	ft_draw_minimap(t_game *game)
