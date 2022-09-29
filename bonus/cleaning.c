@@ -50,6 +50,27 @@ void	ft_free_player(t_player *player)
 	free(player);
 }
 
+void	ft_free_enemy(t_enemy *enemy)
+{
+	int	i;
+
+	if (enemy->act)
+		free(enemy->act);
+	if (enemy->dest)
+		free(enemy->act);
+	if (enemy->img_enemy)
+		free(enemy->act);
+	i = 0;
+	while (enemy->path && enemy->path[i] && i < 10)
+	{
+		free(enemy->path[i]);
+		i++;
+	}
+	if (enemy->path)
+		free(enemy->path);
+	free(enemy);
+}
+
 void	ft_free_ray(t_ray *ray)
 {
 	if (ray->dir)

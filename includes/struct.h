@@ -147,10 +147,10 @@ typedef struct s_player
 
 typedef struct s_enemy
 {
-	t_img	*img_b;
-	t_img	*img_f;
-	int		dir;
-	int		on_wall;
+	t_vector	*act;
+	t_vector	*dest;
+	t_vector	**path;
+	t_img		*img_enemy;
 }	t_enemy;
 
 typedef struct s_sprite
@@ -212,6 +212,7 @@ typedef struct s_game
 	t_map		*map;
 	t_img		*img;
 	t_player	*player;
+	t_enemy		*enemy;
 	t_ray		*ray;
 	t_object	*object;
 	t_door		**doors;

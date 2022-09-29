@@ -110,6 +110,7 @@ int	ft_loop(t_game *game)
 			}
 		}
 	}
+	ft_pathfinding(game->enemy, game->map);
 	ft_render(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	ft_fps(game);

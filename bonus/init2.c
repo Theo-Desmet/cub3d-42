@@ -101,6 +101,30 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 	return (0);
 }
 
+t_enemy	*ft_init_enemy(void)
+{
+	t_enemy	*enemy;
+
+        enemy = malloc(sizeof(t_enemy));
+        if (!enemy)
+                return (NULL);
+        enemy->act = malloc(sizeof(t_vector));
+        if (!enemy->act)
+                return (ft_free_enemy(enemy), NULL);
+	enemy->act->x = 1;//spawn a mdf
+	enemy->act->y = 1;//spawn a mdf
+        enemy->dest = malloc(sizeof(t_vector));
+        if (!enemy->dest)
+                return (ft_free_enemy(enemy), NULL);
+        enemy->img_enemy = malloc(sizeof(t_img));
+        if (!enemy->img_enemy)
+                return (ft_free_enemy(enemy), NULL);
+        enemy->path = malloc(10 * sizeof(t_vector *));
+        if (!enemy->path)
+                return (ft_free_enemy(enemy), NULL);
+	return (enemy);
+}
+
 void	ft_get_objs(t_game *game, t_object *obj)
 {
 	int	i;
@@ -413,6 +437,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->map = ft_alloc_map();
 	game->textures_path = (char **)ft_calloc(4, sizeof(char *));
 	game->player = ft_init_player();
+	game->enemy = ft_init_enemy();
 	game->error_msg = ft_init_error_messages();
 	game->plane = ft_init_vector(1, 0);
 	if (!game->map || !game->textures_path || !game->player || !game->plane

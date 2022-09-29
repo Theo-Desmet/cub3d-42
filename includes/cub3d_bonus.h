@@ -18,6 +18,7 @@
 # include "struct.h"
 # include <fcntl.h>
 # include <unistd.h>
+# include <time.h>
 # include <stdio.h>
 # include <math.h>
 # include "define.h"
@@ -25,6 +26,8 @@
 
 int		ft_parsing(t_game *data, int argc, char **argv);
 t_door	*ft_get_cur_door(t_game *game, int x, int y);
+void	ft_random_place(t_enemy *enemy, t_map *map);
+void	ft_pathfinding(t_enemy *enemy, t_map *map);
 
 /* -------------------------------------------------------------------------- */
 /*                           FILE = bonus/minimap.c                           */
@@ -41,6 +44,7 @@ void	ft_draw_minimap(t_game *game);
 /* -------------------------------------------------------------------------- */
 void	ft_free_assets(t_assets *assets, void *mlx);
 void	ft_free_player(t_player *player);
+void	ft_free_enemy(t_enemy *enemy);
 void	ft_free_ray(t_ray *ray);
 void	ft_free_obj_tab(t_game *game, t_object *obj);
 void	ft_free_obj(t_game *game, t_object *obj);
@@ -135,6 +139,7 @@ t_door	*ft_init_door(int x, int y);
 t_door	**ft_alloc_doors(t_game *game);
 t_door	**ft_get_doors(t_game *game);
 t_game	*ft_init_game(int ac, char **av);
+t_enemy	*ft_init_enemy(void);
 
 
 #endif
