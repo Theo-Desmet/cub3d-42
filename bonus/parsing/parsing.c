@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/26 11:10:09 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/30 10:33:09 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 size_t	ft_get_texture_index(const char *id)
 {

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/27 13:59:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/30 08:43:39 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ typedef struct s_game
 	bool		mouse_right;
 	bool		mouse_left;
 	bool		shooting;
+	double		enemy_spw;
 	int			ceiling_color;
 	int			floor_color;
 }	t_game;

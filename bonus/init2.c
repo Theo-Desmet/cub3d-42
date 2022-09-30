@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/26 10:40:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/30 11:00:51 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,6 +444,8 @@ t_game	*ft_init_game(int ac, char **av)
 		|| !game->error_msg || !ft_parsing(game, ac, av))
 			return (ft_free_all(game), NULL);
 	ft_update_player(game);
+	srand(time(NULL));
+	ft_spawn_enemy(game);
 	game->assets = ft_init_assets(game, game->mlx);
 	if (!game->assets)
 		return (ft_free_all(game), NULL);
