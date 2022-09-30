@@ -6,13 +6,21 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/27 13:59:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:59:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 # include <stdbool.h>
+
+enum e_map {
+	SIZE_MAP = 80,
+	VIS = 15,
+	SIZE_TILE = (SIZE_MAP * 2) / VIS,
+	SIZE_PLAYER = 15,
+	LEN_PL = (SIZE_PLAYER)
+};
 
 enum	e_error_msg
 {
@@ -91,6 +99,15 @@ typedef struct s_vector
 	double	x;
 	double	y;
 }	t_vector;
+
+typedef struct s_square
+{
+	t_vector	pos;
+	int			size;
+	int			color;
+	int			mode;
+	bool		is_transparent;
+}	t_square;
 
 typedef	struct s_render
 {
@@ -226,8 +243,8 @@ typedef struct s_game
 	bool		backward;
 	bool		left;
 	bool		right;
-	bool		rotate_left;
-	bool		rotate_right;
+	bool		r_left;
+	bool		r_right;
 	bool		mouse_right;
 	bool		mouse_left;
 	bool		shooting;

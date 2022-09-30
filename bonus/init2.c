@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/26 10:40:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:58:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_init_bool(t_game *game)
 	game->backward = false;
 	game->left = false;
 	game->right = false;
-	game->rotate_left = false;
-	game->rotate_right = false;
+	game->r_left = false;
+	game->r_right = false;
 	game->mouse_right = false;
 	game->mouse_left = false;
 	game->shooting = false;
@@ -198,9 +198,9 @@ t_object	*ft_init_obj(t_game *game)
 	objs->objects = NULL;
 	ft_get_objs(game, objs);
 	objs->index = 0;
-	objs->zbuff = (double *)malloc(sizeof(double) * screenWidth);
-	objs->dist = (double *)malloc(sizeof(double) * objs->nb_obj);
-	objs->order = (int *)malloc(sizeof(int) * objs->nb_obj);
+	objs->zbuff = malloc(sizeof(double) * screenWidth);
+	objs->dist = malloc(sizeof(double) * objs->nb_obj);
+	objs->order = malloc(sizeof(int) * objs->nb_obj);
 	if (!objs->objects || !objs->zbuff || !objs->dist || !objs->order)
 		return (ft_free_obj(game, objs), NULL);
 	return (objs);
@@ -364,7 +364,7 @@ t_game	*ft_alloc_game(void)
 {
 	t_game	*game;
 
-	game = (t_game *)malloc(sizeof(t_game));
+	game = malloc(sizeof(t_game));
 	if (!game)
 		return (NULL);
 	game->assets = NULL;
@@ -413,7 +413,7 @@ t_map	*ft_alloc_map(void)
 {
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
 	map->map = NULL;
