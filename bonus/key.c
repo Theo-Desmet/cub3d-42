@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/26 14:53:27 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:58:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	ft_key_down(int keycode, t_game *game)
 	if (keycode == STRAFE_RIGHT_KEY)
 		game->right = true;
 	if (keycode == 65363)
-		game->rotate_right = true;
+		game->r_right = true;
 	if (keycode == 65361)
-		game->rotate_left = true;
+		game->r_left = true;
 	if (keycode == 65307)
 		mlx_loop_end(game->mlx);
 	return (0);
@@ -70,9 +70,9 @@ int	ft_key_up(int keycode, t_game *game)
 	if (keycode == STRAFE_RIGHT_KEY)
 		game->right = false;
 	if (keycode == 65363)
-		game->rotate_right = false;
+		game->r_right = false;
 	if (keycode == 65361)
-		game->rotate_left = false;
+		game->r_left = false;
 	return (0);
 }
 

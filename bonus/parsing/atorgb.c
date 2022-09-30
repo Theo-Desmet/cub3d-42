@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 08:19:09 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/20 22:54:10 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 12:36:20 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_get_nbrgb(const char *line, int *shift, int *i, int rgb)
 	if (!dup)
 		return (-1);
 	nb = ft_atoi(dup);
-	if (nb > 256 && nb < 0)
+	if (nb > 256 || nb < 0)
 		return (free(dup), -1);
 	rgb += nb << *shift;
 	if (*shift == 16)
@@ -87,7 +87,6 @@ int	ft_check_is_rgb(char *line, char *str)
 
 int	ft_atorgb(char *str)
 {
-	char	*dup;
 	int		rgb;
 	int		i;
 	int		shift;

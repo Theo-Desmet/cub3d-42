@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/19 11:56:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 12:13:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,6 @@ inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
 // 	free(pos);
 // }
 
-void	ft_draw_square(t_img *img, t_vector *pos, int size, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i <= size)
-	{
-		j = 0;
-		while (j <= size)
-		{
-			ft_put_pixel(img, (int)pos->x + i, (int)pos->y + j, color);
-			j++;
-		}
-		i++;
-	}
-	free(pos);
-}
 
 void	ft_paint(t_img *element, t_img *mlx_img, t_vector *pos, int scale)
 {

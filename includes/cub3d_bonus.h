@@ -6,7 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/30 09:17:01 by tdesmet          ###   ########.fr       */
+=======
+/*   Updated: 2022/09/29 12:12:13 by bbordere         ###   ########.fr       */
+>>>>>>> 5fd60a5784ba5e8488a2a6a2615fae2d1c670088
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +90,6 @@ void	ft_move(t_game *game);
 /* -------------------------------------------------------------------------- */
 void	ft_put_pixel(t_img *img, int x, int y, int color);
 unsigned int	ft_get_pixel(t_img *img, int x, int y);
-void	ft_draw_square(t_img *img, t_vector *pos, int size, int color);
 void	ft_paint(t_img *element, t_img *mlx_img, t_vector *pos, int scale);
 void	ft_draw_square2(t_img *img, t_vector *pos, int size, int color);
 

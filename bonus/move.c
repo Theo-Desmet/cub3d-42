@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/22 15:01:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:58:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_rotate(t_game *game)
 	t_player	*p;
 
 	p = game->player;
-	if (game->rotate_left || game->mouse_left)
+	if (game->r_left || game->mouse_left)
 		r_speed = -p->rot_speed;
 	else
 		r_speed = p->rot_speed;
@@ -84,7 +84,7 @@ void	ft_move(t_game *game)
 			- player->dir->y * player->walk_speed * 2)))
 			player->pos->y -= player->dir->y * player->walk_speed;
 	}
-	if (game->rotate_left || game->rotate_right || game->mouse_left
+	if (game->r_left || game->r_right || game->mouse_left
 		|| game->mouse_right)
 		ft_rotate(game);
 }

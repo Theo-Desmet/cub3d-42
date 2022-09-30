@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/24 19:47:56 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:58:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_init_bool(t_game *game)
 	game->backward = false;
 	game->left = false;
 	game->right = false;
-	game->rotate_left = false;
-	game->rotate_right = false;
+	game->r_left = false;
+	game->r_right = false;
 	game->mouse_right = false;
 	game->mouse_left = false;
 	game->shooting = false;
@@ -54,7 +54,7 @@ t_game	*ft_alloc_game(void)
 {
 	t_game	*game;
 
-	game = (t_game *)malloc(sizeof(t_game));
+	game = malloc(sizeof(t_game));
 	if (!game)
 		return (NULL);
 	game->assets = NULL;
@@ -77,7 +77,7 @@ t_map	*ft_alloc_map(void)
 {
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
 	map->map = NULL;
@@ -92,6 +92,7 @@ t_player	*ft_init_player(t_game *game)
 {
 	t_player	*player;
 
+	(void)game;
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
