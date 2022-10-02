@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/30 11:57:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ t_object	*ft_init_obj(t_game *game)
 	objs->objects = NULL;
 	ft_get_objs(game, objs);
 	objs->index = 0;
-	objs->zbuff = malloc(sizeof(double) * screenWidth);
+	objs->zbuff = malloc(sizeof(double) * S_WIDTH);
 	objs->dist = malloc(sizeof(double) * objs->nb_obj);
 	objs->order = malloc(sizeof(int) * objs->nb_obj);
 	if (!objs->objects || !objs->zbuff || !objs->dist || !objs->order)
@@ -451,8 +451,8 @@ t_game	*ft_init_game(int ac, char **av)
 		return (ft_free_all(game), NULL);
 	game->ray = ft_init_ray();
 	game->object = ft_init_obj(game);
-	game->img = ft_init_img(game->mlx, NULL, screenWidth, screenHeight);
-	game->win = mlx_new_window(game->mlx, screenWidth, screenHeight, "cub3D");
+	game->img = ft_init_img(game->mlx, NULL, S_WIDTH, S_HEIGHT);
+	game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "cub3D");
 	game->frame = 50;
 	game->doors	= ft_get_doors(game);
 	if (!game->ray || !game->object || !game->img

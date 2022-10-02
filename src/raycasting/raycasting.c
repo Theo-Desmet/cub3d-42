@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/21 02:36:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_render(t_game *game)
 	if (!render)
 		return ;
 	ft_move(game);
-	while (render->x < screenWidth)
+	while (render->x < S_WIDTH)
 	{
 		render->x_offset = 0;
 		render->y_offset = 0;

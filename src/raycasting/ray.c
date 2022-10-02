@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/26 15:39:58 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_prepare_ray(t_game *game, int x)
 	t_ray	*ray;
 
 	ray = game->ray;
-	ray->camera_x = 2.0 * (double)x / (double)screenWidth - 1.0;
+	ray->camera_x = 2.0 * (double)x / (double)S_WIDTH - 1.0;
 	ray->dir->x = game->player->dir->x + game->plane->x * ray->camera_x;
 	ray->dir->y = game->player->dir->y + game->plane->y * ray->camera_x;
 	ray->ddx = fabs(1 / ray->dir->x);
@@ -94,15 +94,15 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 		render->perp_wall_dist = game->ray->sidedist_x - game->ray->ddx;
 	else
 		render->perp_wall_dist = game->ray->sidedist_y - game->ray->ddy;
-	render->height_line = ((int)(screenHeight / render->perp_wall_dist));
-	render->start = - (render->height_line) / 2 + screenHeight / 2;
-	render->end = render->height_line / 2 + screenHeight / 2;
+	render->height_line = ((int)(S_HEIGHT / render->perp_wall_dist));
+	render->start = - (render->height_line) / 2 + S_HEIGHT / 2;
+	render->end = render->height_line / 2 + S_HEIGHT / 2;
 	if (render->start < 0)
 		render->start = 0;
-	if (render->end >= screenHeight)
-		render->end = screenHeight;
+	if (render->end >= S_HEIGHT)
+		render->end = S_HEIGHT;
 	if (render->end < 0)
-		render->end = screenHeight;
+		render->end = S_HEIGHT;
 	if (game->ray->side == 0)
 		render->wall_x = ray->pos->y + render->perp_wall_dist * ray->dir->y;
 	else
@@ -122,7 +122,7 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 	ft_get_wall_tex(ray, render, game);
 	while (render->y < render->end)
 	{
-		render->sprite_y = (render->y * 2 - screenHeight + render->height_line)
+		render->sprite_y = (render->y * 2 - S_HEIGHT + render->height_line)
 			* (SPRITE_SIZE / 2) / render->height_line;
 		render->color = ft_get_pixel(render->wall_tex, render->sprite_x,
 				render->sprite_y);

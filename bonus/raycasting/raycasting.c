@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/24 19:54:38 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/01 15:23:54 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ t_render	*ft_init_render(void)
 
 void	ft_update_sprite(t_game *game, t_sprite *sprite)
 {
-	int	type;
+	int			type;
+	static int	replace;
 
-	if (((int)sprite->pos->x != (int)sprite->last_pos->x) ||
-		((int)sprite->pos->y != (int)sprite->last_pos->y))
+	if (((int)sprite->pos->x != (int)sprite->last_pos->x)
+		|| ((int)sprite->pos->y != (int)sprite->last_pos->y))
 	{
 		type = game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x];
-		game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x] = 0;
+		if (game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x] != 0)
+			replace = game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x];
+		game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x] = replace;
 		sprite->last_pos->y = sprite->pos->y;
 		sprite->last_pos->x = sprite->pos->x;
 		game->map->map[(int)sprite->pos->y][(int)sprite->pos->x] = type;
@@ -75,14 +78,14 @@ void	ft_sprite_cast(t_game *game)
 
 void	ft_draw_gun(t_game *game, int frame)
 {
-	int size = (screenWidth / screenHeight) * (screenHeight / SPRITE_SIZE) / 3;
+	int size = (S_WIDTH / S_HEIGHT) * (S_HEIGHT / SPRITE_SIZE) / 3;
 	int				x1;
 	int				y1;
 	unsigned int	color;
 	int				save;
 	t_vector		pos;
 	y1 = 0;
-	pos = (t_vector){(screenWidth - (SPRITE_SIZE * size)) / 2, (screenHeight - SPRITE_SIZE * size)};
+	pos = (t_vector){(S_WIDTH - (SPRITE_SIZE * size)) / 2, (S_HEIGHT - SPRITE_SIZE * size)};
 	save = (int)pos.x;
 	while (y1 < SPRITE_SIZE)
 	{
@@ -135,10 +138,8 @@ void	ft_render(t_game *game)
 	if (!render)
 		return ;
 	ft_move(game);
-
 	ft_floor(game, render);
-
-	while (render->x < screenWidth)
+	while (render->x < S_WIDTH)
 	{
 		render->x_offset = 0;
 		render->y_offset = 0;
@@ -146,13 +147,11 @@ void	ft_render(t_game *game)
 		ft_dda(game->ray);
 		ft_wall_hit(game->ray, render, game);
 		ft_wall_proj(game->ray, render, game);
-
 		game->object->zbuff[render->x] = render->perp_wall_dist;
 		render->x++;
 	}
 	ft_sprite_cast(game);
 	ft_gun(game);
 	ft_draw_minimap(game);
-
 	free(render);
 }
