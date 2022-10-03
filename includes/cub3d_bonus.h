@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/09/30 11:57:49 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:48:58 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 int		ft_parsing(t_game *data, int argc, char **argv);
 t_door	*ft_get_cur_door(t_game *game, int x, int y);
 void	ft_random_place(t_enemy *enemy, t_map *map);
-void	ft_pathfinding(t_enemy *enemy, t_map *map);
+void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
 void	ft_spawn_enemy(t_game *game);
 
 /* -------------------------------------------------------------------------- */

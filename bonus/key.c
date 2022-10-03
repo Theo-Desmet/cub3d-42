@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/29 14:58:17 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 09:08:59 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_loop(t_game *game)
 			}
 		}
 	}
-	ft_pathfinding(game->enemy, game->map);
+	ft_pathfinding(game, game->enemy, game->map);
 	ft_render(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	ft_fps(game);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/30 11:58:01 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 08:39:13 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct s_player
 
 typedef struct s_enemy
 {
+	int			i_path;
 	t_vector	*act;
 	t_vector	*dest;
 	t_vector	**path;

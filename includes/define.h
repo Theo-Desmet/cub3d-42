@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/26 20:23:01 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/09/30 14:23:43 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 # define FOG_COLOR 0x757575
 // # define FOG_COLOR 0x222222
 
-# define FORWARD_KEY 'z'
+# define FORWARD_KEY 'w'
 # define BACKWARD_KEY 's'
-# define STRAFE_LEFT_KEY 'q'
+# define STRAFE_LEFT_KEY 'a'
 # define STRAFE_RIGHT_KEY 'd'
 
 #endif

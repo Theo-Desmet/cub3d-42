@@ -6,7 +6,7 @@
 /*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 09:40:50 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/30 10:56:08 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/03 14:54:40 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,23 @@ void	ft_spawn_enemy(t_game *game)
 	if (game->map->height < 10 || game->map->width < 10)
 		game->enemy_spw = false;
 	i = 0;
-	while (i < 100)
+	while (i++ < 100)
 	{
 		x = rand();
 		y = rand();
 		x %= (game->map->height - 1);
 		y %= (game->map->width - 1);
-		if (ft_is_valide_place(game->enemy, game->map, x, y))
+		if (ft_is_valide_place(game->enemy, game->map, x, y)
+			&& (x > game->player->pos->x + 5 || x < game->player->pos->x - 5)
+			&& (y > game->player->pos->y + 5 || y < game->player->pos->y - 5))
 		{
 			game->enemy_spw = true;
 			game->enemy->act->x = x;
-			game->enemy->act->x = y;
-			printf("%d %d\n", x ,y);
+			game->enemy->act->y = y;
+			game->enemy->dest->x = x;
+			game->enemy->dest->y = y;
 			return ;
 		}
-		i++;
 	}
 	game->enemy_spw = false;
 }
@@ -92,12 +94,10 @@ void	ft_random_place(t_enemy *enemy, t_map *map)
 			y *= -1;
 		if (ft_is_valide_place(enemy, map, enemy->act->x + x, enemy->act->y + y))
 		{
-			enemy->dest->x = x;
-			enemy->dest->y = y;
+			enemy->dest->x = enemy->act->x + x;
+			enemy->dest->y = enemy->act->y + y;
 			return ;
 		}
-		enemy->dest->x = enemy->act->x;
-		enemy->dest->y = enemy->act->y;
 		valide++;
 	}
 }
