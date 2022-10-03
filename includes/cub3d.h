@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/27 15:04:43 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:50:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # include "define.h"
 # include "parsing.h"
 #include <stdbool.h>
+
+
+# define MOVING_SPEED 0.08
+# define ROTATE_SPEED 0.04
 
 void    ft_free_map(t_game *game, int i);
 /* -------------------------------------------------------------------------- */

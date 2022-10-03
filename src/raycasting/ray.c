@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:04:43 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,6 @@ void	ft_prepare_ray(t_game *game, int x)
 	ray->map_x = (int)ray->pos->x;
 	ray->map_y = (int)ray->pos->y;
 	ray->hit = 0;
-}
-
-void	ft_dda(t_ray *ray)
-{
-	if (ray->dir->x < 0)
-	{
-		ray->step_x = -1;
-		ray->sidedist_x = (ray->pos->x - ray->map_x) * ray->ddx;
-	}
-	else
-	{
-		ray->step_x = 1;
-		ray->sidedist_x = (ray->map_x + 1.0 - ray->pos->x) * ray->ddx;
-	}
-	if (ray->dir->y < 0)
-	{
-		ray->step_y = -1;
-		ray->sidedist_y = (ray->pos->y - ray->map_y) * ray->ddy;
-	}
-	else
-	{
-		ray->step_y = 1;
-		ray->sidedist_y = (ray->map_y + 1.0 - ray->pos->y) * ray->ddy;
-	}
 }
 
 void	ft_get_wall_tex(t_ray *ray, t_render *render, t_game *game)
@@ -80,7 +56,8 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->map->map[ray->map_y][ray->map_x] == 1 || game->map->map[ray->map_y][ray->map_x] == 8)
+		if (game->map->map[ray->map_y][ray->map_x] == 1
+			|| game->map->map[ray->map_y][ray->map_x] == 8)
 			ray->hit = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:17:41 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/26 15:45:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:00:54 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ft_get_wall_char(t_game *game, int x, int y)
 {
 	int	**map;
 
-	if (x == 0 || y == 0 || x == game->map->width - 1 || y == game->map->height - 1)
+	if (x == 0 || y == 0 || x == game->map->width - 1
+		|| y == game->map->height - 1)
 		return (8);
 	map = game->map->map;
 	if (map[y][x + 1] == -1 || map[y + 1][x + 1] == -1 || map[y + 1][x] == -1

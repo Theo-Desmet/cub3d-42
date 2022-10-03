@@ -6,37 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:42:48 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-// int	ft_free_all(t_game *game)
-// {
-// 	mlx_destroy_image(game->mlx, game->img->mlx_img);
-// 	free(game->img);
-// 	if (game->map)
-// 	{
-// 		free(game->textures_path);
-// 		ft_free_map(game, 0);
-// 	}
-// 	if (game->assets)
-// 		ft_free_assets(game->assets, game->mlx);
-// 	if (game->player)
-// 		ft_free_player(game->player);
-// 	if (game->ray)
-// 		ft_free_ray(game->ray);
-// 	if (game->plane)
-// 		free(game->plane);
-// 	if (game->win)
-// 		mlx_destroy_window(game->mlx, game->win);
-// 	if (game->map)
-// 		ft_free_map(game, 0);
-// 	mlx_destroy_display(game->mlx);
-// 	free(game->mlx);
-// 	free(game);
-// 	exit(EXIT_SUCCESS);
-// }
 
 t_render	*ft_init_render(void)
 {
@@ -45,14 +19,7 @@ t_render	*ft_init_render(void)
 	render = malloc(sizeof(t_render));
 	if (!render)
 		return (NULL);
-	render->end = 0;
-	render->start = 0;
-	render->x = 0;
-	render->y = 0;
-	render->color = 0;
-	render->sprite_x = 0;
-	render->sprite_y = 0;
-	render->wall_x = 0;
+	ft_memset(render, 0, sizeof(t_render));
 	return (render);
 }
 

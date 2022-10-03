@@ -1,6 +1,6 @@
 CC = c++
 
-CFLAGS = -Wall -Wextra -Werror -Ofast
+CFLAGS = -Wall -Wextra -Werror -Ofast -flto
 
 FILES = generator.cpp
 

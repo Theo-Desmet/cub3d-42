@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/29 11:24:15 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:32:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,27 @@ t_ray	*ft_init_ray(void)
 	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
-	ray->camera_x = 0.0;
-	ray->ddx = 0.0;
-	ray->ddy = 0.0;
-	ray->sidedist_x = 0.0;
-	ray->sidedist_y = 0.0;
-	ray->hit = 0;
-	ray->side = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
+	ft_memset(ray, 0, sizeof(t_ray));
 	ray->pos = ft_init_vector(0.0, 0.0);
 	ray->dir = ft_init_vector(0.0, 0.0);
 	if (!ray->dir || !ray->pos)
 		return (ft_free_ray(ray), NULL);
 	return (ray);
+}
+
+t_player	*ft_init_player(t_game *game)
+{
+	t_player	*player;
+
+	(void)game;
+	player = malloc(sizeof(t_player));
+	if (!player)
+		return (NULL);
+	player->dir = ft_init_vector(0, 0);
+	player->pos = ft_init_vector(0, 0);
+	player->rot_speed = ROTATE_SPEED;
+	player->walk_speed = MOVING_SPEED;
+	if (!player->dir || !player->pos)
+		return (ft_free_player(player), NULL);
+	return (player);
 }

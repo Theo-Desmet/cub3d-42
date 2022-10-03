@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/21 04:33:37 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:53:38 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int	ft_parsing(t_game *game, int argc, char **argv)
 		return (0);
 	if (!ft_check_border(game, game->map->map))
 		return (0);
+	ft_update_player(game);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/29 16:24:06 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:55:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
 	static t_img		*cache_img;
 	static unsigned int	cache_color;
 
-	if (x < 0)
-		x = 0;
-	if (y < 0)
-		y = 0;
+	x = fmax(0, fmin(x, S_WIDTH));
+	y = fmax(0, fmin(y, S_HEIGHT));
 	if (x != cache_x || y != cache_y || img != cache_img)
 	{
 		cache_color = *(unsigned int *)(img->addr

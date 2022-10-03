@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/29 16:23:06 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:12:27 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ void	ft_strafe(t_game *game)
 	g = game;
 	if (g->right)
 	{
-		if (ft_tiles(game, (int)(p->pos->x + g->plane->x
-				* p->walk_speed * 2), (int)p->pos->y))
+		if (ft_tiles(game, (int)(p->pos->x + (g->plane->x
+					* p->walk_speed * 4)), (int)p->pos->y))
 			p->pos->x += g->plane->x * p->walk_speed;
-		if (ft_tiles(game, (int)p->pos->x,
-				(int)(p->pos->y + g->plane->y * p->walk_speed * 2)))
+		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
+				+ (g->plane->y * p->walk_speed * 4))))
 			p->pos->y += g->plane->y * p->walk_speed;
 	}
 	if (g->left)
 	{
-		if (ft_tiles(game, (int)(p->pos->x - g->plane->x
-				* p->walk_speed * 2), (int)p->pos->y))
+		if (ft_tiles(game, (int)(p->pos->x - (g->plane->x
+					* p->walk_speed * 4)), (int)p->pos->y))
 			p->pos->x -= g->plane->x * p->walk_speed;
 		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
-				- g->plane->y * p->walk_speed * 2)))
+				- (g->plane->y * p->walk_speed * 4))))
 			p->pos->y -= g->plane->y * p->walk_speed;
 	}
 }
@@ -75,20 +75,20 @@ void	ft_move(t_game *game)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		if (ft_tiles(game, (int)(p->pos->x + (p->dir->x * p->walk_speed * 2)),
-			(int)(p->pos->y)))
+		if (ft_tiles(game, (int)(p->pos->x
+				+ (p->dir->x * p->walk_speed * 4)), (int)(p->pos->y)))
 			p->pos->x += p->dir->x * p->walk_speed;
 		if (ft_tiles(game, (int)(p->pos->x), (int)(p->pos->y
-			+ (p->dir->y * p->walk_speed * 2))))
+			+ (p->dir->y * p->walk_speed * 4))))
 			p->pos->y += p->dir->y * p->walk_speed;
 	}
 	if (game->backward)
 	{
 		if (ft_tiles(game, (int)(p->pos->x - (p->dir->x
-					* p->walk_speed * 2)), (int)p->pos->y))
+					* p->walk_speed * 4)), (int)p->pos->y))
 			p->pos->x -= p->dir->x * p->walk_speed;
-		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y \
-			- p->dir->y * p->walk_speed * 2)))
+		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
+				- (p->dir->y * p->walk_speed * 4))))
 			p->pos->y -= p->dir->y * p->walk_speed;
 	}
 	if (game->r_left || game->r_right || game->mouse_left || game->mouse_right)

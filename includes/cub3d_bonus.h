@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/09/30 11:57:49 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:47:27 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <math.h>
 # include "define.h"
 # include "parsing.h"
+
+# define MOVING_SPEED 0.15
+# define ROTATE_SPEED 0.06
 
 int		ft_parsing(t_game *data, int argc, char **argv);
 t_door	*ft_get_cur_door(t_game *game, int x, int y);
