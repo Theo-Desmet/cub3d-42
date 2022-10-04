@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/03 14:04:43 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:52:40 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,22 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 	else
 		render->wall_x = ray->pos->x + render->perp_wall_dist * ray->dir->x;
 	render->wall_x -= floor(render->wall_x);
-	render->sprite_x = (int)(render->wall_x * (double)SPRITE_SIZE);
+	render->sprite_x = (int)(render->wall_x * (double)SP_SIZE);
 }
 
 void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 {
 	ft_prepare_proj(game, render);
 	if (ray->side == 0 && ray->dir->x > 0.0)
-		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
+		render->sprite_x = SP_SIZE - render->sprite_x - 1;
 	if (ray->side == 1 && ray->dir->y < 0.0)
-		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
+		render->sprite_x = SP_SIZE - render->sprite_x - 1;
 	render->y = render->start;
 	ft_get_wall_tex(ray, render, game);
 	while (render->y < render->end)
 	{
 		render->sprite_y = (render->y * 2 - S_HEIGHT + render->height_line)
-			* (SPRITE_SIZE / 2) / render->height_line;
+			* (SP_SIZE / 2) / render->height_line;
 		render->color = ft_get_pixel(render->wall_tex, render->sprite_x,
 				render->sprite_y);
 		ft_put_pixel(game->img, render->x, render->y, render->color);

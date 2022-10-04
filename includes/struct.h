@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/03 16:59:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:06:45 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 # define STRUCT_H
 # include <stdbool.h>
 
-enum e_map {
+enum	e_map {
 	SIZE_MAP = 80,
 	VIS = 15,
 	SIZE_TILE = (SIZE_MAP * 2) / VIS,
 	SIZE_PLAYER = 15,
 	LEN_PL = (SIZE_PLAYER)
+};
+
+enum	e_size
+{
+	SP_SIZE = 64,
+	S_WIDTH = 1200,
+	S_HEIGHT = 600,
+	SIZE_GUN = (S_WIDTH / S_HEIGHT) * (S_HEIGHT / SP_SIZE) / 3
 };
 
 enum	e_error_msg

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinding.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:50:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/03 15:45:54 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/04 10:51:12 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	ft_move_enemy(t_enemy *enemy)
 	{
 		enemy->act->y -= 0.1;
 	}
-	printf("%lf, %lf, %d\n", enemy->act->x, enemy->act->y, enemy->i_path);
+	// printf("%lf, %lf, %d\n", enemy->act->x, enemy->act->y, enemy->i_path);
 }
 
 void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
@@ -183,7 +183,7 @@ void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
 				&& enemy->path[i]->y == enemy->dest->y)
 				break ;
 		}
-		printf("dest %d %f, %f\n", i ,enemy->dest->x, enemy->dest->y);
+		// printf("dest %d %f, %f\n", i ,enemy->dest->x, enemy->dest->y);
 		enemy->path[i + 1] = NULL;
 	}
 	ft_move_enemy(enemy);

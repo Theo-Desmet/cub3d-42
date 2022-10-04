@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/01 15:23:54 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:00:38 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ void	ft_update_sprite(t_game *game, t_sprite *sprite)
 	if (((int)sprite->pos->x != (int)sprite->last_pos->x)
 		|| ((int)sprite->pos->y != (int)sprite->last_pos->y))
 	{
-		type = game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x];
-		if (game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x] != 0)
-			replace = game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x];
-		game->map->map[(int)sprite->last_pos->y][(int)sprite->last_pos->x] = replace;
+		type = game->map->map[(int)sprite->last_pos->y]
+		[(int)sprite->last_pos->x];
+		if (game->map->map[(int)sprite->last_pos->y]
+			[(int)sprite->last_pos->x] != 0)
+			replace = game->map->map[(int)sprite->last_pos->y]
+			[(int)sprite->last_pos->x];
+		game->map->map[(int)sprite->last_pos->y]
+		[(int)sprite->last_pos->x] = replace;
 		sprite->last_pos->y = sprite->pos->y;
 		sprite->last_pos->x = sprite->pos->x;
 		game->map->map[(int)sprite->pos->y][(int)sprite->pos->x] = type;
@@ -59,7 +63,8 @@ void	ft_sprite_cast(t_game *game)
 		game->object->order[i] = i;
 		game->object->dist[i] = (pow(game->player->pos->x
 					- game->object->objects[i]->pos->x, 2)
-				+ pow(game->player->pos->y - game->object->objects[i]->pos->y, 2));
+				+ pow(game->player->pos->y
+					- game->object->objects[i]->pos->y, 2));
 	}
 	ft_sort_sprite(game->object);
 	i = -1;
@@ -76,31 +81,34 @@ void	ft_sprite_cast(t_game *game)
 	}
 }
 
+void	ft_draw_square(t_game *game, t_square square);
+
 void	ft_draw_gun(t_game *game, int frame)
 {
-	int size = (S_WIDTH / S_HEIGHT) * (S_HEIGHT / SPRITE_SIZE) / 3;
-	int				x1;
-	int				y1;
-	unsigned int	color;
-	int				save;
-	t_vector		pos;
-	y1 = 0;
-	pos = (t_vector){(S_WIDTH - (SPRITE_SIZE * size)) / 2, (S_HEIGHT - SPRITE_SIZE * size)};
-	save = (int)pos.x;
-	while (y1 < SPRITE_SIZE)
+	int			x;
+	int			y;
+	t_square	square;
+	t_vector	pos;
+
+	y = -1;
+	pos.x = (S_WIDTH - (SP_SIZE * SIZE_GUN)) / 2;
+	pos.y = (S_HEIGHT - SP_SIZE * SIZE_GUN);
+	while (++y < SP_SIZE)
 	{
-		pos.x = save;
-		x1 = 0;
-		while (x1 < SPRITE_SIZE)
-		{
-			color = ft_get_pixel(game->assets->gun, x1 + (SPRITE_SIZE * frame), y1);
-			if (!(color == (unsigned int)(0xFF << 24)))
-				ft_draw_square2(game->img, &pos, size, color);
-			pos.x += size;
-			x1++;
+		pos.x = (S_WIDTH - (SP_SIZE * SIZE_GUN)) / 2;
+		x = -1;
+		while (++x < SP_SIZE)
+		{		
+			square.color = ft_get_pixel(game->assets->gun, x
+					+ (SP_SIZE * frame), y);
+			if (!(square.color == (unsigned int)(0xFF << 24)))
+			{
+				square = (t_square){pos, SIZE_GUN, square.color, 0, false};
+				ft_draw_square(game, square);
+			}
+			pos.x += SIZE_GUN;
 		}
-		pos.y += size;
-		y1++;
+		pos.y += SIZE_GUN;
 	}
 }
 

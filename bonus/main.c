@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:07:40 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_parsing(t_game *game, int argc, char **argv);
 int	mouse_handling(int x, int y, t_game *game)
 {
 	static int	last_x;
-	
+
 	(void)y;
 	mlx_mouse_move(game->mlx, game->win, S_WIDTH / 2, S_HEIGHT / 2);
 	if (last_x != x)

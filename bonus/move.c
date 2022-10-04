@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/29 14:58:17 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:17:21 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,36 @@
 
 #define FAC 1.2
 
-int	ft_is_valid_tiles(t_game *game, int x, int y)
+int	ft_tiles(t_game *game, int x, int y)
 {
-	return (game->map->map[y][x] == 0 || game->map->map[y][x] == 4 || game->map->map[y][x] == 5);
+	return (game->map->map[y][x] == 0 || game->map->map[y][x] == 4
+		|| game->map->map[y][x] == 5);
 }
 
 void	ft_strafe(t_game *game)
 {
-	t_game	*g;
+	t_player	*p;
+	t_game		*g;
 
+	p = game->player;
 	g = game;
 	if (g->right)
 	{
-		if (ft_is_valid_tiles(game, (int)(g->player->pos->x + g->plane->x * g->player->walk_speed * 2), (int)g->player->pos->y))
-			g->player->pos->x += g->plane->x * g->player->walk_speed;
-		if (ft_is_valid_tiles(game, (int)g->player->pos->x, (int)(g->player->pos->y + g->plane->y * g->player->walk_speed * 2)))
-			g->player->pos->y += g->plane->y * g->player->walk_speed;
+		if (ft_tiles(game, (int)(p->pos->x + (g->plane->x
+					* p->walk_speed * 4)), (int)p->pos->y))
+			p->pos->x += g->plane->x * p->walk_speed;
+		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
+				+ (g->plane->y * p->walk_speed * 4))))
+			p->pos->y += g->plane->y * p->walk_speed;
 	}
 	if (g->left)
 	{
-		if (ft_is_valid_tiles(game, (int)(g->player->pos->x - g->plane->x * g->player->walk_speed * 2), (int)g->player->pos->y))
-			g->player->pos->x -= g->plane->x * g->player->walk_speed;
-		if (ft_is_valid_tiles(game, (int)g->player->pos->x, (int)(g->player->pos->y - g->plane->y * g->player->walk_speed * 2)))
-			g->player->pos->y -= g->plane->y * g->player->walk_speed;
+		if (ft_tiles(game, (int)(p->pos->x - (g->plane->x
+					* p->walk_speed * 4)), (int)p->pos->y))
+			p->pos->x -= g->plane->x * p->walk_speed;
+		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
+				- (g->plane->y * p->walk_speed * 4))))
+			p->pos->y -= g->plane->y * p->walk_speed;
 	}
 }
 
@@ -64,27 +71,29 @@ void	ft_rotate(t_game *game)
 
 void	ft_move(t_game *game)
 {
-	t_player	*player;
+	t_player	*p;
 
-	player = game->player;
+	p = game->player;
 	if (game->left || game->right)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		if (ft_is_valid_tiles(game, (int)(player->pos->x + (player->dir->x * player->walk_speed * 2)), (int)(player->pos->y)))
-			player->pos->x += player->dir->x * player->walk_speed;
-		if (ft_is_valid_tiles(game, (int)(player->pos->x), (int)(player->pos->y + (player->dir->y * player->walk_speed * 2))))
-			player->pos->y += player->dir->y * player->walk_speed;
+		if (ft_tiles(game, (int)(p->pos->x
+				+ (p->dir->x * p->walk_speed * 4)), (int)(p->pos->y)))
+			p->pos->x += p->dir->x * p->walk_speed;
+		if (ft_tiles(game, (int)(p->pos->x), (int)(p->pos->y
+			+ (p->dir->y * p->walk_speed * 4))))
+			p->pos->y += p->dir->y * p->walk_speed;
 	}
 	if (game->backward)
 	{
-		if (ft_is_valid_tiles(game, (int)(player->pos->x - (player->dir->x * player->walk_speed * 2)), (int)player->pos->y))
-			player->pos->x -= player->dir->x * player->walk_speed;
-		if (ft_is_valid_tiles(game, (int)player->pos->x, (int)(player->pos->y \
-			- player->dir->y * player->walk_speed * 2)))
-			player->pos->y -= player->dir->y * player->walk_speed;
+		if (ft_tiles(game, (int)(p->pos->x - (p->dir->x
+					* p->walk_speed * 4)), (int)p->pos->y))
+			p->pos->x -= p->dir->x * p->walk_speed;
+		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
+				- (p->dir->y * p->walk_speed * 4))))
+			p->pos->y -= p->dir->y * p->walk_speed;
 	}
-	if (game->r_left || game->r_right || game->mouse_left
-		|| game->mouse_right)
+	if (game->r_left || game->r_right || game->mouse_left || game->mouse_right)
 		ft_rotate(game);
 }

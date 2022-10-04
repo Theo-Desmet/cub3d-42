@@ -6,29 +6,29 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:45:40 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/01 14:47:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:31:51 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-inline int	ft_modulo(int x)
+int	ft_modulo(int x)
 {
-	if (x == SPRITE_SIZE)
+	if (x == SP_SIZE)
 		return (0);
 	return (x);
 }
 
-inline void	ft_color_floor(t_game *game, t_render *render)
+void	ft_color_floor(t_game *game, t_render *render)
 {
 	int	x;
 
 	x = -1;
 	while (++x < S_WIDTH)
 	{
-		render->tex_x = ft_modulo((int)(SPRITE_SIZE * (render->floor_x
+		render->tex_x = ft_modulo((int)(SP_SIZE * (render->floor_x
 						- (int)render->floor_x)));
-		render->tex_y = ft_modulo((int)(SPRITE_SIZE * (render->floor_y
+		render->tex_y = ft_modulo((int)(SP_SIZE * (render->floor_y
 						- (int)render->floor_y)));
 		render->floor_x += render->step_x;
 		render->floor_y += render->step_y;
