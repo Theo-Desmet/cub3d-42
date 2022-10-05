@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:23:17 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/04 11:23:20 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:17:18 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 t_door	*ft_get_cur_door(t_game *game, int x, int y)
 {
-	int	i;
+	int				i;
+	static t_door	*cur;
+	static int		cache_x;
+	static int		cache_y;
 
 	i = -1;
+	if (cur && cache_x == x && cache_y == y)
+		return (cur);
 	while (++i < game->nb_doors)
+	{
 		if (game->doors[i]->x == x && game->doors[i]->y == y)
-			return (game->doors[i]);
+		{
+			cur = game->doors[i];
+			return (cur);
+		}
+	}
 	return (NULL);
 }
 

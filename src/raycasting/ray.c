@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/04 10:52:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 15:43:46 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 		render->color = ft_get_pixel(render->wall_tex, render->sprite_x,
 				render->sprite_y);
 		ft_put_pixel(game->img, render->x, render->y, render->color);
+		// mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 		render->y++;
 	}
 }

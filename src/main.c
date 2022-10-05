@@ -6,11 +6,44 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:20:28 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/29 14:49:12 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:29:12 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+// # include <sys/time.h>
+
+// unsigned long	ft_get_time(void)
+// {
+// 	struct timeval	t;
+
+// 	gettimeofday(&t, NULL);
+// 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+// }
+
+// void	ft_fps(t_game *game)
+// {
+// 	static	unsigned long	cur;
+// 	static	int				frames;
+// 	static	char			*fps;
+
+
+// 	if (!cur)
+// 		cur = ft_get_time() + 1000;
+// 	if (cur <= ft_get_time())
+// 	{
+// 		cur = ft_get_time() + 1000;
+// 		if (fps)
+// 			free(fps);
+// 		fps = ft_itoa(frames);
+// 		frames = 0;
+// 	}
+// 	if (fps)
+// 		mlx_string_put(game->mlx, game->win, S_WIDTH - 50, 10, 0xFF0000, fps);
+// 	frames++;
+// }
 
 int	main(int ac, char **av)
 {

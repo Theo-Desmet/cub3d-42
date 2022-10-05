@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:44 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:23:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,17 +114,6 @@ t_enemy	*ft_init_enemy(void)
 			return (ft_free_enemy(enemy), NULL);
 	enemy->act->x = 1;//spawn a mdf
 	enemy->act->y = 1;//spawn a mdf
-<<<<<<< HEAD
-        enemy->dest = malloc(sizeof(t_vector));
-        if (!enemy->dest)
-                return (ft_free_enemy(enemy), NULL);
-        enemy->img_enemy = malloc(sizeof(t_img));
-        if (!enemy->img_enemy)
-                return (ft_free_enemy(enemy), NULL);
-        enemy->path = malloc(11 * sizeof(t_vector *));
-        if (!enemy->path)
-                return (ft_free_enemy(enemy), NULL);
-=======
 	enemy->dest = malloc(sizeof(t_vector));
 	if (!enemy->dest)
 		return (ft_free_enemy(enemy), NULL);
@@ -134,7 +123,6 @@ t_enemy	*ft_init_enemy(void)
 	enemy->path = malloc(10 * sizeof(t_vector *));
 	if (!enemy->path)
 		return (ft_free_enemy(enemy), NULL);
->>>>>>> bbordere
 	return (enemy);
 }
 

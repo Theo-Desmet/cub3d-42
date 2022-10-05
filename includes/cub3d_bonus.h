@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/04 22:44:10 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:24:25 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ft_hori_mov(t_vector **path, int **map, int i, t_vector *mov);
 void			ft_vert_mov(t_vector **path, int **map, int i, t_vector *mov);
 void			ft_search_path(t_enemy *enemy, int **map, int i);
 int				ft_ftoi(float f);
-void			ft_move_enemy(t_enemy *enemy);
+void    		ft_move_enemy(t_enemy *enemy, t_map *map);
 void			ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
 
 /* -------------------------------------------------------------------------- */
