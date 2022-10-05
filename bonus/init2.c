@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/30 11:57:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:02:40 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_enemy	*ft_init_enemy(void)
         enemy->img_enemy = malloc(sizeof(t_img));
         if (!enemy->img_enemy)
                 return (ft_free_enemy(enemy), NULL);
-        enemy->path = malloc(10 * sizeof(t_vector *));
+        enemy->path = malloc(11 * sizeof(t_vector *));
         if (!enemy->path)
                 return (ft_free_enemy(enemy), NULL);
 	return (enemy);
