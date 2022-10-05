@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/03 15:32:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:35:40 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_img	*ft_init_img(void *mlx, char *path, int width, int height)
 	t_img	*img;
 	int		size;
 
-	size = SPRITE_SIZE;
+	size = SP_SIZE;
 	img = malloc(sizeof(t_img));
 	if (!img)
 		return (NULL);
@@ -44,13 +44,13 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 	if (!asset)
 		return (NULL);
 	asset->wall_E = ft_init_img(mlx, game->textures_path[0],
-			SPRITE_SIZE, SPRITE_SIZE);
+			SP_SIZE, SP_SIZE);
 	asset->wall_N = ft_init_img(mlx, game->textures_path[2],
-			SPRITE_SIZE, SPRITE_SIZE);
+			SP_SIZE, SP_SIZE);
 	asset->wall_S = ft_init_img(mlx, game->textures_path[3],
-			SPRITE_SIZE, SPRITE_SIZE);
+			SP_SIZE, SP_SIZE);
 	asset->wall_W = ft_init_img(mlx, game->textures_path[1],
-			SPRITE_SIZE, SPRITE_SIZE);
+			SP_SIZE, SP_SIZE);
 	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W)
 		return (ft_free_assets(asset, mlx), NULL);
 	return (asset);

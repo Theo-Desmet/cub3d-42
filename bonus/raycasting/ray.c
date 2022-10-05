@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/01 14:52:58 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 22:45:45 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,16 @@ void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
 
 void	ft_prot_render(t_render *render)
 {
-	render->start = - (render->height_line) / 2 + S_HEIGHT / 2;
-	render->end = render->height_line / 2 + S_HEIGHT / 2;
+	if (render->height_line <= 1)
+		render->height_line = 2;
+	render->start = -(render->height_line / 2) + (S_HEIGHT / 2);
+	render->end = (render->height_line / 2) + (S_HEIGHT / 2);
 	if (render->start < 0)
 		render->start = 0;
 	if (render->end >= S_HEIGHT)
 		render->end = S_HEIGHT;
 	if (render->end < 0)
-		render->end = S_HEIGHT;
+		render->end = 0;
 }
 
 void	ft_prepare_proj(t_game *game, t_render *render)
@@ -140,11 +142,11 @@ void	ft_prepare_proj(t_game *game, t_render *render)
 	else
 		render->wall_x = ray->pos->x + render->perp_wall_dist * ray->dir->x;
 	render->wall_x -= floor(render->wall_x);
-	render->sprite_x = (int)(render->wall_x * (double)SPRITE_SIZE);
+	render->sprite_x = (int)(render->wall_x * (double)SP_SIZE);
 	if (ray->side == 0 && ray->dir->x > 0.0)
-		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
+		render->sprite_x = SP_SIZE - render->sprite_x - 1;
 	if (ray->side == 1 && ray->dir->y < 0.0)
-		render->sprite_x = SPRITE_SIZE - render->sprite_x - 1;
+		render->sprite_x = SP_SIZE - render->sprite_x - 1;
 	render->y = render->start;
 	ft_get_wall_tex(ray, render, game);
 }
@@ -156,11 +158,11 @@ void	ft_door_proj(t_ray *ray, t_render *render, t_door *door)
 		if ((ray->side == 0 && ray->dir->x > 0)
 			|| (ray->side == 1 && ray->dir->y < 0))
 			render->color = ft_get_pixel(render->wall_tex,
-					render->sprite_x - ((int)(door->factor * SPRITE_SIZE)),
+					render->sprite_x - ((int)(door->factor * SP_SIZE)),
 					render->sprite_y);
 		else
 			render->color = ft_get_pixel(render->wall_tex,
-					render->sprite_x + ((int)(door->factor * SPRITE_SIZE)),
+					render->sprite_x + ((int)(door->factor * SP_SIZE)),
 					render->sprite_y);
 	}
 }
@@ -173,21 +175,16 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 	door = ft_get_cur_door(game, ray->map_x, ray->map_y);
 	while (render->y < render->end)
 	{
-		if (render->perp_wall_dist > SHADING_DISTANCE)
-			render->color = FOG_COLOR;
+		render->sprite_y = (render->y * 2 - S_HEIGHT + render->height_line)
+			* (SP_SIZE / 2) / render->height_line;
+		if (render->wall_tex == game->assets->door)
+			ft_door_proj(ray, render, door);
 		else
-		{
-			render->sprite_y = (render->y * 2 - S_HEIGHT + render->height_line)
-				* (SPRITE_SIZE / 2) / render->height_line;
-			if (render->wall_tex == game->assets->door)
-				ft_door_proj(ray, render, door);
-			else
-				render->color = ft_get_pixel(render->wall_tex,
-						render->sprite_x, render->sprite_y);
-			// if (ray->side == 1)
-			// 	render->color = (render->color >> 1) & 0x7F7F7F;
-			ft_fog(render->perp_wall_dist, &render->color);
-		}
+			render->color = ft_get_pixel(render->wall_tex,
+					render->sprite_x, render->sprite_y);
+		// if (ray->side == 1)
+		// 	render->color = (render->color >> 1) & 0x7F7F7F;
+		ft_fog(render->perp_wall_dist, &render->color);
 		ft_put_pixel(game->img, render->x, render->y, render->color);
 		render->y++;
 	}

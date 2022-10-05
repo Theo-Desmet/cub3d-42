@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 13:52:08 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:54:44 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_object	*ft_alloc_objs(t_game *game, t_object *obj)
 	{
 		j = -1;
 		while (++j < game->map->width)
-			if (game->map->map[i][j] == 2 ||game->map->map[i][j] == 5)
+			if (game->map->map[i][j] == 2 || game->map->map[i][j] == 5)
 				obj->nb_obj++;
 	}
 	obj->objects = malloc(sizeof(t_sprite) * obj->nb_obj);
@@ -68,7 +68,7 @@ t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
 	return (res);
 }
 
-enum TYPE_SPRITE
+enum e_type_sprite
 {
 	BARREL = 2,
 	LIGHT = 5,
@@ -79,7 +79,8 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 {
 	if (game->map->map[i][j] == 2)
 	{
-		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5, i + 0.5, game->assets->obj);
+		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5,
+				i + 0.5, game->assets->obj);
 		if (!obj->objects[obj->index - 1])
 			return (ft_free_obj_tab(game, obj), -1);
 		obj->objects[obj->index - 1]->h_div = 1;
@@ -90,8 +91,8 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 	else if (game->map->map[i][j] == LIGHT)
 	{
 		t_img	*light = ft_init_img(game->mlx, "assets/greenlight.xpm", 64, 64);
-		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5, i + 0.5
-		, light);
+		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5,
+				i + 0.5, light);
 		if (!obj->objects[obj->index - 1])
 			return (ft_free_obj_tab(game, obj), -1);
 		obj->objects[obj->index - 1]->h_div = 1;
@@ -105,14 +106,15 @@ t_enemy	*ft_init_enemy(void)
 {
 	t_enemy	*enemy;
 
-        enemy = malloc(sizeof(t_enemy));
-        if (!enemy)
-                return (NULL);
-        enemy->act = malloc(sizeof(t_vector));
-        if (!enemy->act)
-                return (ft_free_enemy(enemy), NULL);
+	enemy = malloc(sizeof(t_enemy));
+	if (!enemy)
+			return (NULL);
+	enemy->act = malloc(sizeof(t_vector));
+	if (!enemy->act)
+			return (ft_free_enemy(enemy), NULL);
 	enemy->act->x = 1;//spawn a mdf
 	enemy->act->y = 1;//spawn a mdf
+<<<<<<< HEAD
         enemy->dest = malloc(sizeof(t_vector));
         if (!enemy->dest)
                 return (ft_free_enemy(enemy), NULL);
@@ -122,6 +124,17 @@ t_enemy	*ft_init_enemy(void)
         enemy->path = malloc(11 * sizeof(t_vector *));
         if (!enemy->path)
                 return (ft_free_enemy(enemy), NULL);
+=======
+	enemy->dest = malloc(sizeof(t_vector));
+	if (!enemy->dest)
+		return (ft_free_enemy(enemy), NULL);
+	enemy->img_enemy = malloc(sizeof(t_img));
+	if (!enemy->img_enemy)
+		return (ft_free_enemy(enemy), NULL);
+	enemy->path = malloc(10 * sizeof(t_vector *));
+	if (!enemy->path)
+		return (ft_free_enemy(enemy), NULL);
+>>>>>>> bbordere
 	return (enemy);
 }
 
@@ -144,6 +157,7 @@ void	ft_get_objs(t_game *game, t_object *obj)
 		}
 	}
 }
+
 void	ft_free_sprite(t_game *game, t_sprite *sprite)
 {
 	if (sprite->texture)
@@ -258,7 +272,7 @@ void	ft_free_textures(t_game *game)
 	free(game->textures_path);
 }
 
-int	ft_free_all(t_game *game)
+void	ft_free_visual(t_game *game)
 {
 	if (game->ray)
 		ft_free_ray(game->ray);
@@ -266,6 +280,20 @@ int	ft_free_all(t_game *game)
 		ft_free_assets(game->assets, game->mlx);
 	if (game->player)
 		ft_free_player(game->player);
+	if (game->object)
+		ft_free_obj(game, game->object);
+	if (game->doors)
+		ft_free_tab((void **)game->doors);
+	if (game->img)
+	{
+		mlx_destroy_image(game->mlx, game->img->mlx_img);
+		free(game->img);
+	}
+}
+
+int	ft_free_all(t_game *game)
+{
+	ft_free_visual(game);
 	if (game->plane)
 		free(game->plane);
 	if (game->textures_path)
@@ -274,17 +302,8 @@ int	ft_free_all(t_game *game)
 		ft_free_map(game, game->map->height - 1);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	if (game->img)
-	{
-		mlx_destroy_image(game->mlx, game->img->mlx_img);
-		free(game->img);
-	}
 	if (game->error_msg)
 		ft_free_tab((void **)game->error_msg);
-	if (game->object)
-		ft_free_obj(game, game->object);
-	if (game->doors)
-		ft_free_tab((void **)game->doors);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free(game);
@@ -310,40 +329,20 @@ t_door	**ft_get_doors(t_game *game)
 			{
 				game->doors[i] = ft_init_door(x, y);
 				if (!game->doors[i])
-					return (NULL); //FREE ALL
+					return (ft_free_tab((void **)game->doors), NULL);
 				i++;
-
 			}
 		}
 	}
 	return (game->doors);
 }
 
-void	printTab(int **tab, int x, int y)
-{
-	int i = 0;
-	while (i < x)
-	{
-		int j = 0;
-		while (j < y)
-		{
-			printf("%d", tab[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
-
 void	ft_update_heading(t_game *game, double x, double y)
 {
-	double half_fov;
-
-	half_fov = FOV / 2;
 	game->player->dir->x = x;
 	game->player->dir->y = y;
-	game->plane->x = -y * ((half_fov * M_PI) / 180);
-	game->plane->y = x * ((half_fov * M_PI) / 180);
+	game->plane->x = -y * ((FOV / 2 * M_PI) / 180);
+	game->plane->y = x * ((FOV / 2 * M_PI) / 180);
 }
 
 void	ft_update_player(t_game *game)
@@ -383,17 +382,14 @@ t_game	*ft_alloc_game(void)
 	return (game);
 }
 
-char	**ft_init_error_messages(void)
+void	ft_fill_error_msg(char **arr)
 {
-	char	**arr;
-	int		i;
-
-	arr = (char **)ft_calloc(12, sizeof(char *));
-	if (!arr)
-		return (NULL);
-	arr[NO_FILE] = ft_strdup("bad file: please add an file with .cub extension\n");
-	arr[TOO_MANY_FILE] = ft_strdup("bad file: too many files, please use only one\n");
-	arr[BAD_EXTENSION] = ft_strdup("bad extension file: filename need .cub extension\n");
+	arr[NO_FILE] = ft_strdup("bad file: please add an file with .cub"
+			" extension\n");
+	arr[TOO_MANY_FILE] = ft_strdup("bad file: too many files, please use"
+			" only one\n");
+	arr[BAD_EXTENSION] = ft_strdup("bad extension file: filename need .cub"
+			" extension\n");
 	arr[BAD_FORMAT] = ft_strdup("bad filename: please use a valid filename\n");
 	arr[NOT_FOUND] = ft_strdup("bad filename: file not found\n");
 	arr[INVALID_SYNTAX] = ft_strdup(": use or redifine of an invalide syntax\n");
@@ -402,6 +398,17 @@ char	**ft_init_error_messages(void)
 	arr[NO_SPAWN] = ft_strdup("error in file: no spawn in map\n");
 	arr[COPY_ERROR] = ft_strdup("error during the copy of the map\n");
 	arr[INVALID_HEADER] = ft_strdup("error in file: invalid line in head\n");
+}
+
+char	**ft_init_error_messages(void)
+{
+	char	**arr;
+	int		i;
+
+	arr = (char **)ft_calloc(12, sizeof(char *));
+	if (!arr)
+		return (NULL);
+	ft_fill_error_msg(arr);
 	i = -1;
 	while (++i < 11)
 		if (!arr[i])
@@ -442,7 +449,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->plane = ft_init_vector(1, 0);
 	if (!game->map || !game->textures_path || !game->player || !game->plane
 		|| !game->error_msg || !ft_parsing(game, ac, av))
-			return (ft_free_all(game), NULL);
+		return (ft_free_all(game), NULL);
 	ft_update_player(game);
 	srand(time(NULL));
 	ft_spawn_enemy(game);
@@ -454,9 +461,9 @@ t_game	*ft_init_game(int ac, char **av)
 	game->img = ft_init_img(game->mlx, NULL, S_WIDTH, S_HEIGHT);
 	game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "cub3D");
 	game->frame = 50;
-	game->doors	= ft_get_doors(game);
+	game->doors = ft_get_doors(game);
 	if (!game->ray || !game->object || !game->img
-			|| !game->win || !game->doors)
+		|| !game->win || !game->doors)
 		return (ft_free_all(game), NULL);
 	return (game);
 }

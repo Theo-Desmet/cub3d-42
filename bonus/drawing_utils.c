@@ -6,46 +6,50 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/27 14:00:29 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:41:54 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-inline int		ft_rgbtoi(int r, int g, int b)
+int	ft_rgbtoi(int r, int g, int b)
 {
 	return (((r & 0xFF) << 16) + ((g & 0xFF) << 8) + ((b & 0xFF)));
 }
 
-inline void	ft_itorgb(int val, int *r, int *g, int *b)
+void	ft_itorgb(int val, int *r, int *g, int *b)
 {
 	*r = (val >> 16) & 0xFF;
 	*g = (val >> 8) & 0xFF;
 	*b = val & 0xFF;
 }
 
+double	ft_clampf(double x, double low, double high)
+{
+	if (x > high)
+		x = high;
+	if (x < low)
+		x = low;
+	return (x);
+}
+
 void	ft_fog(double dist, int *color)
 {
-	int		r;
-	int		g;
-	int		b;
+	t_rgb	rgb;
 	double	intensity;
 
 	if (*color == FOG_COLOR)
 		return ;
 	intensity = (dist) / SHADING_DISTANCE;
-	if (intensity > 1)
-		intensity = 1;
-	else if (intensity < 0)
-		intensity = 0;
+	intensity = ft_clampf(intensity, 0, 1);
 	if (intensity == 1)
 	{
 		*color = FOG_COLOR;
 		return ;
 	}
-	ft_itorgb(*color, &r, &g, &b);
-	r = (1 - intensity) * r + intensity * (double)((FOG_COLOR >> 16) & 0xFF);
-	g = (1 - intensity) * g + intensity * (double)((FOG_COLOR >> 8) & 0xFF);
-	b = (1 - intensity) * b + intensity * (double)(FOG_COLOR & 0xFF);
-	*color = ft_rgbtoi(r, g, b);
+	ft_itorgb(*color, &rgb.r, &rgb.g, &rgb.b);
+	rgb.r = (1 - intensity) * rgb.r + intensity * (double)((FOG_COLOR >> 16) & 0xFF);
+	rgb.g = (1 - intensity) * rgb.g + intensity * (double)((FOG_COLOR >> 8) & 0xFF);
+	rgb.b = (1 - intensity) * rgb.b + intensity * (double)(FOG_COLOR & 0xFF);
+	*color = ft_rgbtoi(rgb.r, rgb.g, rgb.b);
 }

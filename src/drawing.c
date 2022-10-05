@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/03 16:55:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:34:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,31 @@ void	ft_put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+	if (x < 0 || y < 0 || x >= img->width || y >= img->height
+		|| (int)ft_get_pixel(img, x, y) == color)
 		return ;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
-inline unsigned int	ft_get_pixel(t_img *img, int x, int y)
+int	ft_clamp(int x, int low, int high)
+{
+	if (x > high)
+		x = high;
+	if (x < low)
+		x = low;
+	return (x);
+}
+
+unsigned int	ft_get_pixel(t_img *img, int x, int y)
 {
 	static int			cache_x;
 	static int			cache_y;
 	static t_img		*cache_img;
 	static unsigned int	cache_color;
 
-	x = fmax(0, fmin(x, S_WIDTH));
-	y = fmax(0, fmin(y, S_HEIGHT));
+	x = ft_clamp(x, 0, S_WIDTH);
+	y = ft_clamp(y, 0, S_HEIGHT);
 	if (x != cache_x || y != cache_y || img != cache_img)
 	{
 		cache_color = *(unsigned int *)(img->addr

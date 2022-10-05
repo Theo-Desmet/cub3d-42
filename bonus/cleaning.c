@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/09/22 15:46:49 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:15:41 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ void	ft_free_ray(t_ray *ray)
 		free(ray->pos);
 	free(ray);
 }
-

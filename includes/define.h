@@ -6,16 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/03 16:59:34 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/05 00:11:39 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
 
-# define SPRITE_SIZE 64
-# define S_WIDTH 1200
-# define S_HEIGHT 600
 # define SHADING_DISTANCE 10
 # define FOV 114
 

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/03 09:08:59 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/04 15:56:33 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ int	ft_key_down(int keycode, t_game *game)
 		game->player->walk_speed = 0.16;
 	if (keycode == 65513)
 		game->player->walk_speed = 0.04;
-	if (keycode == 65432)
-		game->object->objects[0]->pos->x += 0.064;
-	if (keycode == 65430)
-		game->object->objects[0]->pos->x -= 0.064;
-	if (keycode == 65431)
-		game->object->objects[0]->pos->y -= 0.064;
-	if (keycode == 65437)
-		game->object->objects[0]->pos->y += 0.064;
 	if (keycode == FORWARD_KEY)
 		game->forward = true;
 	if (keycode == BACKWARD_KEY)
@@ -49,8 +41,9 @@ void	ft_door(t_game *game)
 {
 	t_door	*door;
 
-	door = ft_get_cur_door(game,(int)(game->player->pos->x + game->player->dir->x),
-				(int)(game->player->pos->y + game->player->dir->y));
+	door = ft_get_cur_door(game, (int)(game->player->pos->x
+				+ game->player->dir->x), (int)(game->player->pos->y
+				+ game->player->dir->y));
 	if (door)
 		door->state *= -1;
 }
@@ -77,10 +70,27 @@ int	ft_key_up(int keycode, t_game *game)
 }
 
 
-void	ft_fps(t_game *game);
+void	ft_animation_handler(t_object *obj, int i)
+{
+	if (obj->objects[i]->animated)
+	{
+		if (obj->tick == 25)
+			obj->objects[i]->frame = 1;
+		if (obj->tick == 50)
+			obj->objects[i]->frame = 2;
+		if (obj->tick == 75)
+			obj->objects[i]->frame = 3;
+		if (obj->tick == 120)
+		{
+			obj->objects[i]->frame = 0;
+			obj->tick = 0;
+		}
+	}	
+}
+
 int	ft_loop(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < game->nb_doors)
@@ -94,28 +104,10 @@ int	ft_loop(t_game *game)
 	i = -1;
 	game->object->tick++;
 	while (++i < game->object->nb_obj)
-	{
-		if (game->object->objects[i]->animated)
-		{
-			if (game->object->tick == 25)
-				game->object->objects[i]->frame = 1;
-			if (game->object->tick == 50)
-				game->object->objects[i]->frame = 2;
-			if (game->object->tick == 75)
-				game->object->objects[i]->frame = 3;
-			if (game->object->tick == 120)
-			{
-				game->object->objects[i]->frame = 0;
-				game->object->tick = 0;
-			}
-		}
-	}
+		ft_animation_handler(game->object, i);
 	ft_pathfinding(game, game->enemy, game->map);
 	ft_render(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	ft_fps(game);
-	// mlx_destroy_image(game->mlx, game->img->mlx_img);
-	// free(game->img);
-	// game->img = NULL;
 	return (0);
 }
