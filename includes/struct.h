@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/05 15:40:23 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:08:06 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@
 enum	e_size
 {
 	SP_SIZE = 64,
-	S_WIDTH = 600,
-	S_HEIGHT = 300,
+	S_WIDTH = 1080,
+	S_HEIGHT = 540,
 	SIZE_GUN = (S_WIDTH / S_HEIGHT) * (S_HEIGHT / SP_SIZE) / 3
+};
+
+enum e_type_sprite
+{
+	BARREL = 2,
+	LIGHT = 5,
+	ENEMY = 6
 };
 
 enum	e_map {
@@ -171,15 +178,6 @@ typedef struct s_player
 	double		rot_speed;
 }	t_player;
 
-typedef struct s_enemy
-{
-	int			i_path;
-	t_vector	*act;
-	t_vector	*dest;
-	t_vector	**path;
-	t_img		*img_enemy;
-}	t_enemy;
-
 typedef struct s_sprite
 {
 	t_vector	*pos;
@@ -192,6 +190,16 @@ typedef struct s_sprite
 	double		v_div;
 	double		v_offset;
 }	t_sprite;
+
+typedef struct s_enemy
+{
+	int			i_path;
+	t_vector	*act;
+	t_vector	*dest;
+	t_vector	**path;
+	t_img		*img_enemy;
+	t_sprite	*sprite;
+}	t_enemy;
 
 typedef struct s_object
 {

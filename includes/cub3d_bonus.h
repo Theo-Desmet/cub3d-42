@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/05 14:24:25 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:03:42 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			ft_spawn_enemy(t_game *game);
 /* -------------------------------------------------------------------------- */
 /*                           FILE = bonus/minimap.c                           */
 /* -------------------------------------------------------------------------- */
-int				ft_trans(int color, int back);
+int				ft_transp(int color, int back);
 bool			ft_is_in_limit(double x, double y, int radius, int mode);
 void			ft_draw_square(t_game *game, t_square square);
 void			ft_draw_line(t_game *game, t_vector *pos, t_vector *pos2,

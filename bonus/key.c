@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 15:14:14 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:08:36 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	ft_key_up(int keycode, t_game *game)
 	return (0);
 }
 
-
 void	ft_animation_handler(t_object *obj, int i)
 {
 	if (obj->objects[i]->animated)
@@ -105,7 +104,9 @@ int	ft_loop(t_game *game)
 	game->object->tick++;
 	while (++i < game->object->nb_obj)
 		ft_animation_handler(game->object, i);
-	// ft_pathfinding(game, game->enemy, game->map);
+	ft_pathfinding(game, game->enemy, game->map);
+	game->enemy->sprite->pos->x = game->enemy->act->x;
+	game->enemy->sprite->pos->y = game->enemy->act->y;
 	ft_render(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	ft_fps(game);

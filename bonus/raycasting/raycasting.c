@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 15:06:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:53:50 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,17 @@ void	ft_sprite_cast(t_game *game)
 					- game->object->objects[i]->pos->x, 2)
 				+ pow(game->player->pos->y
 					- game->object->objects[i]->pos->y, 2));
+		// game->object->dist[i] = hypot(game->player->pos->x - game->object->objects[i]->pos->x, game->player->pos->y	- game->object->objects[i]->pos->y);
 	}
 	ft_sort_sprite(game->object);
 	i = -1;
-	game->object->h_div = 1;
-	game->object->v_div = 1;
-	game->object->v_offset = 0;
 	while (++i < game->object->nb_obj)
 	{
 		ft_prepare_sprite(game, game->object, &i);
 		if (game->object->end_x < 0)
 			game->object->end_x = 0;
 		ft_draw_sprite(game, game->object, i);
-		ft_update_sprite(game, game->object->objects[i]);
+		// ft_update_sprite(game, game->object->objects[i]);
 	}
 }
 

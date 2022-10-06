@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:50:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/05 14:24:56 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:17:59 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,13 +149,13 @@ void	ft_move_enemy(t_enemy *enemy, t_map *map)
 		map->map[path_x / 10][path_y / 10] = 7;
 	}
 	else if (path_x > act_x && path_y == act_y)	
-		enemy->act->x += 0.1;
+		enemy->act->x += 0.0625;
 	else if (path_x < act_x && path_y == act_y)	
-		enemy->act->x -= 0.1;
+		enemy->act->x -= 0.0625;
 	else if (path_y > act_y && path_x == act_x)
-		enemy->act->y += 0.1;
+		enemy->act->y += 0.0625;
 	else if (path_y < act_y && path_x == act_x)	
-		enemy->act->y -= 0.1;
+		enemy->act->y -= 0.0625;
 
 	// printf("%lf, %lf, %d\n", enemy->act->x, enemy->act->y, enemy->i_path);
 }

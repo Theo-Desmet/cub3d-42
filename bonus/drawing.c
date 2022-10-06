@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 15:26:01 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:04:33 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,48 @@ unsigned int	ft_get_pixel(t_img *img, int x, int y)
 		cache_img = img;
 	}
 	return (cache_color);
+}
+
+void	ft_draw_square(t_game *game, t_square square)
+{
+	double	x;
+	double	y;
+
+	y = square.pos.y;
+	while (y++ < square.pos.y + square.size)
+	{
+		x = square.pos.x;
+		while (x++ < square.pos.x + square.size)
+		{
+			if (ft_is_in_limit(x, y, SIZE_MAP, square.mode))
+			{
+				if (square.is_transparent)
+					ft_put_pixel(game->img, x, y,
+						ft_transp(ft_get_pixel(game->img, x, y), square.color));
+				else
+					ft_put_pixel(game->img, x, y, square.color);
+			}
+		}
+	}
+}
+
+void	ft_draw_line(t_game *game, t_vector *pos, t_vector *pos2, int color)
+{
+	double		dx;
+	double		dy;
+	int			pixels;
+	t_vector	coord;
+
+	dx = pos2->x - pos->x;
+	dy = pos2->y - pos->y;
+	pixels = hypot(dx, dy);
+	dx /= pixels;
+	dy /= pixels;
+	coord = (t_vector){pos->x, pos->y};
+	while (pixels)
+	{
+		ft_put_pixel(game->img, coord.x, coord.y, color);
+		coord = (t_vector){coord.x += dx, coord.y += dy};
+		pixels--;
+	}
 }
