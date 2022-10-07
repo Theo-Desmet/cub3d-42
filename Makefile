@@ -12,9 +12,9 @@
 
 CC = clang
 
-CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti -flto -g3 #-Wall -Werror -Wextra
+#CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti -flto -g3 #-Wall -Werror -Wextra
 
-# CFLAGS = -I includes/ -O0 -g3 #-Wall -Werror -Wextra
+CFLAGS = -I includes/ -O0 -g3 #-Wall -Werror -Wextra
 
 BFLAG = 
 

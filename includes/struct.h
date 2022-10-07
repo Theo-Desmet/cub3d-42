@@ -171,6 +171,15 @@ typedef struct s_player
 	double		rot_speed;
 }	t_player;
 
+typedef struct s_node
+{
+	t_vector	*pos;
+	int		g;
+	int		h;
+	int		f;
+	struct s_node	*parent;
+}	t_node;
+
 typedef struct s_enemy
 {
 	int			i_path;

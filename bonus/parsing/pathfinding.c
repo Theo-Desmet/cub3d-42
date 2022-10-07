@@ -12,115 +12,6 @@
 
 #include "cub3d_bonus.h"
 
-int	ft_signs(int nb)
-{
-	if (nb >= 0)
-		return (1);
-	return (-1);
-}
-
-void	ft_next_path(t_vector **path, int mov, int i, int dir)
-{
-	if (dir == 1)
-	{
-		path[i + 1]->y = path[i]->y + mov;
-		path[i + 1]->x = path[i]->x;
-	}
-	else if (dir == 2)
-	{
-		path[i + 1]->x = path[i]->x + mov;
-		path[i + 1]->y = path[i]->y;
-	}
-	else if (dir == 3)
-	{
-		path[i + 1]->x = path[i]->x - mov;
-		path[i + 1]->y = path[i]->y;
-	}
-	else if (dir == 4)
-	{
-		path[i + 1]->y = path[i]->y - mov;
-		path[i + 1]->x = path[i]->x;
-	}
-	else
-	{
-		path[i + 1]->x = path[i]->x;
-		path[i + 1]->y = path[i]->y;
-	}
-}
-
-void	ft_path_prev(t_vector **path, int *prev_x, int *prev_y, int i)
-{
-	if (i > 0)
-	{
-		*prev_x = path[i - 1]->x;
-		*prev_y = path[i - 1]->y;
-	}
-	else
-	{
-		*prev_x = path[i]->x;
-		*prev_y = path[i]->y;
-	}
-}
-
-void	ft_hori_mov(t_vector **path, int **map, int i, t_vector *mov)
-{
-	int	x_prev;
-	int	y_prev;
-
-	mov->x = ft_signs(mov->x);
-	mov->y = ft_signs(mov->y);
-	ft_path_prev(path, &x_prev, &y_prev, i);
-	if (map[(int)path[i]->x][(int)(path[i]->y + mov->y)] != 1
-		&& y_prev != path[i]->y + mov->y)
-		ft_next_path(path, mov->y, i, 1);
-	else if (map[(int)(path[i]->x + mov->x)][(int)path[i]->y] != 1
-		&& x_prev != path[i]->x + mov->x)
-		ft_next_path(path, mov->x, i, 2);
-	else if (map[(int)(path[i]->x - mov->x)][(int)path[i]->y] != 1
-		&& x_prev != path[i]->x - mov->x)
-		ft_next_path(path, mov->x, i, 3);
-	else if (map[(int)path[i]->x][(int)(path[i]->y - mov->y * -1)] != 0)
-		ft_next_path(path, mov->y, i, 4);
-	else
-		ft_next_path(path, mov->y, i, 0);
-}
-
-void	ft_vert_mov(t_vector **path, int **map, int i, t_vector *mov)
-{
-	int	x_prev;
-	int	y_prev;
-
-	mov->x = ft_signs(mov->x);
-	mov->y = ft_signs(mov->y);
-	ft_path_prev(path, &x_prev, &y_prev, i);
-	if (map[(int)(path[i]->x + mov->x)][(int)path[i]->y] != 1
-		&& x_prev != path[i]->x + mov->x)
-		ft_next_path(path, mov->x, i, 2);
-	else if (map[(int)path[i]->x][(int)(path[i]->y + mov->y)] != 1
-		&& y_prev != path[i]->y + mov->y)
-		ft_next_path(path, mov->y, i, 1);
-	else if (map[(int)path[i]->x][(int)(path[i]->y - mov->y)] != 1
-		&& y_prev != path[i]->y - mov->y)
-		ft_next_path(path, mov->y, i, 4);
-	else if (map[(int)(path[i]->x - mov->x)][(int)path[i]->y] != 1)
-		ft_next_path(path, mov->x, i, 3);
-	else
-		ft_next_path(path, mov->y, i, 0);
-}
-
-void	ft_search_path(t_enemy *enemy, int **map, int i)
-{
-	t_vector	*delta;
-
-	delta = malloc(sizeof(t_vector));
-	delta->x = enemy->dest->x - enemy->path[i]->x;
-	delta->y = enemy->dest->y - enemy->path[i]->y;
-	if (delta->x * delta->x >= delta->y * delta->y)
-		ft_vert_mov(enemy->path, map, i, delta);
-	else
-		ft_hori_mov(enemy->path, map, i, delta);
-}
-
 int	ft_ftoi(float f)
 {
 	f = f * 10;
@@ -160,34 +51,165 @@ void	ft_move_enemy(t_enemy *enemy, t_map *map)
 	// printf("%lf, %lf, %d\n", enemy->act->x, enemy->act->y, enemy->i_path);
 }
 
-void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
+
+
+
+
+
+void	ft_add_list(t_node **list, t_node *new)
 {
 	int	i;
 
-	if (game->enemy_spw == false)
-		return ;
-	if (ft_ftoi(enemy->act->x) == ft_ftoi(enemy->dest->x) && ft_ftoi(enemy->act->y) == ft_ftoi(enemy->dest->y) || !enemy->path[enemy->i_path])
+	i = 0;
+	while (list[i])
+		i++;
+	list[i] = new;
+}
+
+void	ft_rm_list(t_node **list, t_node *new)
+{
+	int	i;
+
+	i = 0;
+	while (list[i])
+		i++;
+	free(list[i]);
+	list[i] = NULL;
+}
+
+int	ft_is_in_list(t_node **list, t_node *node)
+{
+	int	i;
+
+	i = 0;
+	while (list[i])
 	{
-		ft_random_place(enemy, map);
-		i = 0;
-		enemy->i_path = 0;
-			enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));//a bouger
-		while (i < 10)
-			enemy->path[i++] = malloc(sizeof(t_vector));//secu
-		i = 0;
-		enemy->path[0]->x = enemy->act->x;
-		enemy->path[0]->y = enemy->act->y;
-		while (i < 9 && !(enemy->path[i]->x == enemy->dest->x
-				&& enemy->path[i]->y == enemy->dest->y))
-		{
-			ft_search_path(enemy, map->map, i);
-			i++;
-			if (enemy->path[i]->x == enemy->dest->x
-				&& enemy->path[i]->y == enemy->dest->y)
-				break ;
-		}
-		// printf("dest %d %f, %f\n", i ,enemy->dest->x, enemy->dest->y);
-		enemy->path[i + 1] = NULL;
+		if (list[i]->pos->x == node->pos->x && list[i]->pos->y == node->pos->y)
+			return (i);
+		i++;
 	}
-	ft_move_enemy(enemy, map);
+	return (0);
+}
+
+void	ft_update_open(t_node **open, t_node *node)
+{
+	int	i;
+
+	i = ft_is_in_list(open, node);
+	if (i > 0 && node->f < open[i]->f)
+	{
+		free(open[i]);
+		open[i] = node;
+	}
+	else
+		ft_add_list(open, node);
+}
+
+void	ft_check_node(t_map *map, t_node **close, t_node **open, t_node *node, t_enemy *enemy)
+{
+	if (node->pos->x < 1 || node->pos->y < 1
+			|| node->pos->y > map->height || node->pos->x >map->width)
+		return ;
+
+	if ((map->map[(int)node->pos->y][(int)node->pos->x] != 0
+			&& map->map[(int)node->pos->y][(int)node->pos->x] != 3))
+	{
+		if (!ft_is_in_list(close, node))
+			ft_add_list(close, node);
+		return ;
+	}
+	if (ft_is_in_list(close, node))
+		return ;
+	node->h = (pow(enemy->dest->x, 2) - pow(node->pos->x, 2))
+		+ (pow(enemy->dest->x, 2) - pow(node->pos->x, 2));
+	node->f = node->g + node->h;
+	ft_update_open(open, node);	
+}
+
+void	ft_check_adj(t_map *map, t_node **close, t_node **open, t_node *node, t_enemy *enemy)
+{
+	t_node	*temp;
+	
+	temp = malloc(sizeof(t_node));
+	temp->g = node->g + 1;
+	temp->parent = node;
+	temp->pos->x = node->pos->x - 1;
+	temp->pos->y = node->pos->y - 1;
+	ft_check_node(map, close, open, temp, enemy);
+	temp->pos->x = node->pos->x;
+	ft_check_node(map, close, open, temp, enemy);
+	temp->pos->x = node->pos->x + 1;
+	ft_check_node(map, close, open, temp, enemy);
+
+	temp->pos->x = node->pos->x - 1;
+	temp->pos->y = node->pos->y;
+	ft_check_node(map, close, open, temp, enemy);
+	temp->pos->x = node->pos->x;
+	ft_add_list(close, node);
+	temp->pos->x = node->pos->x + 1;
+	ft_check_node(map, close, open, temp, enemy);
+
+	temp->pos->x = node->pos->x - 1;
+	temp->pos->y = node->pos->y + 1;
+	ft_check_node(map, close, open, temp, enemy);
+	temp->pos->x = node->pos->x;
+	ft_check_node(map, close, open, temp, enemy);
+	temp->pos->x = node->pos->x + 1;
+	ft_check_node(map, close, open, temp, enemy);
+}
+
+t_node	*ft_best_node(t_node **open)
+{
+	int	i;
+	t_node	*best;
+
+	i = 0;
+	best = open[0];
+	while (open[i])
+	{
+		if (open[i]->f < best->f)
+			best = open[i];
+		i++;
+	}
+	return (best);
+}
+
+t_vector	**ft_get_path(t_vector **path, t_node	*node)
+{
+	int	i;
+
+	i = node->g;
+	path = malloc((node->g + 1) * sizeof(t_vector *));
+	if (!path)
+		return (NULL);
+	while (node->parent)
+	{
+		path[i] = node->pos;
+		node = node->parent;
+		i--;
+	}
+	return (path);
+}
+
+void	ft_pathfinding(t_enemy *enemy, t_map *map)//add secu if no path find
+{
+	t_node	**close;
+	t_node	**open;
+	t_node	*act;
+
+	close = malloc(1000000);
+	close = ft_memset(close, 0, 1000000);
+	open = malloc(1000000);
+	open = ft_memset(open, 0, 1000000);
+	act = malloc(sizeof(t_node));
+	act->pos->x = enemy->act->x;
+	act->pos->y = enemy->act->y;
+	act->g = 0;
+	ft_add_list(open, act);
+	while (act->pos->x != enemy->dest->x && act->pos->y != enemy->dest->y)
+	{
+		act = ft_best_node(open);
+		ft_check_adj(map, close, open, act, enemy);
+	}
+	ft_get_path(enemy->path, act);
 }

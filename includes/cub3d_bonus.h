@@ -30,7 +30,7 @@
 int				ft_parsing(t_game *data, int argc, char **argv);
 t_door			*ft_get_cur_door(t_game *game, int x, int y);
 void			ft_random_place(t_enemy *enemy, t_map *map);
-void			ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
+void			ft_pathfinding(t_enemy *enemy, t_map *map);
 void			ft_spawn_enemy(t_game *game);
 
 /* -------------------------------------------------------------------------- */
@@ -80,7 +80,6 @@ void			ft_vert_mov(t_vector **path, int **map, int i, t_vector *mov);
 void			ft_search_path(t_enemy *enemy, int **map, int i);
 int				ft_ftoi(float f);
 void    		ft_move_enemy(t_enemy *enemy, t_map *map);
-void			ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
 
 /* -------------------------------------------------------------------------- */
 /*                   FILE = bonus/parsing/check_map_head.c                    */
