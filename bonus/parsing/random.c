@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 09:40:50 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:46 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/07 09:43:01 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_spawn_enemy(t_game *game)
 			//game->map->map[(int)game->enemy->act->x][(int)game->enemy->act->y] = 7;
 			game->enemy->dest->x = x;
 			game->enemy->dest->y = y;
-			printf("init %f %f\n", game->enemy->act->x, game->enemy->act->y);
+			printf("init %f %f\n", game->enemy->act->y, game->enemy->act->x);
 			return ;
 		}
 	}

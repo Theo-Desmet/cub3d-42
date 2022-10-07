@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/05 15:40:23 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:08:34 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 enum	e_size
 {
 	SP_SIZE = 64,
-	S_WIDTH = 600,
-	S_HEIGHT = 300,
+	S_WIDTH = 1080,
+	S_HEIGHT = 540,
 	SIZE_GUN = (S_WIDTH / S_HEIGHT) * (S_HEIGHT / SP_SIZE) / 3
 };
 
