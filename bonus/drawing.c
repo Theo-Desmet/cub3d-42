@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 15:04:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:22:48 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x >= img->width || y >= img->height
-		|| (int)ft_get_pixel(img, x, y) == color)
+	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+		// || (int)ft_get_pixel(img, x, y) == color)
 		return ;
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
@@ -39,10 +39,10 @@ unsigned int	ft_get_pixel(t_img *img, int x, int y)
 	static t_img		*cache_img;
 	static unsigned int	cache_color;
 
-	x = ft_clamp(x, 0, img->width);
-	y = ft_clamp(y, 0, img->height);
 	if (x != cache_x || y != cache_y || img != cache_img)
 	{
+		x = ft_clamp(x, 0, img->width);
+		y = ft_clamp(y, 0, img->height);
 		cache_color = *(unsigned int *)(img->addr
 				+ (y * img->line_len + x * (img->bpp / 8)));
 		cache_x = x;

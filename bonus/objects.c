@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:13:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 18:04:15 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:16:25 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 		obj->objects[obj->index - 1]->h_div = 1;
 		obj->objects[obj->index - 1]->v_div = 1;
 		obj->objects[obj->index - 1]->v_offset = 0;
+
 	}
 	return (0);
 }
@@ -103,12 +104,12 @@ void	ft_get_objs(t_game *game, t_object *obj)
 				return ;
 		}
 	}
-	t_img	*enemy = ft_init_img(game->mlx, "assets/ennemy.xpm", SP_SIZE, SP_SIZE);
+	t_img	*enemy = ft_init_img(game->mlx, "assets/ennemy.xpm", SP_SIZE * 5, SP_SIZE * 5);
 	obj->objects[obj->index] = ft_init_sprite(game, game->enemy->act->x + 0.5, game->enemy->act->y + 0.5, enemy);
 	obj->objects[obj->index]->h_div = 1;
 	obj->objects[obj->index]->v_div = 1;
 	obj->objects[obj->index]->v_offset = 0;
-	obj->objects[obj->index]->animated = false;
+	obj->objects[obj->index]->animated = true;
 	game->enemy->sprite = obj->objects[obj->index];
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:45:40 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/04 16:31:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:20:01 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	ft_color_floor(t_game *game, t_render *render)
 						- (int)render->floor_y)));
 		render->floor_x += render->step_x;
 		render->floor_y += render->step_y;
+		// printf("%f - %f\n", render->floor_x, render->floor_y);
+		if ((render->floor_x > game->map->width || render->floor_y > game->map->height || render->floor_x < 0 || render->floor_y < 0) && render->color != FOG_COLOR)
+			continue;
 		if (render->color != FOG_COLOR)
 			render->color = ft_get_pixel(game->assets->floor, render->tex_x,
 					render->tex_y);
@@ -46,6 +49,18 @@ void	ft_color_floor(t_game *game, t_render *render)
 	}
 }
 
+void	hehe(t_game *game, t_render *render)
+{
+	int	x;
+
+	x = -1;
+	while (++x < S_WIDTH)
+	{
+		ft_put_pixel(game->img, x, S_HEIGHT - render->y - 1, FOG_COLOR);
+		ft_put_pixel(game->img, x, render->y, FOG_COLOR);
+	}
+}
+
 void	ft_floor(t_game *game, t_render *render)
 {
 	t_vector	dir0;
@@ -56,15 +71,20 @@ void	ft_floor(t_game *game, t_render *render)
 	dir1.x = game->player->dir->x + game->plane->x;
 	dir1.y = game->player->dir->y + game->plane->y;
 	render->y = S_HEIGHT;
-	while (render->y > S_HEIGHT / 2)
+	while (render->y > (S_HEIGHT / 2))
 	{
 		render->row_dist = (double)(S_HEIGHT / 2)
 			/ (double)(render->y - S_HEIGHT / 2);
-		render->step_x = render->row_dist * (dir1.x - dir0.x) / S_WIDTH;
-		render->step_y = render->row_dist * (dir1.y - dir0.y) / S_WIDTH;
-		render->floor_x = game->player->pos->x + render->row_dist * dir0.x;
-		render->floor_y = game->player->pos->y + render->row_dist * dir0.y;
-		ft_color_floor(game, render);
+		if (render->row_dist > SHADING_DISTANCE)
+			hehe(game, render);
+		else
+		{
+			render->step_x = render->row_dist * (dir1.x - dir0.x) / S_WIDTH;
+			render->step_y = render->row_dist * (dir1.y - dir0.y) / S_WIDTH;
+			render->floor_x = game->player->pos->x + render->row_dist * dir0.x;
+			render->floor_y = game->player->pos->y + render->row_dist * dir0.y;
+			ft_color_floor(game, render);
+		}
 		render->y--;
 	}
 }
