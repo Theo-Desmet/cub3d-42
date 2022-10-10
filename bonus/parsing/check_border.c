@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:17:41 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/08/16 10:34:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:42:54 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	ft_check_border(t_game *game, int **map)
 {

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/07 12:29:04 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:46:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 enum	e_size
 {
 	SP_SIZE = 64,
-	S_WIDTH = 1920,
-	S_HEIGHT = 1080,
+	S_WIDTH = 1200,
+	S_HEIGHT = 600,
 	SIZE_GUN = (S_WIDTH / S_HEIGHT) * (S_HEIGHT / SP_SIZE) / 3
 };
 
@@ -37,7 +37,6 @@ enum	e_map {
 	LEN_PL = (SIZE_PLAYER)
 };
 
-
 enum	e_error_msg
 {
 	NO_FILE,
@@ -52,13 +51,13 @@ enum	e_error_msg
 	COPY_ERROR,
 	INVALID_HEADER
 };
-typedef	struct s_rgb
+
+typedef struct s_rgb
 {
 	int	r;
 	int	g;
 	int	b;
 }	t_rgb;
-
 
 typedef struct s_img
 {
@@ -88,10 +87,10 @@ typedef struct s_check
 
 typedef struct s_assets
 {
-	t_img	*wall_E;
-	t_img	*wall_W;
-	t_img	*wall_N;
-	t_img	*wall_S;
+	t_img	*wall_e;
+	t_img	*wall_w;
+	t_img	*wall_n;
+	t_img	*wall_s;
 	t_img	*floor;
 	t_img	*ceil;
 	t_img	*gun;
@@ -125,7 +124,7 @@ typedef struct s_square
 	bool		is_transparent;
 }	t_square;
 
-typedef	struct s_render
+typedef struct s_render
 {
 	int		x;
 	int		y;
@@ -140,7 +139,6 @@ typedef	struct s_render
 	double	perp_wall_dist;
 	double	x_offset;
 	double	y_offset;
-
 	double	floor_x;
 	double	floor_y;
 	double	step_x;
@@ -152,17 +150,17 @@ typedef	struct s_render
 
 typedef struct s_ray
 {
-	double	camera_x;
-	double	ddx;
-	double	ddy;
-	double	sidedist_x;
-	double	sidedist_y;
-	int		hit;
-	int		side;
-	int		step_x;
-	int		step_y;
-	int		map_x;
-	int		map_y;
+	double		camera_x;
+	double		ddx;
+	double		ddy;
+	double		sidedist_x;
+	double		sidedist_y;
+	int			hit;
+	int			side;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
 	t_vector	*dir;
 	t_vector	*pos;
 }	t_ray;
@@ -266,7 +264,7 @@ typedef struct s_game
 	bool		mouse_right;
 	bool		mouse_left;
 	bool		shooting;
-	double		enemy_spw;
+	bool		enemy_spw;
 	int			ceiling_color;
 	int			floor_color;
 }	t_game;

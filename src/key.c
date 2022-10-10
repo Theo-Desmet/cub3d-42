@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 15:36:17 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:47:27 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int	ft_key_up(int keycode, t_game *game)
 int	ft_loop(t_game *game)
 {
 	ft_render(game);
-	mlx_do_sync(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
-	ft_fps(game);
-
+	// ft_fps(game);
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 08:19:09 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/29 12:36:20 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:37:07 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static char	*ft_get_argb(const char *line, int *j, int i)
 {

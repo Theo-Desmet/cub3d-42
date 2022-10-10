@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:21:01 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/22 15:00:49 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:14:26 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	*ft_fill_line(t_game *game, char *line, int *map)
 {
@@ -42,7 +42,7 @@ int	**ft_fill_map(t_game *game, int **map, char *line, int fd)
 	{
 		map[x] = ft_calloc(game->map->width, sizeof(int));
 		if (!map[x])
-			return (ft_err_copy_map(game, x), NULL);
+			return (ft_err_copy_map(game), NULL);
 		map[x] = ft_fill_line(game, line, map[x]);
 		free(line);
 		line = get_next_line(fd);

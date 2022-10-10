@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/21 04:40:37 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:14:11 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_err_file_name(t_game *game, int argc, int error)
 {
@@ -33,7 +33,7 @@ char	*ft_get_error_msg(t_game *game, int error)
 	return (game->error_msg[NO_SPAWN]);
 }
 
-void	ft_err_in_file(t_game *game, t_check *check, int error, int line)
+void	ft_err_in_file(t_game *game, int error, int line)
 {
 	if (error >= 0 && error <= 2)
 	{
@@ -50,7 +50,7 @@ void	ft_err_in_file(t_game *game, t_check *check, int error, int line)
 	}
 }
 
-void	ft_err_copy_map(t_game *game, int nb_line)
+void	ft_err_copy_map(t_game *game)
 {
 	game->map->width = 0;
 	game->map->height = 0;

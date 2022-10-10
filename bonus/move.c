@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 15:40:43 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/08 12:12:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	ft_move(t_game *game)
 		ft_strafe(game);
 	if (game->forward)
 	{
-		// printf("%f - %f\n", game->player->pos->x, game->player->pos->y);
 		if (ft_tiles(game, (int)(p->pos->x
 				+ (p->dir->x * p->walk_speed * 4)), (int)(p->pos->y)))
 			p->pos->x += p->dir->x * p->walk_speed;

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/05 15:43:46 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:40:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	ft_prepare_ray(t_game *game, int x)
 
 void	ft_get_wall_tex(t_ray *ray, t_render *render, t_game *game)
 {
-	render->wall_tex = game->assets->wall_E;
+	render->wall_tex = game->assets->wall_e;
 	if (ray->side == 1 && ray->dir->y < 0)
-		render->wall_tex = game->assets->wall_N;
+		render->wall_tex = game->assets->wall_n;
 	else if (ray->side == 1 && ray->dir->y > 0)
-		render->wall_tex = game->assets->wall_S;
+		render->wall_tex = game->assets->wall_s;
 	else if (ray->side == 0 && ray->dir->x > 0)
-		render->wall_tex = game->assets->wall_W;
+		render->wall_tex = game->assets->wall_w;
 }
 
-void	ft_wall_hit(t_ray *ray, t_render *render, t_game *game)
+void	ft_wall_hit(t_ray *ray, t_game *game)
 {
 	while (!ray->hit)
 	{
@@ -104,7 +104,6 @@ void	ft_wall_proj(t_ray *ray, t_render *render, t_game *game)
 		render->color = ft_get_pixel(render->wall_tex, render->sprite_x,
 				render->sprite_y);
 		ft_put_pixel(game->img, render->x, render->y, render->color);
-		// mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 		render->y++;
 	}
 }

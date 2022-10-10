@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:25:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 15:05:33 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:08:39 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,40 @@ void	ft_itorgb(int val, int *r, int *g, int *b)
 	*b = val & 0xFF;
 }
 
-double	ft_clampf(double x, double low, double high)
+void	ft_color_fog(int *color, t_rgb *rgb, double intensity)
 {
-	if (x > high)
-		x = high;
-	if (x < low)
-		x = low;
-	return (x);
+	ft_itorgb(*color, &rgb->r, &rgb->g, &rgb->b);
+	rgb->r = (1 - intensity) * rgb->r + intensity
+		* ((FOG_COLOR >> 16) & 0xFF);
+	rgb->g = (1 - intensity) * rgb->g + intensity
+		* ((FOG_COLOR >> 8) & 0xFF);
+	rgb->b = (1 - intensity) * rgb->b + intensity * (FOG_COLOR & 0xFF);
+	*color = ft_rgbtoi(rgb->r, rgb->g, rgb->b);
 }
 
 void	ft_fog(double dist, int *color)
 {
-	t_rgb	rgb;
-	double	intensity;
+	static t_rgb	rgb;
+	double			intensity;
+	static int		cache_color;
 
 	if (*color == FOG_COLOR)
 		return ;
-	intensity = (dist) / SHADING_DISTANCE;
-	intensity = ft_clampf(intensity, 0, 1);
-	if (intensity == 1)
+	if (*color == cache_color)
+		*color = ft_rgbtoi(rgb.r, rgb.g, rgb.b);
+	else
 	{
-		*color = FOG_COLOR;
-		return ;
+		cache_color = *color;
+		intensity = dist / SHADING_DISTANCE;
+		intensity = ft_clampf(intensity, 0, 1);
+		if (intensity == 1)
+		{
+			*color = FOG_COLOR;
+			cache_color = *color;
+			return ;
+		}
+		ft_color_fog(color, &rgb, intensity);
 	}
-	ft_itorgb(*color, &rgb.r, &rgb.g, &rgb.b);
-	rgb.r = (1 - intensity) * rgb.r + intensity
-		* (double)((FOG_COLOR >> 16) & 0xFF);
-	rgb.g = (1 - intensity) * rgb.g + intensity
-		* (double)((FOG_COLOR >> 8) & 0xFF);
-	rgb.b = (1 - intensity) * rgb.b + intensity * (double)(FOG_COLOR & 0xFF);
-	*color = ft_rgbtoi(rgb.r, rgb.g, rgb.b);
 }
 
 int	ft_transp(int color, int back)

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/04 11:35:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:58:27 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,18 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 
 	asset = malloc(sizeof(t_assets));
 	if (!asset)
-		return (NULL);
-	asset->wall_E = ft_init_img(mlx, game->textures_path[0],
+		return (ft_putstr_fd("Error while init assets !\n", 2), NULL);
+	asset->wall_e = ft_init_img(mlx, game->textures_path[0],
 			SP_SIZE, SP_SIZE);
-	asset->wall_N = ft_init_img(mlx, game->textures_path[2],
+	asset->wall_n = ft_init_img(mlx, game->textures_path[2],
 			SP_SIZE, SP_SIZE);
-	asset->wall_S = ft_init_img(mlx, game->textures_path[3],
+	asset->wall_s = ft_init_img(mlx, game->textures_path[3],
 			SP_SIZE, SP_SIZE);
-	asset->wall_W = ft_init_img(mlx, game->textures_path[1],
+	asset->wall_w = ft_init_img(mlx, game->textures_path[1],
 			SP_SIZE, SP_SIZE);
-	if (!asset->wall_E || !asset->wall_N || !asset->wall_S || !asset->wall_W)
-		return (ft_free_assets(asset, mlx), NULL);
+	if (!asset->wall_e || !asset->wall_n || !asset->wall_s || !asset->wall_w)
+		return (ft_putstr_fd("Error while init assets !\n", 2),
+			ft_free_assets(asset, mlx), NULL);
 	return (asset);
 }
 
@@ -83,19 +84,21 @@ t_ray	*ft_init_ray(void)
 	return (ray);
 }
 
-t_player	*ft_init_player(t_game *game)
+t_player	*ft_init_player(void)
 {
 	t_player	*player;
 
-	(void)game;
 	player = malloc(sizeof(t_player));
 	if (!player)
-		return (NULL);
+		return (ft_putstr_fd("Error while init player !\n", 2), NULL);
 	player->dir = ft_init_vector(0, 0);
 	player->pos = ft_init_vector(0, 0);
+	player->parsed_x = -1;
+	player->parsed_y = -1;
 	player->rot_speed = ROTATE_SPEED;
 	player->walk_speed = MOVING_SPEED;
 	if (!player->dir || !player->pos)
-		return (ft_free_player(player), NULL);
+		return (ft_putstr_fd("Error while init player !\n", 2),
+			ft_free_player(player), NULL);
 	return (player);
 }

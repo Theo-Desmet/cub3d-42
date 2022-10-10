@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:13:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/07 12:16:25 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/08 12:46:48 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,12 @@ t_object	*ft_alloc_objs(t_game *game, t_object *obj)
 			if (game->map->map[i][j] == 2 || game->map->map[i][j] == 5)
 				obj->nb_obj++;
 	}
-	//
-	obj->nb_obj++;
-	//
-	obj->objects = malloc(sizeof(t_sprite) * (obj->nb_obj));
+	if (game->enemy_spw)
+		obj->nb_obj++;
+	obj->objects = ft_calloc(obj->nb_obj, sizeof(t_sprite *));
 	if (!obj->objects)
 		return (NULL);
 	obj->index = 0;
-	i = -1;
-	while (++i < obj->nb_obj)
-		obj->objects[i] = NULL;
 	return (obj);
 }
 
@@ -62,29 +58,26 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 {
 	if (game->map->map[i][j] == 2)
 	{
-		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5,
+		obj->objects[obj->index] = ft_init_sprite(game, j + 0.5,
 				i + 0.5, game->assets->obj);
-		if (!obj->objects[obj->index - 1])
+		if (!obj->objects[obj->index])
 			return (ft_free_obj_tab(game, obj), -1);
-		obj->objects[obj->index - 1]->h_div = 1;
-		obj->objects[obj->index - 1]->v_div = 1;
-		obj->objects[obj->index - 1]->v_offset = 0;
-		obj->objects[obj->index - 1]->animated = true;
+		obj->objects[obj->index]->animated = true;
+		obj->objects[obj->index++]->type = BARREL;
 	}
 	else if (game->map->map[i][j] == LIGHT)
 	{
 		t_img	*light = ft_init_img(game->mlx, "assets/greenlight.xpm", 64, 64);
-		obj->objects[obj->index++] = ft_init_sprite(game, j + 0.5,
+		obj->objects[obj->index] = ft_init_sprite(game, j + 0.5,
 				i + 0.5, light);
-		if (!obj->objects[obj->index - 1])
+		if (!obj->objects[obj->index])
 			return (ft_free_obj_tab(game, obj), -1);
-		obj->objects[obj->index - 1]->h_div = 1;
-		obj->objects[obj->index - 1]->v_div = 1;
-		obj->objects[obj->index - 1]->v_offset = 0;
-
+		obj->objects[obj->index++]->type = LIGHT;
 	}
 	return (0);
 }
+
+t_sprite	*ft_create_enemy(t_game *game, t_object *obj);
 
 void	ft_get_objs(t_game *game, t_object *obj)
 {
@@ -99,18 +92,11 @@ void	ft_get_objs(t_game *game, t_object *obj)
 	{
 		j = -1;
 		while (++j < game->map->width)
-		{
 			if (ft_type_object(game, obj, i, j) == -1)
 				return ;
-		}
 	}
-	t_img	*enemy = ft_init_img(game->mlx, "assets/ennemy.xpm", SP_SIZE * 5, SP_SIZE * 5);
-	obj->objects[obj->index] = ft_init_sprite(game, game->enemy->act->x + 0.5, game->enemy->act->y + 0.5, enemy);
-	obj->objects[obj->index]->h_div = 1;
-	obj->objects[obj->index]->v_div = 1;
-	obj->objects[obj->index]->v_offset = 0;
-	obj->objects[obj->index]->animated = true;
-	game->enemy->sprite = obj->objects[obj->index];
+	if (game->enemy_spw)
+		obj->objects[obj->index] = ft_create_enemy(game, obj);
 }
 
 t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
@@ -130,5 +116,8 @@ t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
 	res->texture = img;
 	res->frame = 0;
 	res->animated = false;
+	res->h_div = 1;
+	res->v_div = 1;
+	res->v_offset = 0;
 	return (res);
 }

@@ -6,52 +6,33 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/07 12:06:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:08:03 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-#include <stdbool.h>
 
-t_render	*ft_init_render(void)
-{
-	t_render	*render;
+// void	ft_update_sprite(t_game *game, t_sprite *sprite)
+// {
+// 	int			type;
+// 	static int	replace;
 
-	render = malloc(sizeof(t_render));
-	if (!render)
-		return (NULL);
-	render->end = 0;
-	render->start = 0;
-	render->x = 0;
-	render->y = 0;
-	render->color = 0;
-	render->sprite_x = 0;
-	render->sprite_y = 0;
-	render->wall_x = 0;
-	return (render);
-}
-
-void	ft_update_sprite(t_game *game, t_sprite *sprite)
-{
-	int			type;
-	static int	replace;
-
-	if (((int)sprite->pos->x != (int)sprite->last_pos->x)
-		|| ((int)sprite->pos->y != (int)sprite->last_pos->y))
-	{
-		type = game->map->map[(int)sprite->last_pos->y]
-		[(int)sprite->last_pos->x];
-		if (game->map->map[(int)sprite->last_pos->y]
-			[(int)sprite->last_pos->x] != 0)
-			replace = game->map->map[(int)sprite->last_pos->y]
-			[(int)sprite->last_pos->x];
-		game->map->map[(int)sprite->last_pos->y]
-		[(int)sprite->last_pos->x] = replace;
-		sprite->last_pos->y = sprite->pos->y;
-		sprite->last_pos->x = sprite->pos->x;
-		game->map->map[(int)sprite->pos->y][(int)sprite->pos->x] = type;
-	}
-}
+// 	if (((int)sprite->pos->x != (int)sprite->last_pos->x)
+// 		|| ((int)sprite->pos->y != (int)sprite->last_pos->y))
+// 	{
+// 		type = game->map->map[(int)sprite->last_pos->y]
+// 		[(int)sprite->last_pos->x];
+// 		if (game->map->map[(int)sprite->last_pos->y]
+// 			[(int)sprite->last_pos->x] != 0)
+// 			replace = game->map->map[(int)sprite->last_pos->y]
+// 			[(int)sprite->last_pos->x];
+// 		game->map->map[(int)sprite->last_pos->y]
+// 		[(int)sprite->last_pos->x] = replace;
+// 		sprite->last_pos->y = sprite->pos->y;
+// 		sprite->last_pos->x = sprite->pos->x;
+// 		game->map->map[(int)sprite->pos->y][(int)sprite->pos->x] = type;
+// 	}
+// }
 
 void	ft_sprite_cast(t_game *game)
 {
@@ -65,7 +46,6 @@ void	ft_sprite_cast(t_game *game)
 					- game->object->objects[i]->pos->x, 2)
 				+ pow(game->player->pos->y
 					- game->object->objects[i]->pos->y, 2));
-		// game->object->dist[i] = hypot(game->player->pos->x - game->object->objects[i]->pos->x, game->player->pos->y	- game->object->objects[i]->pos->y);
 	}
 	ft_sort_sprite(game->object);
 	i = -1;
@@ -75,11 +55,8 @@ void	ft_sprite_cast(t_game *game)
 		if (game->object->end_x < 0)
 			game->object->end_x = 0;
 		ft_draw_sprite(game, game->object, i);
-		// ft_update_sprite(game, game->object->objects[i]);
 	}
 }
-
-void	ft_draw_square(t_game *game, t_square square);
 
 void	ft_draw_gun(t_game *game, int frame)
 {
@@ -140,9 +117,10 @@ void	ft_render(t_game *game)
 {
 	t_render	*render;
 
-	render = ft_init_render();
+	render = malloc(sizeof(t_render));
 	if (!render)
 		return ;
+	ft_memset((void *)render, 0, sizeof(t_render));
 	ft_move(game);
 	ft_floor(game, render);
 	while (render->x < S_WIDTH)

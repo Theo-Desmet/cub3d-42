@@ -6,24 +6,24 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/04 10:35:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:13:34 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	ft_check_map(t_game *game, char *line, t_check *check, int line_cnt)
 {
 	if (!ft_is_valid_map_line(game, line))
 	{
 		free(line);
-		return (ft_err_in_file(game, check, 1, line_cnt), 0);
+		return (ft_err_in_file(game, 1, line_cnt), 0);
 	}
 	check->spawn = ft_check_spawn(game, line, check->spawn, line_cnt);
 	if (check->spawn < 0)
 	{
 		free(line);
-		return (ft_err_in_file(game, check, 2, line_cnt), 0);
+		return (ft_err_in_file(game, 2, line_cnt), 0);
 	}
 	game->map->height++;
 	return (1);
@@ -96,7 +96,7 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 			check->is_head = ft_check_valid_head(game, check);
 		if (check->is_head && !ft_check_map_head(game, check->line, check))
 			return (free(check->line),
-				ft_err_in_file(game, check, 0, check->line_cnt), 0);
+				ft_err_in_file(game, 0, check->line_cnt), 0);
 		if (check->is_head)
 			check->len_hdr++;
 		if (!check->is_head && !ft_check_map(game, check->line, check,
@@ -105,6 +105,6 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 		free(check->line);
 	}
 	if (!check->spawn)
-		return (ft_err_in_file(game, check, 3, 0), 0);
+		return (ft_err_in_file(game, 3, 0), 0);
 	return (1);
 }

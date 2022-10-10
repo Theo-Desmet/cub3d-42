@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/03 15:42:48 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:22:21 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_render(t_game *game)
 		render->y_offset = 0;
 		ft_prepare_ray(game, render->x);
 		ft_dda(game->ray);
-		ft_wall_hit(game->ray, render, game);
+		ft_wall_hit(game->ray, game);
 		ft_wall_proj(game->ray, render, game);
 		ft_draw_sky_floor(game, render);
 		render->x++;

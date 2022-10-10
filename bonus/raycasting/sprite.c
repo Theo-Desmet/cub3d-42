@@ -6,43 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 16:01:00 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:05:24 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-void	ft_swap(double *a, double *b)
-{
-	double	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-void	ft_sort_sprite(t_object *obj)
-{
-	int		i;
-	int		j;
-	int		temp;
-
-	i = -1;
-	while (++i < obj->nb_obj)
-	{
-		j = -1;
-		while (++j + 1 < obj->nb_obj)
-		{
-			if (obj->dist[j + 1] > obj->dist[j])
-			{
-				ft_swap(&obj->dist[j + 1], &obj->dist[j]);
-				temp = obj->order[j + 1];
-				obj->order[j + 1] = obj->order[j];
-				obj->order[j] = temp;
-			}
-		}
-	}
-}
 
 t_sprite	*ft_get_cur_sprite(t_game *game)
 {

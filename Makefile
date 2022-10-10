@@ -6,17 +6,15 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/09/26 15:00:48 by bbordere         ###   ########.fr        #
+#    Updated: 2022/10/10 12:16:54 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
 
-CFLAGS = -I includes/ -Ofast -finline-functions -fno-rtti -flto -g3 #-Wall -Werror -Wextra
+CFLAGS = -I includes/ -Ofast -flto #-Wall -Werror -Wextra
 
-# CFLAGS = -I includes/ -O0 -g3 #-Wall -Werror -Wextra
-
-BFLAG = 
+# CFLAGS = -I includes/ -O0 #-Wall -Werror -Wextra
 
 FILES = $(wildcard src/*.c) $(wildcard src/raycasting/*.c) $(wildcard src/parsing/*.c)
 
@@ -28,7 +26,7 @@ BOBJS = $(BFILES:.c=.o)
 
 NAME = cub3d
 
-DEPS = $(wildcard includes/*.h)
+DEPS = $(wildcard includes/*.h) Makefile
 
 BNAME = cub3d_bonus
 
@@ -49,7 +47,7 @@ all: $(NAME)
 bonus: $(BOBJS) $(DEPS)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
-	@ $(CC) $(CFLAGS) -D BONUS=1 $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(BNAME)
+	@ $(CC) $(CFLAGS) $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(BNAME)
 
 clean:
 	@ rm -f $(OBJS)

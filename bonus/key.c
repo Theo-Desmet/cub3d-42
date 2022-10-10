@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/07 12:24:17 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/08 12:09:10 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,17 @@ int	ft_loop(t_game *game)
 {
 	int	i;
 
-	i = -1;
-	while (++i < game->nb_doors)
-	{
-		game->doors[i]->factor -= DOOR_SPEED * game->doors[i]->state;
-		if (game->doors[i]->factor > 1.0)
-			game->doors[i]->factor = 1;
-		if (game->doors[i]->factor < 0.0)
-			game->doors[i]->factor = 0.0;
-	}
+	ft_door_handler(game);
 	i = -1;
 	game->object->tick++;
 	while (++i < game->object->nb_obj)
 		ft_animation_handler(game->object, i);
 	ft_pathfinding(game, game->enemy, game->map);
-	game->enemy->sprite->pos->x = game->enemy->act->x;
-	game->enemy->sprite->pos->y = game->enemy->act->y;
+	if (game->enemy_spw)
+	{
+		game->enemy->sprite->pos->x = game->enemy->act->x;
+		game->enemy->sprite->pos->y = game->enemy->act->y;
+	}
 	ft_render(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
 	ft_fps(game);

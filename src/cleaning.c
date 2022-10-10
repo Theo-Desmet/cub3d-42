@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/03 14:02:54 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:40:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	ft_free_assets(t_assets *assets, void *mlx)
 {
-	if (assets->wall_E)
-		mlx_destroy_image(mlx, assets->wall_E->mlx_img);
-	if (assets->wall_N)
-		mlx_destroy_image(mlx, assets->wall_N->mlx_img);
-	if (assets->wall_S)
-		mlx_destroy_image(mlx, assets->wall_S->mlx_img);
-	if (assets->wall_W)
-		mlx_destroy_image(mlx, assets->wall_W->mlx_img);
-	free(assets->wall_E);
-	free(assets->wall_N);
-	free(assets->wall_S);
-	free(assets->wall_W);
+	if (assets->wall_e)
+		mlx_destroy_image(mlx, assets->wall_e->mlx_img);
+	if (assets->wall_n)
+		mlx_destroy_image(mlx, assets->wall_n->mlx_img);
+	if (assets->wall_s)
+		mlx_destroy_image(mlx, assets->wall_s->mlx_img);
+	if (assets->wall_w)
+		mlx_destroy_image(mlx, assets->wall_w->mlx_img);
+	free(assets->wall_e);
+	free(assets->wall_n);
+	free(assets->wall_s);
+	free(assets->wall_w);
 	free(assets);
 }
 

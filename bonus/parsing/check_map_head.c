@@ -6,11 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/21 04:24:09 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:42:55 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	ft_check_map_head(t_game *game, char *line, t_check *check)
 {

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:06:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 15:12:11 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/08 12:11:07 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,52 @@ void	ft_side0(t_ray *ray, t_render *render, t_game *game)
 		ray->side = 1;
 		render->wall_tex = game->assets->ceil;
 	}	
+}
+
+void	ft_door_handler(t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (++i < game->nb_doors)
+	{
+		game->doors[i]->factor -= DOOR_SPEED * game->doors[i]->state;
+		if (game->doors[i]->factor > 1.0)
+			game->doors[i]->factor = 1;
+		if (game->doors[i]->factor < 0.0)
+			game->doors[i]->factor = 0.0;
+	}
+}
+
+t_door	*ft_init_door(int x, int y)
+{
+	t_door	*door;
+
+	door = malloc(sizeof(t_door));
+	if (!door)
+		return (NULL);
+	door->x = x;
+	door->y = y;
+	door->factor = 0;
+	door->state = 1;
+	return (door);
+}
+
+t_door	**ft_alloc_doors(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < game->map->height)
+	{
+		j = -1;
+		while (++j < game->map->width)
+			if (game->map->map[i][j] == 3)
+				game->nb_doors++;
+	}
+	game->doors = (t_door **)ft_calloc(game->nb_doors + 1, sizeof(t_door *));
+	if (!game->doors)
+		return (NULL);
+	return (game->doors);
 }
