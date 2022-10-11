@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 15:09:04 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:57:52 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int	ft_loop(t_game *game)
 	ft_pathfinding(game, game->enemy, game->map);
 	if (game->enemy_spw)
 	{
-		game->enemy->sprite->pos->x = game->enemy->act->x;
-		game->enemy->sprite->pos->y = game->enemy->act->y;
+		game->enemy->sprite->pos->x = game->enemy->act->x + 0.5;
+		game->enemy->sprite->pos->y = game->enemy->act->y + 0.5;
 	}
 	ft_render(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img->mlx_img, 0, 0);
