@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 09:40:50 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:46 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:30:21 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-int	ft_is_valide_place(t_enemy *enemy, t_map *map, int x, int y)
+int	ft_is_valide_place(t_map *map, int x, int y)
 {
 	if (x >= map->width || x < 0 || y >= map->height || y < 0)
 		return (0);
@@ -21,7 +21,7 @@ int	ft_is_valide_place(t_enemy *enemy, t_map *map, int x, int y)
 	return (0);
 }
 
-void	ft_random_mod(t_map *map, int *x, int *y)
+void	ft_random_mod(int *x, int *y)
 {
 	*x = rand();
 	*y = rand();
@@ -44,7 +44,7 @@ void	ft_spawn_enemy(t_game *game)
 		y = rand();
 		x %= (game->map->width - 1);
 		y %= (game->map->height - 1);
-		if (ft_is_valide_place(game->enemy, game->map, x, y))
+		if (ft_is_valide_place(game->map, x, y))
 		{
 			game->enemy_spw = true;
 			game->enemy->act->x = x;
@@ -68,14 +68,14 @@ void	ft_random_place(t_enemy *enemy, t_map *map)
 	valide = 0;
 	while (valide < 10)
 	{
-		ft_random_mod(map, &x, &y);
+		ft_random_mod(&x, &y);
 		rng = rand() % 2;
 		if (rng == 1)
 			x *= -1;
 		rng = rand() % 2;
 		if (rng == 1)
 			y *= -1;
-		if (ft_is_valide_place(enemy, map, enemy->act->x + x, enemy->act->y + y))
+		if (ft_is_valide_place(map, enemy->act->x + x, enemy->act->y + y))
 		{
 			enemy->dest->x = enemy->act->x + x;
 			enemy->dest->y = enemy->act->y + y;

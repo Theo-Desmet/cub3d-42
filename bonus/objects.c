@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:13:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 13:59:14 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:37:34 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_object	*ft_alloc_objs(t_game *game, t_object *obj)
 	}
 	if (game->enemy_spw)
 		obj->nb_obj++;
-	obj->objects = ft_calloc(obj->nb_obj, sizeof(t_sprite *));
+	obj->objects = ft_calloc(obj->nb_obj + 1, sizeof(t_sprite *));
 	if (!obj->objects)
 		return (NULL);
 	obj->index = 0;

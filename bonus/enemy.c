@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:10:09 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:04:45 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:38:06 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_sprite	*ft_create_enemy(t_game *game)
 t_enemy	*ft_init_enemy(t_game *game)
 {
 	t_enemy	*enemy;
-	size_t	i;
 
 	enemy = malloc(sizeof(t_enemy));
 	if (!enemy)

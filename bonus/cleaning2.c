@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:51:12 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 13:57:24 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:38:58 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_free_sprite(t_sprite *sprite)
 	if (sprite->last_pos)
 		free(sprite->last_pos);
 	free(sprite);
+	sprite = NULL;
 }
 
 void	ft_free_obj_tab(t_object *obj)
@@ -69,10 +70,10 @@ void	ft_free_visual(t_game *game)
 		ft_free_player(game->player);
 	if (game->object)
 		ft_free_obj(game->object);
-	if (game->doors)
-		ft_free_tab((void **)game->doors);
 	if (game->enemy)
 		ft_free_enemy(game->enemy, game);
+	if (game->doors)
+		ft_free_tab((void **)game->doors);
 	if (game->img)
 	{
 		mlx_destroy_image(game->mlx, game->img->mlx_img);

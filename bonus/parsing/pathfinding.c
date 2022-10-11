@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:50:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/08 11:51:36 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:29:04 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,8 @@ void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
 	if (game->enemy_spw == false)
 		return ;
 	if (ft_ftoi(enemy->act->x) == ft_ftoi(enemy->dest->x)
-		&& ft_ftoi(enemy->act->y) == ft_ftoi(enemy->dest->y)
-		|| !enemy->path[enemy->i_path])
+		&& (ft_ftoi(enemy->act->y) == ft_ftoi(enemy->dest->y)
+		|| !enemy->path[enemy->i_path]))
 	{
 		enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));
 		i = 0;

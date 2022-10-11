@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:04:51 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:23:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	ft_free_all(t_game *game)
 		free(game->plane);
 	if (game->textures_path)
 		ft_free_textures(game);
-	if (game->enemy)
-		ft_free_enemy(game->enemy);
 	if (game->map)
 		ft_free_map(game, game->map->height - 1);
 	if (game->win)
