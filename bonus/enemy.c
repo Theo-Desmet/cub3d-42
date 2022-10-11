@@ -6,13 +6,30 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:10:09 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/08 12:10:36 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:58:25 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-t_sprite	*ft_create_enemy(t_game *game, t_object *obj)
+void	ft_free_enemy(t_enemy *enemy, t_game *game)
+{
+	if (enemy->act)
+		free(enemy->act);
+	if (enemy->dest)
+		free(enemy->dest);
+	if (enemy->sprite)
+	{
+		if (enemy->sprite->texture)
+			ft_destroy_img(enemy->sprite->texture, game->mlx);
+		ft_free_sprite(enemy->sprite);
+	}
+	if (enemy->path)
+		ft_free_tab((void **)enemy->path);
+	free(enemy);
+}
+
+t_sprite	*ft_create_enemy(t_game *game)
 {
 	t_img		*enemy;
 	t_sprite	*res;
@@ -27,26 +44,18 @@ t_sprite	*ft_create_enemy(t_game *game, t_object *obj)
 	return (res);
 }
 
-t_enemy	*ft_init_enemy(void)
+t_enemy	*ft_init_enemy(t_game *game)
 {
 	t_enemy	*enemy;
 
 	enemy = malloc(sizeof(t_enemy));
 	if (!enemy)
-			return (NULL);
-	enemy->act = malloc(sizeof(t_vector));
-	if (!enemy->act)
-			return (ft_free_enemy(enemy), NULL);
-	enemy->act->x = 1;//spawn a mdf
-	enemy->act->y = 1;//spawn a mdf
-	enemy->dest = malloc(sizeof(t_vector));
-	if (!enemy->dest)
-		return (ft_free_enemy(enemy), NULL);
-	enemy->img_enemy = malloc(sizeof(t_img));
-	if (!enemy->img_enemy)
-		return (ft_free_enemy(enemy), NULL);
-	enemy->path = malloc(10 * sizeof(t_vector *));
-	if (!enemy->path)
-		return (ft_free_enemy(enemy), NULL);
+		return (NULL);
+	enemy->act = ft_init_vector(0, 0);
+	enemy->dest = ft_init_vector(0, 0);
+	enemy->sprite = NULL;
+	enemy->path = ft_calloc(11, sizeof(t_vector *));
+	if (!enemy->act || !enemy->dest || !enemy->path)
+		return (ft_free_enemy(enemy, game), NULL);
 	return (enemy);
 }

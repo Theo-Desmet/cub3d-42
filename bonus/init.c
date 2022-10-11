@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:40:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:39:19 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 	asset->obj = ft_init_img(mlx, "assets/barrel2.xpm",
 			SP_SIZE * 4, SP_SIZE * 4);
 	asset->door = ft_init_img(mlx, "assets/door.xpm", SP_SIZE, SP_SIZE);
+	asset->light = ft_init_img(mlx, "assets/greenlight.xpm", SP_SIZE, SP_SIZE);
 	if (!asset->wall_e || !asset->wall_n || !asset->wall_s || !asset->wall_w
 		|| !asset->gun || !asset->ceil || !asset->floor
-		|| !asset->door || !asset->obj)
+		|| !asset->door || !asset->obj || !asset->light)
 		return (ft_free_assets(asset, mlx), NULL);
 	return (asset);
 }

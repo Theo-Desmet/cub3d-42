@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 08:19:09 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/10 10:37:07 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:17:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_get_nbrgb(const char *line, int *shift, int *i, int rgb)
 	return (rgb);
 }
 
-static int	ft_pass_sep(char *str, int *temp, int shift)
+static int	ft_pass_sep(char *str, int *temp)
 {
 	int	i;
 
@@ -103,7 +103,7 @@ int	ft_atorgb(char *str)
 			i++;
 		if (shift == -1)
 			break ;
-		if (!ft_pass_sep(str, &i, shift))
+		if (!ft_pass_sep(str, &i))
 			return (-1);
 	}
 	if (str[i] != '\n')

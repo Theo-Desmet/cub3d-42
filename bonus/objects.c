@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:13:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/08 12:46:48 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:59:14 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_object	*ft_init_obj(t_game *game)
 	objs->dist = malloc(sizeof(double) * objs->nb_obj);
 	objs->order = malloc(sizeof(int) * objs->nb_obj);
 	if (!objs->objects || !objs->zbuff || !objs->dist || !objs->order)
-		return (ft_free_obj(game, objs), NULL);
+		return (ft_free_obj(objs), NULL);
 	return (objs);
 }
 
@@ -61,23 +61,20 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 		obj->objects[obj->index] = ft_init_sprite(game, j + 0.5,
 				i + 0.5, game->assets->obj);
 		if (!obj->objects[obj->index])
-			return (ft_free_obj_tab(game, obj), -1);
+			return (ft_free_obj_tab(obj), -1);
 		obj->objects[obj->index]->animated = true;
 		obj->objects[obj->index++]->type = BARREL;
 	}
 	else if (game->map->map[i][j] == LIGHT)
 	{
-		t_img	*light = ft_init_img(game->mlx, "assets/greenlight.xpm", 64, 64);
 		obj->objects[obj->index] = ft_init_sprite(game, j + 0.5,
-				i + 0.5, light);
+				i + 0.5, game->assets->light);
 		if (!obj->objects[obj->index])
-			return (ft_free_obj_tab(game, obj), -1);
+			return (ft_free_obj_tab(obj), -1);
 		obj->objects[obj->index++]->type = LIGHT;
 	}
 	return (0);
 }
-
-t_sprite	*ft_create_enemy(t_game *game, t_object *obj);
 
 void	ft_get_objs(t_game *game, t_object *obj)
 {
@@ -96,7 +93,7 @@ void	ft_get_objs(t_game *game, t_object *obj)
 				return ;
 	}
 	if (game->enemy_spw)
-		obj->objects[obj->index] = ft_create_enemy(game, obj);
+		obj->objects[obj->index] = ft_create_enemy(game);
 }
 
 t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
