@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:05:24 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:36:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,27 @@
 
 t_sprite	*ft_get_cur_sprite(t_game *game)
 {
-	int	i;
+	int			i;
+	static int	pos_x;
+	static int	pos_y;
+	static int	cache_i;
 
 	i = -1;
+	if (game->object->s_x + game->player->pos->x == pos_x
+		&& game->object->s_y + game->player->pos->y == pos_y)
+		return (game->object->objects[cache_i]);
 	while (++i < game->object->nb_obj)
 	{
 		if (game->object->objects[i]->pos->x
 			== game->object->s_x + game->player->pos->x
 			&& game->object->objects[i]->pos->y
 			== game->object->s_y + game->player->pos->y)
-			return (game->object->objects[i]);
+		{
+			pos_x = game->object->objects[i]->pos->x;
+			pos_y = game->object->objects[i]->pos->y;
+			cache_i = i;
+			return (game->object->objects[cache_i]);
+		}
 	}
 	return (NULL);
 }
@@ -104,5 +115,5 @@ void	ft_draw_sprite(t_game *game, t_object *obj, int i)
 			while (++y < obj->end_y)
 				ft_color_sprite(game, x, y, i);
 		}
-	}
+	}	
 }

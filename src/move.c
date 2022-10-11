@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/10 10:32:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:31:25 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void	ft_strafe(t_game *game)
 	if (g->right)
 	{
 		if (ft_tiles(game, (int)(p->pos->x + (g->plane->x
-					* p->walk_speed * 4)), (int)p->pos->y))
+					* p->walk_speed * 2)), (int)p->pos->y))
 			p->pos->x += g->plane->x * p->walk_speed;
 		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
-				+ (g->plane->y * p->walk_speed * 4))))
+				+ (g->plane->y * p->walk_speed * 2))))
 			p->pos->y += g->plane->y * p->walk_speed;
 	}
 	if (g->left)
 	{
 		if (ft_tiles(game, (int)(p->pos->x - (g->plane->x
-					* p->walk_speed * 4)), (int)p->pos->y))
+					* p->walk_speed * 2)), (int)p->pos->y))
 			p->pos->x -= g->plane->x * p->walk_speed;
 		if (ft_tiles(game, (int)p->pos->x, (int)(p->pos->y
-				- (g->plane->y * p->walk_speed * 4))))
+				- (g->plane->y * p->walk_speed * 2))))
 			p->pos->y -= g->plane->y * p->walk_speed;
 	}
 }

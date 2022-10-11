@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/08 12:09:10 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:09:04 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,24 @@ int	ft_key_up(int keycode, t_game *game)
 	return (0);
 }
 
-void	ft_animation_handler(t_object *obj, int i)
+void	ft_animator(t_sprite *sprite, t_object *obj, int i)
 {
-	if (obj->objects[i]->animated)
+	int	tick_max;
+	int	act;
+
+	if (!obj->objects[i]->animated)
+		return;
+	tick_max = 4 * 25;
+	if (obj->tick >= tick_max)
 	{
-		if (obj->tick == 25)
-			obj->objects[i]->frame = 1;
-		if (obj->tick == 50)
-			obj->objects[i]->frame = 2;
-		if (obj->tick == 75)
-			obj->objects[i]->frame = 3;
-		if (obj->tick == 120)
-		{
-			obj->objects[i]->frame = 0;
-			obj->tick = 0;
-		}
-	}	
+		obj->tick = 0;
+		act = 0;
+	}
+	else
+		act = obj->tick / 25;
+	obj->objects[i]->frame = act + (sprite->type == ENEMY);
 }
+void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
 
 int	ft_loop(t_game *game)
 {
@@ -95,7 +96,7 @@ int	ft_loop(t_game *game)
 	i = -1;
 	game->object->tick++;
 	while (++i < game->object->nb_obj)
-		ft_animation_handler(game->object, i);
+		ft_animator(game->object->objects[i], game->object, i);
 	ft_pathfinding(game, game->enemy, game->map);
 	if (game->enemy_spw)
 	{

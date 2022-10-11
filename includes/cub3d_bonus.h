@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/09 11:38:34 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:58:12 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ void	ft_random_place(t_enemy *enemy, t_map *map);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = bonus/cleaning2.c                          */
 /* -------------------------------------------------------------------------- */
-void			ft_free_sprite(t_game *game, t_sprite *sprite);
-void			ft_free_obj_tab(t_game *game, t_object *obj);
-void			ft_free_obj(t_game *game, t_object *obj);
+void			ft_free_sprite(t_sprite *sprite);
+void			ft_free_obj_tab(t_object *obj);
+void			ft_free_obj(t_object *obj);
 void			ft_free_textures(t_game *game);
 void			ft_free_visual(t_game *game);
 
 /* -------------------------------------------------------------------------- */
 /*                            FILE = bonus/enemy.c                            */
 /* -------------------------------------------------------------------------- */
-t_sprite		*ft_create_enemy(t_game *game, t_object *obj);
-t_enemy			*ft_init_enemy(void);
+t_sprite		*ft_create_enemy(t_game *game);
+t_enemy			*ft_init_enemy(t_game *game);
 
 /* -------------------------------------------------------------------------- */
 /*                           FILE = bonus/objects.c                           */
@@ -50,7 +50,7 @@ t_enemy			*ft_init_enemy(void);
 t_object		*ft_init_obj(t_game *game);
 t_object		*ft_alloc_objs(t_game *game, t_object *obj);
 int				ft_type_object(t_game *game, t_object *obj, int i, int j);
-t_sprite		*ft_create_enemy(t_game *game, t_object *obj);;
+t_sprite		*ft_create_enemy(t_game *game);
 void			ft_get_objs(t_game *game, t_object *obj);
 t_sprite		*ft_init_sprite(t_game *game, double x, double y, t_img *img);
 
@@ -165,8 +165,9 @@ void			ft_wall_color(t_game *game, t_ray *ray, t_render *render);
 /* -------------------------------------------------------------------------- */
 void			ft_free_assets(t_assets *assets, void *mlx);
 void			ft_free_player(t_player *player);
-void			ft_free_enemy(t_enemy *enemy);
+void			ft_free_enemy(t_enemy *enemy, t_game *game);
 void			ft_free_ray(t_ray *ray);
+void			ft_destroy_img(t_img *img, void *mlx);
 void			ft_free_map(t_game *game, int i);
 
 /* -------------------------------------------------------------------------- */

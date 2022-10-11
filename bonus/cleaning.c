@@ -6,38 +6,41 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:40:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:04:26 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
+void	ft_destroy_img(t_img *img, void *mlx)
+{
+	mlx_destroy_image(mlx, img->mlx_img);
+	free(img);
+	img = NULL;
+}
+
 void	ft_free_assets(t_assets *assets, void *mlx)
 {
 	if (assets->wall_e)
-		mlx_destroy_image(mlx, assets->wall_e->mlx_img);
+		ft_destroy_img(assets->wall_e, mlx);
 	if (assets->wall_n)
-		mlx_destroy_image(mlx, assets->wall_n->mlx_img);
+		ft_destroy_img(assets->wall_n, mlx);
 	if (assets->wall_s)
-		mlx_destroy_image(mlx, assets->wall_s->mlx_img);
+		ft_destroy_img(assets->wall_s, mlx);
 	if (assets->wall_w)
-		mlx_destroy_image(mlx, assets->wall_w->mlx_img);
+		ft_destroy_img(assets->wall_w, mlx);
 	if (assets->ceil)
-		mlx_destroy_image(mlx, assets->ceil->mlx_img);
+		ft_destroy_img(assets->ceil, mlx);
 	if (assets->floor)
-		mlx_destroy_image(mlx, assets->floor->mlx_img);
+		ft_destroy_img(assets->floor, mlx);
 	if (assets->gun)
-		mlx_destroy_image(mlx, assets->gun->mlx_img);
+		ft_destroy_img(assets->gun, mlx);
 	if (assets->door)
-		mlx_destroy_image(mlx, assets->door->mlx_img);
-	free(assets->wall_e);
-	free(assets->wall_n);
-	free(assets->wall_s);
-	free(assets->wall_w);
-	free(assets->ceil);
-	free(assets->floor);
-	free(assets->door);
-	free(assets->gun);
+		ft_destroy_img(assets->door, mlx);
+	if (assets->light)
+		ft_destroy_img(assets->light, mlx);
+	if (assets->obj)
+		ft_destroy_img(assets->obj, mlx);
 	free(assets);
 }
 
@@ -48,27 +51,6 @@ void	ft_free_player(t_player *player)
 	if (player->pos)
 		free(player->pos);
 	free(player);
-}
-
-void	ft_free_enemy(t_enemy *enemy)
-{
-	int	i;
-
-	if (enemy->act)
-		free(enemy->act);
-	if (enemy->dest)
-		free(enemy->dest);
-	if (enemy->img_enemy)
-		free(enemy->img_enemy);
-	i = 0;
-	while (enemy->path && enemy->path[i] && i < 10)
-	{
-		free(enemy->path[i]);
-		i++;
-	}
-	if (enemy->path)
-		free(enemy->path);
-	free(enemy);
 }
 
 void	ft_free_ray(t_ray *ray)

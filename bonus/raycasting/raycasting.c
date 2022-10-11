@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:08:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:16:25 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_draw_gun(t_game *game, int frame)
 		{		
 			square.color = ft_get_pixel(game->assets->gun, x
 					+ (SP_SIZE * frame), y);
-			if (!(square.color == (unsigned int)(0xFF << 24)))
+			if (!(square.color == (0xFF << 24)))
 			{
 				square = (t_square){pos, SIZE_GUN, square.color, 0, false};
 				ft_draw_square(game, square);

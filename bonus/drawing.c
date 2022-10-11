@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:41:49 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/08 12:53:00 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:32:36 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ inline int	ft_clamp(int x, int low, int high)
 {
 	if (x > high)
 		x = high;
-	if (x < low)
+	else if (x < low)
 		x = low;
 	return (x);
 }
@@ -38,8 +38,10 @@ unsigned int	ft_get_pixel(t_img *img, int x, int y)
 	static t_img		*cache_img;
 	static unsigned int	cache_color;
 
-	x = ft_clamp(x, 0, img->width);
-	y = ft_clamp(y, 0, img->height);
+	if (x < 0 || x >= img->width)
+		x = ft_clamp(x, 0, img->width);
+	if (y < 0 || y >= img->height)
+		y = ft_clamp(y, 0, img->height);
 	if (x != cache_x || y != cache_y || img != cache_img)
 	{
 		cache_color = *(unsigned int *)(img->addr

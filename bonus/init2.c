@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/08 12:56:09 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:04:51 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,18 @@ t_game	*ft_init_primary(t_game *game)
 	if (!game->mlx)
 		return (free(game), NULL);
 	game->map = ft_alloc_map();
-	game->textures_path = (char **)ft_calloc(4, sizeof(char *));
+	game->textures_path = ft_calloc(4, sizeof(char *));
 	game->player = ft_init_player();
-	game->enemy = ft_init_enemy();
+	game->enemy = ft_init_enemy(game);
 	game->error_msg = ft_init_error_messages();
 	game->plane = ft_init_vector(1, 0);
+	if (!game->map || !game->textures_path || !game->player || !game->plane
+		|| !game->error_msg)
+		return (ft_free_all(game), NULL);
 	return (game);
 }
+
+void	ft_spawn_enemy(t_game *game);
 
 t_game	*ft_init_game(int ac, char **av)
 {
@@ -85,8 +90,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game = ft_alloc_game();
 	if (!game || !ft_init_primary(game))
 		return (NULL);
-	if (!game->map || !game->textures_path || !game->player || !game->plane
-		|| !game->error_msg || !ft_parsing(game, ac, av))
+	if (!ft_parsing(game, ac, av))
 		return (ft_free_all(game), NULL);
 	ft_update_player(game);
 	srand(time(NULL));

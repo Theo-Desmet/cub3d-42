@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/10 10:46:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:21:03 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_assets
 	t_img	*gun;
 	t_img	*obj;
 	t_img	*door;
+	t_img	*light;
 }	t_assets;
 
 typedef struct s_map
@@ -195,7 +196,6 @@ typedef struct s_enemy
 	t_vector	*act;
 	t_vector	*dest;
 	t_vector	**path;
-	t_img		*img_enemy;
 	t_sprite	*sprite;
 }	t_enemy;
 
