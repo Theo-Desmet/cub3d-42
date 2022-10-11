@@ -26,7 +26,9 @@
 
 # define MOVING_SPEED 0.15
 # define ROTATE_SPEED 0.06
-
+void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
+void	ft_spawn_enemy(t_game *game);
+void	ft_random_place(t_enemy *enemy, t_map *map);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = bonus/cleaning2.c                          */
 /* -------------------------------------------------------------------------- */

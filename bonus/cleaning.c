@@ -57,9 +57,9 @@ void	ft_free_enemy(t_enemy *enemy)
 	if (enemy->act)
 		free(enemy->act);
 	if (enemy->dest)
-		free(enemy->act);
+		free(enemy->dest);
 	if (enemy->img_enemy)
-		free(enemy->act);
+		free(enemy->img_enemy);
 	i = 0;
 	while (enemy->path && enemy->path[i] && i < 10)
 	{

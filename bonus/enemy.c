@@ -30,15 +30,14 @@ t_sprite	*ft_create_enemy(t_game *game, t_object *obj)
 t_enemy	*ft_init_enemy(void)
 {
 	t_enemy	*enemy;
+	size_t	i;
 
 	enemy = malloc(sizeof(t_enemy));
 	if (!enemy)
-			return (NULL);
+		return (NULL);
 	enemy->act = malloc(sizeof(t_vector));
 	if (!enemy->act)
-			return (ft_free_enemy(enemy), NULL);
-	enemy->act->x = 1;//spawn a mdf
-	enemy->act->y = 1;//spawn a mdf
+		return (ft_free_enemy(enemy), NULL);
 	enemy->dest = malloc(sizeof(t_vector));
 	if (!enemy->dest)
 		return (ft_free_enemy(enemy), NULL);
@@ -48,5 +47,14 @@ t_enemy	*ft_init_enemy(void)
 	enemy->path = malloc(10 * sizeof(t_vector *));
 	if (!enemy->path)
 		return (ft_free_enemy(enemy), NULL);
+	enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));
+//	i = 0;
+//	while (i < 10)
+//	{
+//		enemy->path[i] = malloc(sizeof(t_vector));//leak
+//		if (!enemy->path[i])
+//			return (ft_free_enemy(enemy), NULL);
+//		i++;
+//	}
 	return (enemy);
 }

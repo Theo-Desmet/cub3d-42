@@ -19,6 +19,8 @@ int	ft_free_all(t_game *game)
 		free(game->plane);
 	if (game->textures_path)
 		ft_free_textures(game);
+	if (game->enemy)
+		ft_free_enemy(game->enemy);
 	if (game->map)
 		ft_free_map(game, game->map->height - 1);
 	if (game->win)
