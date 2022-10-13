@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:50:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/11 19:29:04 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/13 11:39:53 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ void	ft_path_prev(t_vector **path, int *prev_x, int *prev_y, int i)
 	}
 }
 
+int	ft_valide_path(int **map, int y, int x)
+{
+	if (map[y][x] == 0 || map [y][x] == 4)
+		return (1);
+	return (0);
+}
+
 void	ft_hori_mov(t_vector **path, int **map, int i, t_vector *mov)
 {
 	int	x_prev;
@@ -70,16 +77,16 @@ void	ft_hori_mov(t_vector **path, int **map, int i, t_vector *mov)
 	mov->x = ft_signs(mov->x);
 	mov->y = ft_signs(mov->y);
 	ft_path_prev(path, &x_prev, &y_prev, i);
-	if (map[(int)path[i]->y][(int)(path[i]->x + mov->x)] != 1
+	if (ft_valide_path(map, (int)path[i]->y, (int)(path[i]->x + mov->x))
 		&& x_prev != path[i]->x + mov->x)
 		ft_next_path(path, mov->x, i, 1);
-	else if (map[(int)(path[i]->y + mov->y)][(int)path[i]->x] != 1
+	else if (ft_valide_path(map, (int)(path[i]->y + mov->y), (int)path[i]->x)
 		&& y_prev != path[i]->y + mov->y)
 		ft_next_path(path, mov->y, i, 2);
-	else if (map[(int)(path[i]->y - mov->y)][(int)path[i]->x] != 1
+	else if (ft_valide_path(map, (int)(path[i]->y - mov->y), (int)path[i]->x)
 		&& y_prev != path[i]->y - mov->y)
 		ft_next_path(path, mov->y, i, 3);
-	else if (map[(int)path[i]->y][(int)(path[i]->x - mov->x * -1)] != 0)
+	else if (ft_valide_path(map, (int)path[i]->y, (int)(path[i]->x - mov->x)))
 		ft_next_path(path, mov->x, i, 4);
 	else
 		ft_next_path(path, 0, i, 0);
@@ -93,16 +100,16 @@ void	ft_vert_mov(t_vector **path, int **map, int i, t_vector *mov)
 	mov->x = ft_signs(mov->x);
 	mov->y = ft_signs(mov->y);
 	ft_path_prev(path, &x_prev, &y_prev, i);
-	if (map[(int)(path[i]->y + mov->y)][(int)path[i]->x] != 1
+	if (ft_valide_path(map, (int)(path[i]->y + mov->y), (int)path[i]->x)
 		&& y_prev != path[i]->y + mov->y)
 		ft_next_path(path, mov->y, i, 2);
-	else if (map[(int)path[i]->y][(int)(path[i]->x + mov->x)] != 1
+	else if (ft_valide_path(map, (int)path[i]->y, (int)(path[i]->x + mov->x))
 		&& x_prev != path[i]->x + mov->x)
 		ft_next_path(path, mov->x, i, 1);
-	else if (map[(int)path[i]->y][(int)(path[i]->x - mov->x)] != 1
+	else if (ft_valide_path(map, (int)path[i]->y, (int)(path[i]->x - mov->x))
 		&& x_prev != path[i]->x - mov->x)
 		ft_next_path(path, mov->x, i, 4);
-	else if (map[(int)(path[i]->y - mov->y)][(int)path[i]->x] != 1)
+	else if (ft_valide_path(map, (int)(path[i]->y - mov->y), (int)path[i]->x))
 		ft_next_path(path, mov->y, i, 3);
 	else
 		ft_next_path(path, 0, i, 0);
@@ -133,19 +140,26 @@ void	ft_move_enemy(t_enemy *enemy, t_map *map)
 	int	act_x;
 	int	act_y;
 
+	if (enemy->i_path == 9 || enemy->i_path == -1 || !enemy->path[enemy->i_path])
+		return ;
 	path_x = ft_ftoi(enemy->path[enemy->i_path]->x);
 	path_y = ft_ftoi(enemy->path[enemy->i_path]->y);
 	act_x = ft_ftoi(enemy->act->x);
 	act_y = ft_ftoi(enemy->act->y);
-	if (path_x == act_x && path_y == act_y)
+	if ((path_x == act_x && path_y == act_y))
 	{
-		map->map[path_y / 10][path_x / 10] = 0;
+		if (map->map[path_y / 10][path_x / 10] == 7)
+			map->map[path_y / 10][path_x / 10] = 0;
 		enemy->i_path++;
-		if (!enemy->path[enemy->i_path])
+		if (enemy->i_path == 9 || !enemy->path[enemy->i_path])
 			return ;
 		path_x = ft_ftoi(enemy->path[enemy->i_path]->x);
 		path_y = ft_ftoi(enemy->path[enemy->i_path]->y);
-		map->map[path_y / 10][path_x / 10] = 7;
+		if (map->map[path_y / 10][path_x / 10] == 0)
+		{
+			printf("%d  %d  %d\n", map->map[path_y / 10][path_x / 10], path_y / 10, path_x / 10);
+			map->map[path_y / 10][path_x / 10] = 7;
+		}
 	}
 	else if (path_x > act_x && path_y == act_y)	
 		enemy->act->x += 0.0625 / 2;
@@ -163,31 +177,25 @@ void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
 
 	if (game->enemy_spw == false)
 		return ;
-	if (ft_ftoi(enemy->act->x) == ft_ftoi(enemy->dest->x)
+	ft_move_enemy(enemy, map);
+	if (enemy->i_path == 10 || (ft_ftoi(enemy->act->x) == ft_ftoi(enemy->dest->x)
 		&& (ft_ftoi(enemy->act->y) == ft_ftoi(enemy->dest->y)
-		|| !enemy->path[enemy->i_path]))
+		|| !enemy->path[enemy->i_path])))
 	{
-		enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));
-		i = 0;
-		while (i < 10)
-		{
-			enemy->path[i] = malloc(sizeof(t_vector));
-//			if (!enemy->path[i])
-//				return (ft_free_enemy(enemy), NULL);
-			i++;
-		}
 		ft_random_place(enemy, map);
+		i = 0;
+			enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));//a bouger
+		while (i < 10)
+			enemy->path[i++] = malloc(sizeof(t_vector));//secu
+		i = 0;
 		enemy->i_path = 0;
 		enemy->path[0]->x = enemy->act->x;
 		enemy->path[0]->y = enemy->act->y;
-		i = 0;
 		while (i < 9 && !(enemy->path[i]->x == enemy->dest->x
 				&& enemy->path[i]->y == enemy->dest->y))
 		{
 			ft_search_path(enemy, map->map, i);
 			i++;
 		}
-		enemy->path[i + 1] = NULL;
 	}
-	ft_move_enemy(enemy, map);
 }
