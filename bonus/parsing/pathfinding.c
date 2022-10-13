@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:50:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/13 11:39:53 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/13 11:49:26 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
 		i = 0;
 			enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));//a bouger
 		while (i < 10)
-			enemy->path[i++] = malloc(sizeof(t_vector));//secu
+			enemy->path[i++] = ft_init_vector(0, 0);//secu
 		i = 0;
 		enemy->i_path = 0;
 		enemy->path[0]->x = enemy->act->x;

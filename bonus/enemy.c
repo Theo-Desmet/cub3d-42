@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:10:09 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/13 10:25:41 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/13 11:51:12 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_enemy	*ft_init_enemy(t_game *game)
 	enemy->dest = ft_init_vector(0, 0);
 	enemy->sprite = NULL;
 	enemy->i_path = -1;
-	enemy->path = ft_calloc(10, sizeof(t_vector *));
+	enemy->path = ft_calloc(11, sizeof(t_vector *));
 	if (!enemy->act || !enemy->dest || !enemy->path)
 		return (ft_free_enemy(enemy, game), NULL);
 	return (enemy);
