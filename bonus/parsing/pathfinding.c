@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:50:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/13 11:49:26 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:08:50 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_path_prev(t_vector **path, int *prev_x, int *prev_y, int i)
 
 int	ft_valide_path(int **map, int y, int x)
 {
-	if (map[y][x] == 0 || map [y][x] == 4)
+	if (map[y][x] == 0 || map[y][x] == 4)
 		return (1);
 	return (0);
 }
@@ -119,8 +119,8 @@ void	ft_search_path(t_enemy *enemy, int **map, int i)
 {
 	t_vector	delta;
 
-	delta = (t_vector){enemy->dest->x - enemy->path[i]->x
-		, enemy->dest->y - enemy->path[i]->y};
+	delta = (t_vector)
+	{enemy->dest->x - enemy->path[i]->x, enemy->dest->y - enemy->path[i]->y};
 	if (delta.x * delta.x >= delta.y * delta.y)
 		ft_hori_mov(enemy->path, map, i, &delta);
 	else
@@ -129,8 +129,22 @@ void	ft_search_path(t_enemy *enemy, int **map, int i)
 
 int	ft_ftoi(float f)
 {
-	f = f * 10;
+	f = f * 1000;
 	return ((int)f);
+}
+
+int	ft_update_path(t_enemy *enemy, t_map *map, int x, int y)
+{
+	if (map->map[y][x] == 7)
+		map->map[y][x] = 0;
+	enemy->i_path++;
+	if (enemy->i_path == 9 || !enemy->path[enemy->i_path])
+		return (0);
+	x = ft_ftoi(enemy->path[enemy->i_path]->x);
+	y = ft_ftoi(enemy->path[enemy->i_path]->y);
+	if (map->map[y / 1000][x / 1000] == 0)
+		map->map[y / 1000][x / 1000] = 7;
+	return (1);
 }
 
 void	ft_move_enemy(t_enemy *enemy, t_map *map)
@@ -140,35 +154,36 @@ void	ft_move_enemy(t_enemy *enemy, t_map *map)
 	int	act_x;
 	int	act_y;
 
-	if (enemy->i_path == 9 || enemy->i_path == -1 || !enemy->path[enemy->i_path])
+	if (enemy->i_path == -1)
 		return ;
 	path_x = ft_ftoi(enemy->path[enemy->i_path]->x);
 	path_y = ft_ftoi(enemy->path[enemy->i_path]->y);
 	act_x = ft_ftoi(enemy->act->x);
 	act_y = ft_ftoi(enemy->act->y);
-	if ((path_x == act_x && path_y == act_y))
-	{
-		if (map->map[path_y / 10][path_x / 10] == 7)
-			map->map[path_y / 10][path_x / 10] = 0;
-		enemy->i_path++;
-		if (enemy->i_path == 9 || !enemy->path[enemy->i_path])
-			return ;
-		path_x = ft_ftoi(enemy->path[enemy->i_path]->x);
-		path_y = ft_ftoi(enemy->path[enemy->i_path]->y);
-		if (map->map[path_y / 10][path_x / 10] == 0)
-		{
-			printf("%d  %d  %d\n", map->map[path_y / 10][path_x / 10], path_y / 10, path_x / 10);
-			map->map[path_y / 10][path_x / 10] = 7;
-		}
-	}
-	else if (path_x > act_x && path_y == act_y)	
+	if ((path_x == act_x && path_y == act_y)
+		&& (ft_update_path(enemy, map, path_x / 1000, path_y / 1000)))
+		return ;
+	else if (path_x > act_x && path_y == act_y)
 		enemy->act->x += 0.0625 / 2;
-	else if (path_x < act_x && path_y == act_y)	
+	else if (path_x < act_x && path_y == act_y)
 		enemy->act->x -= 0.0625 / 2;
 	else if (path_y > act_y && path_x == act_x)
 		enemy->act->y += 0.0625 / 2;
-	else if (path_y < act_y && path_x == act_x)	
+	else if (path_y < act_y && path_x == act_x)
 		enemy->act->y -= 0.0625 / 2;
+}
+
+void	ft_reset_path(t_enemy *enemy)
+{
+	int	i;
+
+	i = 0;
+	while (i < 10)
+	{
+		enemy->path[i]->x = 0;
+		enemy->path[i]->y = 0;
+		i++;
+	}
 }
 
 void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
@@ -178,17 +193,15 @@ void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map)
 	if (game->enemy_spw == false)
 		return ;
 	ft_move_enemy(enemy, map);
-	if (enemy->i_path == 10 || (ft_ftoi(enemy->act->x) == ft_ftoi(enemy->dest->x)
-		&& (ft_ftoi(enemy->act->y) == ft_ftoi(enemy->dest->y)
-		|| !enemy->path[enemy->i_path])))
+	if (enemy->i_path == 10
+		|| (ft_ftoi(enemy->act->x) == ft_ftoi(enemy->dest->x)
+			&& (ft_ftoi(enemy->act->y) == ft_ftoi(enemy->dest->y)
+				|| !enemy->path[enemy->i_path])))
 	{
-		ft_random_place(enemy, map);
-		i = 0;
-			enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));//a bouger
-		while (i < 10)
-			enemy->path[i++] = ft_init_vector(0, 0);//secu
 		i = 0;
 		enemy->i_path = 0;
+		ft_random_place(enemy, map);
+		ft_reset_path(enemy);
 		enemy->path[0]->x = enemy->act->x;
 		enemy->path[0]->y = enemy->act->y;
 		while (i < 9 && !(enemy->path[i]->x == enemy->dest->x

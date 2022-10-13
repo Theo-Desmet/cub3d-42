@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 09:40:50 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/11 19:30:21 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:48:01 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_spawn_enemy(t_game *game)
 	if (!game->enemy || game->map->height < 10 || game->map->width < 10)
 		game->enemy_spw = false;
 	i = 0;
-	while (i++ < 100)
+	while (i++ < 1000)
 	{
 		x = rand();
 		y = rand();
@@ -51,7 +51,6 @@ void	ft_spawn_enemy(t_game *game)
 			game->enemy->act->y = y;
 			game->enemy->dest->x = x;
 			game->enemy->dest->y = y;
-			printf("init %f %f\n", game->enemy->act->x, game->enemy->act->y);
 			return ;
 		}
 	}
