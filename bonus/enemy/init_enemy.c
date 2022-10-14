@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy.c                                            :+:      :+:    :+:   */
+/*   init_enemy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:10:09 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/13 14:29:02 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/14 11:40:02 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_enemy	*ft_init_enemy(t_game *game)
 	enemy->i_path = -1;
 	enemy->path = ft_calloc(11, sizeof(t_vector *));
 	i = 0;
-	enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));//a bouger
+	enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));
 	while (i < 10)
 	{
 		enemy->path[i++] = ft_init_vector(0, 0);

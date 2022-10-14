@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/13 11:53:13 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:29:38 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@
 # include <time.h>
 # include <stdio.h>
 # include <math.h>
+# include "enemy.h"
 # include "define.h"
 # include "parsing.h"
 
 # define MOVING_SPEED 0.15
 # define ROTATE_SPEED 0.06
 
-void			ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
-void			ft_spawn_enemy(t_game *game);
-void			ft_random_place(t_enemy *enemy, t_map *map);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = bonus/cleaning2.c                          */
 /* -------------------------------------------------------------------------- */
