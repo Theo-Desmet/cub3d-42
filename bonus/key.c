@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:57:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:37:17 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_animator(t_sprite *sprite, t_object *obj, int i)
 	int	act;
 
 	if (!obj->objects[i]->animated)
-		return;
+		return ;
 	tick_max = 4 * 25;
 	if (obj->tick >= tick_max)
 	{

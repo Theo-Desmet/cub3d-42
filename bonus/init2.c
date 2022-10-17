@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:23:56 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:55:47 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_free_all(t_game *game)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->error_msg)
 		ft_free_tab((void **)game->error_msg);
+	if (game->fps)
+		free(game->fps);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free(game);
@@ -73,8 +75,8 @@ t_game	*ft_init_primary(t_game *game)
 	game->enemy = ft_init_enemy(game);
 	game->error_msg = ft_init_error_messages();
 	game->plane = ft_init_vector(1, 0);
-	if (!game->map || !game->textures_path || !game->player || !game->plane
-		|| !game->error_msg)
+	if (!game->map || !game->textures_path || !game->player || !game->plane 
+		|| !game->enemy || !game->error_msg)
 		return (ft_free_all(game), NULL);
 	return (game);
 }

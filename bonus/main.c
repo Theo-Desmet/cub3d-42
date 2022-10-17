@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/07 12:16:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:30:05 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	mouse_handling(int x, int y, t_game *game)
 	return (1);
 }
 
-# include <sys/time.h>
-
 unsigned long	ft_get_time(void)
 {
 	struct timeval	t;
@@ -54,40 +52,38 @@ unsigned long	ft_get_time(void)
 
 void	ft_fps(t_game *game)
 {
-	static	unsigned long	cur;
-	static	int				frames;
-	static	char			*fps;
-
+	static unsigned long	cur;
+	static int				frames;
 
 	if (!cur)
 		cur = ft_get_time() + 1000;
 	if (cur <= ft_get_time())
 	{
 		cur = ft_get_time() + 1000;
-		if (fps)
-			free(fps);
-		fps = ft_itoa(frames);
+		if (game->fps)
+			free(game->fps);
+		game->fps = ft_itoa(frames);
 		frames = 0;
 	}
-	if (fps)
-		mlx_string_put(game->mlx, game->win, S_WIDTH - 50, 10, 0xFF0000, fps);
+	if (game->fps)
+		mlx_string_put(game->mlx, game->win, S_WIDTH - 50, 10,
+			0xFF0000, game->fps);
 	frames++;
 }
 
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	*game;
 
 	game = ft_init_game(ac, av);
 	if (!game)
 		exit(EXIT_FAILURE);
-	// mlx_mouse_hide(game->mlx, game->win);
+	mlx_mouse_hide(game->mlx, game->win);
 	mlx_do_sync(game->mlx);
 	mlx_hook(game->win, 2, 1L, ft_key_down, game);
 	mlx_hook(game->win, 3, 1L << 1, ft_key_up, game);
 	mlx_hook(game->win, 17, 1L, ft_free_all, game);
-	// mlx_hook(game->win, 6, 1L << 6, mouse_handling, game);
+	mlx_hook(game->win, 6, 1L << 6, mouse_handling, game);
 	mlx_loop_hook(game->mlx, ft_loop, game);
 	mlx_loop(game->mlx);
 	ft_free_all(game);
