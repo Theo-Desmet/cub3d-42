@@ -6,15 +6,15 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/10/14 15:19:57 by tdesmet          ###   ########.fr        #
+#    Updated: 2022/10/17 18:00:27 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = clang
 
 CFLAGS = -I includes/ -Ofast -flto -g3 -Wall -Werror -Wextra
 
-#CFLAGS = -I includes/ -O0 -g3 -Wall -Werror -Wextra
+CFLAGS = -I includes/ -O0 -g3 -Wall -Werror -Wextra
 
 FILES = $(wildcard src/*.c) $(wildcard src/raycasting/*.c) $(wildcard src/parsing/*.c)
 
@@ -43,6 +43,11 @@ all: $(NAME)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
 	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME)
+
+malloc_test: $(BOBJS) $(DEPS)	
+	@ $(MAKE) -C libft all --no-print-directory
+	@ $(MAKE) -C mlx_linux/ all
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${BOBJS} libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -L. -lmallocator
 
 bonus: $(BOBJS) $(DEPS)
 	@ $(MAKE) -C libft all --no-print-directory

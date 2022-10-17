@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/11 12:21:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:26:36 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef struct s_game
 	t_ray		*ray;
 	t_object	*object;
 	t_door		**doors;
+	char		*fps;
 	int			nb_doors;
 	int			frame;
 	char		**textures_path;

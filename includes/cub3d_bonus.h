@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/14 14:29:38 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/17 17:59:38 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "enemy.h"
 # include "define.h"
 # include "parsing.h"
+# include <sys/time.h>
 
 # define MOVING_SPEED 0.15
 # define ROTATE_SPEED 0.06
@@ -50,7 +51,7 @@ t_object		*ft_init_obj(t_game *game);
 t_object		*ft_alloc_objs(t_game *game, t_object *obj);
 int				ft_type_object(t_game *game, t_object *obj, int i, int j);
 t_sprite		*ft_create_enemy(t_game *game);
-void			ft_get_objs(t_game *game, t_object *obj);
+int				ft_get_objs(t_game *game, t_object *obj);
 t_sprite		*ft_init_sprite(t_game *game, double x, double y, t_img *img);
 
 /* -------------------------------------------------------------------------- */

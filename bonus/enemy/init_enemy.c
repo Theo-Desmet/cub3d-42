@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:10:09 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/14 11:40:02 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/17 18:01:01 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ t_sprite	*ft_create_enemy(t_game *game)
 
 	enemy = ft_init_img(game->mlx, "assets/ennemy.xpm", SP_SIZE * 5,
 			SP_SIZE * 5);
+	if (!enemy)
+		return (NULL);
 	res = ft_init_sprite(game, game->enemy->act->x + 0.5,
 			game->enemy->act->y + 0.5, enemy);
+	if (!res)
+		return (NULL);
 	res->type = ENEMY;
 	res->animated = true;
 	game->enemy->sprite = res;
@@ -52,13 +56,15 @@ t_enemy	*ft_init_enemy(t_game *game)
 	enemy = malloc(sizeof(t_enemy));
 	if (!enemy)
 		return (NULL);
+	ft_memset(enemy, 0, sizeof(t_enemy));
 	enemy->act = ft_init_vector(0, 0);
 	enemy->dest = ft_init_vector(0, 0);
 	enemy->sprite = NULL;
 	enemy->i_path = -1;
 	enemy->path = ft_calloc(11, sizeof(t_vector *));
+	if (!enemy->path)
+		return (ft_free_enemy(enemy, game), NULL);
 	i = 0;
-	enemy->path = ft_memset(enemy->path, 0, sizeof(enemy->path));
 	while (i < 10)
 	{
 		enemy->path[i++] = ft_init_vector(0, 0);

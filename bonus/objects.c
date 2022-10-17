@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:13:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:37:34 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:26:14 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ t_object	*ft_init_obj(t_game *game)
 	objs = malloc(sizeof(t_object));
 	if (!objs)
 		return (NULL);
-	objs->tick = 0;
-	objs->nb_obj = 0;
-	objs->objects = NULL;
-	ft_get_objs(game, objs);
+	ft_memset(objs, 0, sizeof(t_object));
+	if (ft_get_objs(game, objs) == -1)
+		return (ft_free_obj(objs), NULL);
 	objs->index = 0;
 	objs->zbuff = malloc(sizeof(double) * S_WIDTH);
 	objs->dist = malloc(sizeof(double) * objs->nb_obj);
 	objs->order = malloc(sizeof(int) * objs->nb_obj);
-	if (!objs->objects || !objs->zbuff || !objs->dist || !objs->order)
+	if (!objs->zbuff || !objs->dist || !objs->order)
 		return (ft_free_obj(objs), NULL);
 	return (objs);
 }
@@ -76,7 +75,7 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 	return (0);
 }
 
-void	ft_get_objs(t_game *game, t_object *obj)
+int	ft_get_objs(t_game *game, t_object *obj)
 {
 	int	i;
 	int	j;
@@ -84,16 +83,19 @@ void	ft_get_objs(t_game *game, t_object *obj)
 	i = -1;
 	ft_alloc_objs(game, obj);
 	if (!obj->objects)
-		return ;
+		return (-1);
 	while (++i < game->map->height)
 	{
 		j = -1;
 		while (++j < game->map->width)
 			if (ft_type_object(game, obj, i, j) == -1)
-				return ;
+				return (-1);
 	}
 	if (game->enemy_spw)
 		obj->objects[obj->index] = ft_create_enemy(game);
+	if (!obj->objects[obj->index])
+		return (-1);
+	return (0);
 }
 
 t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
