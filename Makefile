@@ -6,11 +6,11 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/10/17 18:00:27 by bbordere         ###   ########.fr        #
+#    Updated: 2022/10/17 19:05:35 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = clang
+CC = gcc
 
 CFLAGS = -I includes/ -Ofast -flto -g3 -Wall -Werror -Wextra
 
@@ -44,10 +44,10 @@ all: $(NAME)
 	@ $(MAKE) -C mlx_linux/ all
 	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME)
 
-malloc_test: $(BOBJS) $(DEPS)	
+malloc_test: $(OBJS) $(DEPS)	
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${BOBJS} libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -L. -lmallocator
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -L. -lmallocator
 
 bonus: $(BOBJS) $(DEPS)
 	@ $(MAKE) -C libft all --no-print-directory

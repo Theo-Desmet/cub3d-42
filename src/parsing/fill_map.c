@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 14:21:01 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/09 11:29:02 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:07:20 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	**ft_fill_map(t_game *game, int **map, char *line, int fd)
 			break ;
 		x++;
 	}
+	if (x != game->map->height - 1)
+		return (NULL);
 	return (map);
 }
 
@@ -62,10 +64,14 @@ int	ft_copy_map(t_game *game, int **map, char *path)
 	if (!fd)
 		return (0);
 	line = get_next_line(fd);
+	if (!line)
+		return (ft_free_all(game), 0);
 	while (ft_check_is_head(line))
 	{
 		free(line);
 		line = get_next_line(fd);
+		if (!line)
+			return (ft_free_all(game), 0);
 	}
 	map = ft_fill_map(game, map, line, fd);
 	if (!map)

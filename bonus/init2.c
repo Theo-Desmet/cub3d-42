@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 15:55:47 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:09:57 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**ft_init_error_messages(void)
 	char	**arr;
 	int		i;
 
-	arr = (char **)ft_calloc(12, sizeof(char *));
+	arr = ft_calloc(12, sizeof(char *));
 	if (!arr)
 		return (NULL);
 	ft_fill_error_msg(arr);
