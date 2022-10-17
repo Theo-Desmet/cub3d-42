@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 08:19:09 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/11 12:17:09 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:52:31 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_get_nbrgb(const char *line, int *shift, int *i, int rgb)
 	if (!dup)
 		return (-1);
 	nb = ft_atoi(dup);
-	if (nb > 256 || nb < 0)
+	if (nb > 255 || nb < 0)
 		return (free(dup), -1);
 	rgb += nb << *shift;
 	if (*shift == 16)
@@ -59,23 +59,26 @@ static int	ft_pass_sep(char *str, int *temp)
 	i = *temp;
 	if (str[i] && str[i++] != ',')
 		return (0);
-	while (str[i] && str[i] == ' ')
+	while (str[i] && ft_isspace(str[i]) && str[i] != '\n')
 		i++;
-	if (!str[i] || (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != ','))
+	if (!str[i] || (!ft_isdigit(str[i]) && ft_isspace(str[i]) && str[i] != ','))
 		return (0);
 	*temp = i;
 	return (1);
 }
 
-int	ft_check_is_rgb(char *line, char *str)
+int	ft_check_is_rgb(char *line, char c)
 {
 	int	i;
 	int	rgb;
 
-	i = 1;
-	if (ft_strncmp(line, str, 2))
+	i = 0;
+	while (line[i] && ft_isspace(line[i]) && line[i] != '\n')
+		i++;
+	if (line[i] != c)
 		return (0);
-	while (line[i] && line[i] == ' ')
+	i++;
+	while (line[i] && ft_isspace(line[i]) && line[i] != '\n')
 		i++;
 	if (!line[i])
 		return (0);
@@ -87,9 +90,9 @@ int	ft_check_is_rgb(char *line, char *str)
 
 int	ft_atorgb(char *str)
 {
-	int		rgb;
-	int		i;
-	int		shift;
+        int		rgb;
+        int		i;
+        int		shift;
 
 	i = 0;
 	shift = 16;
@@ -99,7 +102,7 @@ int	ft_atorgb(char *str)
 		rgb = ft_get_nbrgb(str, &shift, &i, rgb);
 		if (rgb < 0)
 			return (-1);
-		while (str[i] && str[i] == ' ')
+		while (str[i] && ft_isspace(str[i]) && str[i] != '\n')
 			i++;
 		if (shift == -1)
 			break ;

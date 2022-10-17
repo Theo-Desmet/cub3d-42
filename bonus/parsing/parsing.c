@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/09/30 10:33:09 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/17 17:11:32 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 size_t	ft_get_texture_index(const char *id)
 {
-	if (!ft_strcmp(id, "EA "))
+	if (!ft_strcmp(id, "EA"))
 		return (0);
-	if (!ft_strcmp(id, "WE "))
+	if (!ft_strcmp(id, "WE"))
 		return (1);
-	if (!ft_strcmp(id, "NO "))
+	if (!ft_strcmp(id, "NO"))
 		return (2);
 	return (3);
 }
@@ -26,16 +26,20 @@ size_t	ft_get_texture_index(const char *id)
 int	ft_check_valid_path(t_game *game, const char *line, const char *str)
 {
 	int	i;
+	int	temp;
 
 	i = 0;
-	while (line[i] && line[i] == ' ')
+	while (line[i] && ft_isspace(line[i]))
 		i++;
-	if (ft_strncmp(&line[i], str, 3))
+	if (ft_strncmp(&line[i], str, 2))
 		return (0);
 	i += 2;
-	while (line[i] && line[i] == ' ')
+	temp = i;
+	while (line[i] && ft_isspace(line[i]))
 		i++;
-	game->textures_path[ft_get_texture_index(str)] = ft_getpath(line);
+	if (temp == i)
+		return (0);
+	game->textures_path[ft_get_texture_index(str)] = ft_getpath(&line[i]);
 	return (1);
 }
 
@@ -44,16 +48,11 @@ char	*ft_getpath(const char *line)
 	int		i;
 	char	*path;
 
-	i = 0;
-	while (line[i] != ' ')
-		i++;
-	while (line[i] == ' ')
-		i++;
-	path = ft_strdup(&line[i]);
+	path = ft_strdup(line);
 	if (!path)
 		return (NULL);
 	i = 0;
-	while (path[i] && path[i] != '\n')
+	while (path[i] && !ft_isspace(path[i]))
 		i++;
 	path[i] = 0;
 	return (path);
