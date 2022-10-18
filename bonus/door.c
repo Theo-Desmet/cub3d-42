@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:23:17 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 15:10:31 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:15:51 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_upd_x_off(t_ray *ray, t_render *render, t_game *game, t_door *door)
 	{
 		ray->map_x += ray->step_x;
 		ray->side = 0;
-		render->wall_tex = game->assets->ceil;
+		render->wall_tex = game->assets->door_frame;
 		render->y_offset = 0.0;
 	}
 }
@@ -90,7 +90,7 @@ void	ft_upd_y_off(t_ray *ray, t_render *render, t_game *game, t_door *door)
 	{
 		ray->map_y += ray->step_y;
 		ray->side = 1;
-		render->wall_tex = game->assets->ceil;
+		render->wall_tex = game->assets->door_frame;
 		render->x_offset = 0.0;
 	}	
 }

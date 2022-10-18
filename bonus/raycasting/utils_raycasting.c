@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:07:00 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:40:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:16:20 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ void	ft_particular_wall_hit(t_game *game, t_render *render, t_ray *ray)
 	map = game->map->map;
 	render->wall_tex = NULL;
 	if (ray->side == 1 && map[ray->map_y - ray->step_y][ray->map_x] == 3)
-		render->wall_tex = game->assets->ceil;
+		render->wall_tex = game->assets->door_frame;
 	else if (ray->side == 0 && map[ray->map_y][ray->map_x - ray->step_x] == 3)
-		render->wall_tex = game->assets->ceil;
+		render->wall_tex = game->assets->door_frame;
 	else if (ray->side == 1 && map[ray->map_y - ray->step_y][ray->map_x] == 4)
-		render->wall_tex = game->assets->ceil;
+		render->wall_tex = game->assets->door_frame;
 	else if (ray->side == 0 && map[ray->map_y][ray->map_x - ray->step_x] == 4)
-		render->wall_tex = game->assets->ceil;
+		render->wall_tex = game->assets->door_frame;
 	ray->hit = 1;
 }

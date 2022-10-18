@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:48:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/06 15:04:26 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:15:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ void	ft_draw_tiles(t_game *game, t_square square, int x, int y)
 		square.color = 0xFAD02C;
 	else if (game->map->map[y][x] == 4)
 		square.color = 0x0A7029;
+	else if (game->map->map[y][x] == 7)
+		square.color = 0xDC143C;
+	else if (game->map->map[y][x] == 2 || game->map->map[y][x] == 5)
+		square.color = 0x1E90FF;
 	if (game->map->map[y][x] != -1)
 		ft_draw_square(game, square);
 }

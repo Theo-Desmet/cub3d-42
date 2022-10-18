@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 12:39:19 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:23:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,15 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 	asset->floor = ft_init_img(mlx, "assets/floor2.xpm", SP_SIZE, SP_SIZE);
 	asset->gun = ft_init_img(mlx, "assets/gunFrame.xpm",
 			SP_SIZE * 5, SP_SIZE * 5);
-	asset->obj = ft_init_img(mlx, "assets/barrel2.xpm",
+	asset->obj = ft_init_img(mlx, "assets/barrel3.xpm",
 			SP_SIZE * 4, SP_SIZE * 4);
 	asset->door = ft_init_img(mlx, "assets/door.xpm", SP_SIZE, SP_SIZE);
-	asset->light = ft_init_img(mlx, "assets/greenlight.xpm", SP_SIZE, SP_SIZE);
+	asset->light = ft_init_img(mlx, "assets/greenlight.xpm",
+			SP_SIZE, SP_SIZE);
+	asset->door_frame = ft_init_img(mlx, "assets/door_frame.xpm", SP_SIZE, SP_SIZE);
 	if (!asset->wall_e || !asset->wall_n || !asset->wall_s || !asset->wall_w
 		|| !asset->gun || !asset->ceil || !asset->floor
-		|| !asset->door || !asset->obj || !asset->light)
+		|| !asset->door || !asset->obj || !asset->light || !asset->door_frame)
 		return (ft_free_assets(asset, mlx), NULL);
 	return (asset);
 }

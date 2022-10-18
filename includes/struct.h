@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/17 11:26:36 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:10:15 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_assets
 	t_img	*obj;
 	t_img	*door;
 	t_img	*light;
+	t_img	*door_frame;
 }	t_assets;
 
 typedef struct s_map

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 19:21:35 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:11:32 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_free_assets(t_assets *assets, void *mlx)
 		ft_destroy_img(assets->light, mlx);
 	if (assets->obj)
 		ft_destroy_img(assets->obj, mlx);
+	if (assets->door_frame)
+		ft_destroy_img(assets->door_frame, mlx);
 	free(assets);
 }
 
