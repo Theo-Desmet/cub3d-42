@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:10:09 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 18:01:01 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:49:32 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_sprite	*ft_create_enemy(t_game *game)
 			SP_SIZE * 5);
 	if (!enemy)
 		return (NULL);
-	res = ft_init_sprite(game, game->enemy->act->x + 0.5,
+	res = ft_init_sprite(game->enemy->act->x + 0.5,
 			game->enemy->act->y + 0.5, enemy);
 	if (!res)
 		return (NULL);

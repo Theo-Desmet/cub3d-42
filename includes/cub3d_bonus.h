@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/17 17:59:38 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:48:20 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_object		*ft_alloc_objs(t_game *game, t_object *obj);
 int				ft_type_object(t_game *game, t_object *obj, int i, int j);
 t_sprite		*ft_create_enemy(t_game *game);
 int				ft_get_objs(t_game *game, t_object *obj);
-t_sprite		*ft_init_sprite(t_game *game, double x, double y, t_img *img);
+t_sprite		*ft_init_sprite(double x, double y, t_img *img);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = bonus/door_utils.c                          */

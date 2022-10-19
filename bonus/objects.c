@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:13:42 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 18:51:32 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:49:11 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 {
 	if (game->map->map[i][j] == 2)
 	{
-		obj->objects[obj->index] = ft_init_sprite(game, j + 0.5,
+		obj->objects[obj->index] = ft_init_sprite(j + 0.5,
 				i + 0.5, game->assets->obj);
 		if (!obj->objects[obj->index])
 			return (ft_free_obj_tab(obj), -1);
@@ -66,7 +66,7 @@ int	ft_type_object(t_game *game, t_object *obj, int i, int j)
 	}
 	else if (game->map->map[i][j] == LIGHT)
 	{
-		obj->objects[obj->index] = ft_init_sprite(game, j + 0.5,
+		obj->objects[obj->index] = ft_init_sprite(j + 0.5,
 				i + 0.5, game->assets->light);
 		if (!obj->objects[obj->index])
 			return (ft_free_obj_tab(obj), -1);
@@ -92,17 +92,18 @@ int	ft_get_objs(t_game *game, t_object *obj)
 				return (-1);
 	}
 	if (game->enemy_spw)
+	{
 		obj->objects[obj->index] = ft_create_enemy(game);
-	if (!obj->objects[obj->index])
-		return (-1);
+		if (!obj->objects[obj->index])
+			return (-1);
+	}
 	return (0);
 }
 
-t_sprite	*ft_init_sprite(t_game *game, double x, double y, t_img *img)
+t_sprite	*ft_init_sprite(double x, double y, t_img *img)
 {
 	t_sprite	*res;
 
-	(void)game;
 	res = malloc(sizeof(t_sprite));
 	if (!res)
 		return (NULL);
