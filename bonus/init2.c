@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 19:09:57 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:13:03 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,11 @@ t_game	*ft_init_primary(t_game *game)
 	game->enemy = ft_init_enemy(game);
 	game->error_msg = ft_init_error_messages();
 	game->plane = ft_init_vector(1, 0);
-	if (!game->map || !game->textures_path || !game->player || !game->plane 
+	if (!game->map || !game->textures_path || !game->player || !game->plane
 		|| !game->enemy || !game->error_msg)
 		return (ft_free_all(game), NULL);
 	return (game);
 }
-
-void	ft_spawn_enemy(t_game *game);
 
 t_game	*ft_init_game(int ac, char **av)
 {

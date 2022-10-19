@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 08:19:09 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/17 15:52:31 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/19 08:32:53 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	ft_pass_sep(char *str, int *temp)
 	return (1);
 }
 
-int	ft_check_is_rgb(char *line, char c)
+int	ft_check_is_rgb(char *line, char c, int *check)
 {
 	int	i;
 	int	rgb;
@@ -85,14 +85,15 @@ int	ft_check_is_rgb(char *line, char c)
 	rgb = ft_atorgb(&line[i]);
 	if (rgb == -1)
 		return (0);
+	*check = 1;
 	return (rgb);
 }
 
 int	ft_atorgb(char *str)
 {
-        int		rgb;
-        int		i;
-        int		shift;
+	int	rgb;
+	int	i;
+	int	shift;
 
 	i = 0;
 	shift = 16;

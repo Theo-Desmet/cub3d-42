@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/18 10:04:04 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 08:56:26 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	ft_animator(t_sprite *sprite, t_object *obj, int i)
 		act = obj->tick / 25;
 	obj->objects[i]->frame = act + (sprite->type == ENEMY);
 }
-void	ft_pathfinding(t_game *game, t_enemy *enemy, t_map *map);
 
 int	ft_loop(t_game *game)
 {

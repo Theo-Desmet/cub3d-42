@@ -6,7 +6,7 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/10/17 19:05:35 by bbordere         ###   ########.fr        #
+#    Updated: 2022/10/19 09:30:56 by tdesmet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,59 @@ CC = gcc
 
 CFLAGS = -I includes/ -Ofast -flto -g3 -Wall -Werror -Wextra
 
-CFLAGS = -I includes/ -O0 -g3 -Wall -Werror -Wextra
+#CFLAGS = -I includes/ -O0 -g3 -Wall -Werror -Wextra
 
-FILES = $(wildcard src/*.c) $(wildcard src/raycasting/*.c) $(wildcard src/parsing/*.c)
+FILES = src/raycasting/floor.c\
+	src/raycasting/ray.c\
+	src/raycasting/raycasting.c\
+	src/parsing/atorgb.c\
+	src/parsing/check_map.c\
+	src/parsing/check_map_head.c\
+	src/parsing/check_border.c\
+	src/parsing/fill_map.c\
+	src/parsing/err_parsing.c\
+	src/parsing/parsing.c\
+	src/cleaning.c\
+	src/drawing.c\
+	src/init2.c\
+	src/init.c\
+	src/key.c\
+	src/main.c\
+	src/move.c\
+	src/utils.c\
 
-BFILES = $(wildcard bonus/*.c) $(wildcard bonus/raycasting/*.c) $(wildcard bonus/parsing/*.c) $(wildcard bonus/enemy/*.c)
+BFILES = bonus/cleaning2.c\
+	 bonus/door.c\
+	 bonus/drawing.c\
+	 bonus/init2.c\
+	 bonus/init.c\
+	 bonus/main.c\
+	 bonus/move.c\
+	 bonus/cleaning.c\
+	 bonus/door_utils.c\
+	 bonus/drawing_utils.c\
+	 bonus/init3.c\
+	 bonus/key.c\
+	 bonus/minimap.c\
+	 bonus/objects.c\
+	 bonus/raycasting/floor.c\
+	 bonus/raycasting/raycasting.c\
+	 bonus/raycasting/utils_raycasting.c\
+	 bonus/raycasting/ray.c\
+	 bonus/raycasting/sprite.c\
+	 bonus/raycasting/utils_render.c\
+	 bonus/parsing/atorgb.c\
+	 bonus/parsing/check_map.c\
+	 bonus/parsing/err_parsing.c\
+	 bonus/parsing/parsing.c\
+	 bonus/parsing/check_border.c\
+	 bonus/parsing/check_map_head.c\
+       	 bonus/parsing/fill_map.c\
+	 bonus/enemy/init_enemy.c\
+	 bonus/enemy/move_enemy.c\
+	 bonus/enemy/pathfinding.c\
+	 bonus/enemy/random.c\
+	 bonus/enemy/utils_enemy.c\
 
 OBJS = $(FILES:.c=.o)
 

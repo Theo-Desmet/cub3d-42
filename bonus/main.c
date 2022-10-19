@@ -6,13 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:16:13 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 15:30:05 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:12:10 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-int		ft_parsing(t_game *game, int argc, char **argv);
 
 int	mouse_handling(int x, int y, t_game *game)
 {
