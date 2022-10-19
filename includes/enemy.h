@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:38:45 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/17 18:00:29 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:57:31 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_enemy		*ft_init_enemy(t_game *game);
 /* -------------------------------------------------------------------------- */
 /*                        FILE = src/enemy/move_enemy.c                       */
 /* -------------------------------------------------------------------------- */
-int			ft_ftoi(float f);
+int			ft_ftoi(double f);
 int			ft_update_path(t_enemy *enemy, t_map *map, int x, int y);
 void		ft_move_enemy(t_enemy *enemy, t_map *map);
 

@@ -6,15 +6,15 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/10/19 09:30:56 by tdesmet          ###   ########.fr        #
+#    Updated: 2022/10/20 00:11:38 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = clang
 
-CFLAGS = -I includes/ -Ofast -flto -g3 -Wall -Werror -Wextra
+CFLAGS = -I includes/ -Ofast -flto -Wall -Werror -Wextra
 
-#CFLAGS = -I includes/ -O0 -g3 -Wall -Werror -Wextra
+#CFLAGS = -I includes/ -O0 -Wall -Werror -Wextra
 
 FILES = src/raycasting/floor.c\
 	src/raycasting/ray.c\
@@ -74,13 +74,25 @@ BOBJS = $(BFILES:.c=.o)
 
 NAME = cub3d
 
-DEPS = $(wildcard includes/*.h) Makefile
+DEPS =	includes/cub3d.h\
+		includes/define.h\
+		includes/enemy.h\
+		includes/parsing.h\
+		includes/struct.h\
+		Makefile
+
+BDEPS =	includes/cub3d_bonus.h\
+		includes/define.h\
+		includes/enemy.h\
+		includes/parsing.h\
+		includes/struct.h\
+		Makefile
 
 BNAME = cub3d_bonus
 
-%.o: %.c $(DEPS)
+%.o: %.c
 	@printf "\033[0;33mCompiling file: %-33.33s\r" $@
-	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -D BONUS=1 -c $< -o $@
+	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $< -o $@
 
 $(NAME): $(OBJS)
 	@ $(MAKE) -C libft all --no-print-directory
@@ -92,12 +104,7 @@ all: $(NAME)
 	@ $(MAKE) -C mlx_linux/ all
 	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME)
 
-malloc_test: $(OBJS) $(DEPS)	
-	@ $(MAKE) -C libft all --no-print-directory
-	@ $(MAKE) -C mlx_linux/ all
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -L. -lmallocator
-
-bonus: $(BOBJS) $(DEPS)
+bonus: $(BOBJS) $(BDEPS)
 	@ $(MAKE) -C libft all --no-print-directory
 	@ $(MAKE) -C mlx_linux/ all
 	@ $(CC) $(CFLAGS) $(BOBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(BNAME)
@@ -106,6 +113,7 @@ clean:
 	@ rm -f $(OBJS)
 	@ rm -f $(BOBJS)
 	@ $(MAKE) -C libft clean --no-print-directory
+	@ $(MAKE) -C mlx_linux/ clean --no-print-directory
 	@ printf '\033[0;32mclean done\033[0m\n'
 
 fclean: clean

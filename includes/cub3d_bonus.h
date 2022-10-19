@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/19 11:48:20 by bbordere         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by bbordere          #+#    #+#             */
+/*   Updated: 2022/10/20 00:05:03 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void			ft_particular_wall_hit(t_game *game, t_render *render,
 /*                      FILE = bonus/raycasting/floor.c                       */
 /* -------------------------------------------------------------------------- */
 void			ft_color_floor(t_game *game, t_render *render);
-void			hehe(t_game *game, t_render *render);
+void			ft_put_fog(t_game *game, t_render *render);
 void			ft_color_ceil(t_game *game, t_render *render);
 void			ft_floor(t_game *game, t_render *render);
 void			ft_floor_wall(t_ray *ray, t_render *render);

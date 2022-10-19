@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:55:41 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/19 08:26:02 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/20 00:02:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	ft_fill_error_msg(char **arr)
 			" extension\n");
 	arr[BAD_FORMAT] = ft_strdup("bad filename: please use a valid filename\n");
 	arr[NOT_FOUND] = ft_strdup("bad filename: file not found\n");
-	arr[INVALID_SYNTAX] = ft_strdup(": use or redifine of an invalide syntax\n");
+	arr[INVALID_SYNTAX] = ft_strdup(": use or redefine of an invalid syntax\n");
 	arr[INVALID_CHAR] = ft_strdup(": use of an invalid char on map\n");
-	arr[MULTI_SPAWN] = ft_strdup(": redifine of spawn, please use only one\n");
+	arr[MULTI_SPAWN] = ft_strdup(": redefine of spawn, please use only one\n");
 	arr[NO_SPAWN] = ft_strdup("error in file: no spawn in map\n");
 	arr[COPY_ERROR] = ft_strdup("error during the copy of the map\n");
 	arr[INVALID_HEADER] = ft_strdup("error in file: invalid line in head\n");

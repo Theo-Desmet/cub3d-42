@@ -6,33 +6,11 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/11 12:16:25 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:53:41 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-// void	ft_update_sprite(t_game *game, t_sprite *sprite)
-// {
-// 	int			type;
-// 	static int	replace;
-
-// 	if (((int)sprite->pos->x != (int)sprite->last_pos->x)
-// 		|| ((int)sprite->pos->y != (int)sprite->last_pos->y))
-// 	{
-// 		type = game->map->map[(int)sprite->last_pos->y]
-// 		[(int)sprite->last_pos->x];
-// 		if (game->map->map[(int)sprite->last_pos->y]
-// 			[(int)sprite->last_pos->x] != 0)
-// 			replace = game->map->map[(int)sprite->last_pos->y]
-// 			[(int)sprite->last_pos->x];
-// 		game->map->map[(int)sprite->last_pos->y]
-// 		[(int)sprite->last_pos->x] = replace;
-// 		sprite->last_pos->y = sprite->pos->y;
-// 		sprite->last_pos->x = sprite->pos->x;
-// 		game->map->map[(int)sprite->pos->y][(int)sprite->pos->x] = type;
-// 	}
-// }
 
 void	ft_sprite_cast(t_game *game)
 {

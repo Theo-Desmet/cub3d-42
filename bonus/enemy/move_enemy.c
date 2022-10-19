@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   move_enemy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdesmet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:18:28 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/14 15:15:51 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/19 23:56:56 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-int	ft_ftoi(float f)
+int	ft_ftoi(double f)
 {
 	f = f * 1000;
 	return ((int)f);

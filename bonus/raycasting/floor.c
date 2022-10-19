@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:45:40 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:06:37 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:53:04 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_color_floor(t_game *game, t_render *render)
 	}
 }
 
-void	hehe(t_game *game, t_render *render)
+void	ft_put_fog(t_game *game, t_render *render)
 {
 	int	x;
 
@@ -96,7 +96,7 @@ void	ft_floor(t_game *game, t_render *render)
 		render->row_dist = (double)(S_HEIGHT / 2)
 			/ (double)(render->y - S_HEIGHT / 2);
 		if (render->row_dist > SHADING_DISTANCE)
-			hehe(game, render);
+			ft_put_fog(game, render);
 		else
 		{
 			render->step_x = render->row_dist * (dir1.x - dir0.x) / S_WIDTH;
