@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/10 12:14:11 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:48:47 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_err_in_file(t_game *game, int error, int line)
 {
 	if (error >= 0 && error <= 2)
 	{
-		ft_putstr_fd("error in file: line ", 2);
+		ft_putstr_fd("error in map: line ", 2);
 		ft_putnbr_fd(line, 2);
 		ft_putstr_fd(ft_get_error_msg(game, error), 2);
 	}

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 15:40:04 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:08:29 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_map	*ft_alloc_map(void)
 	if (!map)
 		return (ft_putstr_fd("Error while init map !\n", 2), NULL);
 	ft_memset(map, 0, sizeof(t_map));
-	map->fd_map = -1;
 	return (map);
 }
 

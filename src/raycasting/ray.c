@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:43:33 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:40:30 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:10:13 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	ft_get_wall_tex(t_ray *ray, t_render *render, t_game *game)
 {
 	render->wall_tex = game->assets->wall_e;
 	if (ray->side == 1 && ray->dir->y < 0)
-		render->wall_tex = game->assets->wall_n;
-	else if (ray->side == 1 && ray->dir->y > 0)
 		render->wall_tex = game->assets->wall_s;
+	else if (ray->side == 1 && ray->dir->y > 0)
+		render->wall_tex = game->assets->wall_n;
 	else if (ray->side == 0 && ray->dir->x > 0)
 		render->wall_tex = game->assets->wall_w;
 }
