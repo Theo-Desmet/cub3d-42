@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/18 16:11:32 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:13:01 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	ft_free_ray(t_ray *ray)
 
 void	ft_free_map(t_game *game, int i)
 {
-	if (game->map->fd_map != -1)
-		close(game->map->fd_map);
 	if (game->map->map)
 		while (i >= 0)
 			free(game->map->map[i--]);

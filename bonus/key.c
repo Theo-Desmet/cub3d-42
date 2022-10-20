@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:27:34 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/19 08:56:26 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/20 11:27:27 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_key_down(int keycode, t_game *game)
 	if (keycode == 65507)
 		game->shooting = true;
 	if (keycode == 65505)
-		game->player->walk_speed = 0.16;
+		game->player->walk_speed = 0.20;
 	if (keycode == 65513)
 		game->player->walk_speed = 0.04;
 	if (keycode == FORWARD_KEY)

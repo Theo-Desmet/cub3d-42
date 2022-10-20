@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/19 08:54:22 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/20 11:13:40 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_parsing(t_game *game, int argc, char **argv)
 	if (!check)
 		return (0);
 	if (!ft_check_file(game, fd, check))
-		return (free(check), 0);
+		return (close(fd), free(check), 0);
 	close(fd);
 	free(check);
 	game->map->map = ft_calloc(game->map->height, sizeof(int *));

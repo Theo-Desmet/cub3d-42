@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/18 16:10:15 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:07:10 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ typedef struct s_map
 	int		start;
 	int		height;
 	int		**map;
-	int		fd_map;
 }	t_map;
 
 typedef struct s_vector

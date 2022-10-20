@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/19 09:13:03 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/20 11:42:06 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,8 @@ t_map	*ft_alloc_map(void)
 
 	map = malloc(sizeof(t_map));
 	if (!map)
-		return (NULL);
-	map->map = NULL;
-	map->width = 0;
-	map->height = 0;
-	map->fd_map = -1;
-	map->map = NULL;
+		return (ft_putstr_fd("Error while init map !\n", 2), NULL);
+	ft_memset(map, 0, sizeof(t_map));
 	return (map);
 }
 
@@ -87,7 +83,7 @@ t_game	*ft_init_game(int ac, char **av)
 
 	game = ft_alloc_game();
 	if (!game || !ft_init_primary(game))
-		return (NULL);
+		return (ft_putstr_fd("Error while init the game !\n", 2), NULL);
 	if (!ft_parsing(game, ac, av))
 		return (ft_free_all(game), NULL);
 	ft_update_player(game);
@@ -95,7 +91,8 @@ t_game	*ft_init_game(int ac, char **av)
 	ft_spawn_enemy(game);
 	game->assets = ft_init_assets(game, game->mlx);
 	if (!game->assets)
-		return (ft_free_all(game), NULL);
+		return (ft_putstr_fd("Error while init assets !\n", 2),
+			ft_free_all(game), NULL);
 	game->ray = ft_init_ray();
 	game->object = ft_init_obj(game);
 	game->img = ft_init_img(game->mlx, NULL, S_WIDTH, S_HEIGHT);
@@ -104,6 +101,7 @@ t_game	*ft_init_game(int ac, char **av)
 	game->doors = ft_get_doors(game);
 	if (!game->ray || !game->object || !game->img
 		|| !game->win || !game->doors)
-		return (ft_free_all(game), NULL);
+		return (ft_putstr_fd("Error while init the game !\n", 2),
+			ft_free_all(game), NULL);
 	return (game);
 }
