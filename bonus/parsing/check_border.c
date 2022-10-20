@@ -6,51 +6,70 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:17:41 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/10 10:42:54 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:12:15 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
+int	ft_get_wall_char(t_game *game, int y, int x)
+{
+	int	**map;
+
+	if (x == 0 || y == 0 || x == game->map->width - 1
+		|| y == game->map->height - 1)
+		return (8);
+	map = game->map->map;
+	if (map[y][x + 1] == -1 || map[y + 1][x + 1] == -1 || map[y + 1][x] == -1
+		|| map[y + 1][x - 1] == -1 || map[y][x - 1] == -1
+			|| map[y - 1][x - 1] == -1 || map[y - 1][x] == -1
+				|| map[y - 1][x + 1] == -1)
+		return (8);
+	return (1);
+}
+
 int	ft_check_border(t_game *game, int **map)
 {
-	int	x;
 	int	y;
+	int	x;
 
-	x = 0;
-	while (x < game->map->height)
+	y = 0;
+	while (y < game->map->height)
 	{
-		y = 0;
-		while (y < game->map->width)
+		x = 0;
+		while (x < game->map->width)
 		{
-			if (map[x][y] != 1 && map[x][y] != -1)
-				if (!ft_check_is_a_border(game, map, x, y))
+			if (map[y][x] != 1 && map[y][x] != -1)
+				if (!ft_check_is_a_border(game, map, y, x))
 					return (0);
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 	return (1);
 }
 
-int	ft_check_is_a_border(t_game *game, int **map, int x, int y)
+int	ft_check_is_a_border(t_game *game, int **map, int y, int x)
 {
-	if (y != 0 && x != 0 && map[x - 1][y - 1] == -1)
-		return (ft_err_bordere(x - 1, y - 1), 0);
-	if (x != 0 && map[x - 1][y] == -1)
-		return (ft_err_bordere(x - 1, y), 0);
-	if (y < game->map->width && x != 0 && map[x - 1][y + 1] == -1)
-		return (ft_err_bordere(x - 1, y + 1), 0);
-	if (y != 0 && map[x][y - 1] == -1)
-		return (ft_err_bordere(x, y - 1), 0);
-	if (y < game->map->width && map[x][y + 1] == -1)
-		return (ft_err_bordere(x, y + 1), 0);
-	if (x < game->map->height && y != 0 && map[x + 1][y - 1] == -1)
-		return (ft_err_bordere(x + 1, y - 1), 0);
-	if (x < game->map->height && map[x + 1][y] == -1)
-		return (ft_err_bordere(x + 1, y), 0);
-	if (y < game->map->width
-		&& x < game->map->height && map[x + 1][y + 1] == -1)
-		return (ft_err_bordere(x + 1, y + 1), 0);
+	if (y == game->map->height - 1 || x == game->map->width - 1 || y == 0 || x == 0)
+		return (ft_err_bordere(y, x), 0);
+	if (y != 0 && x != 0 && map[y - 1][x - 1] == -1)
+		return (ft_err_bordere(y - 1, x - 1), 0);
+	if (y != 0 && map[y - 1][x] == -1)
+		return (ft_err_bordere(y - 1, x), 0);
+	if (x < game->map->width && y != 0 && map[y - 1][x + 1] == -1)
+		return (ft_err_bordere(y - 1, x + 1), 0);
+	if (x != 0 && map[y][x - 1] == -1)
+		return (ft_err_bordere(y, x - 1), 0);
+	if (x < game->map->width && map[y][x + 1] == -1)
+		return (ft_err_bordere(y, x + 1), 0);
+	if (y < game->map->height && x != 0 && map[y + 1][x - 1] == -1)
+		return (ft_err_bordere(y + 1, x - 1), 0);
+	if (y < game->map->height && map[y + 1][x] == -1)
+		return (ft_err_bordere(y + 1, x), 0);
+	if (y < game->map->height
+		&& x < game->map->width && map[y + 1][x + 1] == -1)
+		return (ft_err_bordere(y + 1, x + 1), 0);
 	return (1);
 }
+
