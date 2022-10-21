@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/20 11:42:06 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:21:49 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,12 @@ int	ft_free_all(t_game *game)
 		ft_free_map(game, game->map->height - 1);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	if (game->error_msg)
-		ft_free_tab((void **)game->error_msg);
 	if (game->fps)
 		free(game->fps);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free(game);
 	exit(EXIT_SUCCESS);
-}
-
-char	**ft_init_error_messages(void)
-{
-	char	**arr;
-	int		i;
-
-	arr = ft_calloc(12, sizeof(char *));
-	if (!arr)
-		return (NULL);
-	ft_fill_error_msg(arr);
-	i = -1;
-	while (++i < 11)
-		if (!arr[i])
-			return (ft_free_tab((void **)arr), NULL);
-	return (arr);
 }
 
 t_map	*ft_alloc_map(void)
@@ -69,10 +51,9 @@ t_game	*ft_init_primary(t_game *game)
 	game->textures_path = ft_calloc(4, sizeof(char *));
 	game->player = ft_init_player();
 	game->enemy = ft_init_enemy(game);
-	game->error_msg = ft_init_error_messages();
 	game->plane = ft_init_vector(1, 0);
 	if (!game->map || !game->textures_path || !game->player || !game->plane
-		|| !game->enemy || !game->error_msg)
+		|| !game->enemy)
 		return (ft_free_all(game), NULL);
 	return (game);
 }

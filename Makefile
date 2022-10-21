@@ -6,13 +6,13 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/10/20 16:04:04 by bbordere         ###   ########.fr        #
+#    Updated: 2022/10/21 14:24:42 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -I includes/ -Wall -Werror -Wextra
+CFLAGS = -I includes/ #-Wall -Werror -Wextra
 
 FILES = src/raycasting/floor.c\
 		src/raycasting/ray.c\
@@ -72,15 +72,7 @@ BOBJS = $(BFILES:.c=.o)
 
 NAME = cub3D
 
-DEPS =	includes/cub3d.h\
-		includes/define.h\
-		includes/enemy.h\
-		includes/parsing.h\
-		includes/struct.h\
-		Makefile
-
-BDEPS =	includes/cub3d_bonus.h\
-		includes/define.h\
+DEPS =	includes/define.h\
 		includes/enemy.h\
 		includes/parsing.h\
 		includes/struct.h\
@@ -90,16 +82,23 @@ BNAME = cub3D_bonus
 
 ifeq ($(MAKECMDGOALS), bonus)
 	CFLAGS+= -Ofast -flto
+	DEPS += includes/cub3d_bonus.h
+else ifeq ($(MAKECMDGOALS), re_bonus)
+	CFLAGS+= -Ofast -flto
+	DEPS += includes/cub3d_bonus.h
+else
+	DEPS += includes/cub3d.h
 endif
 
-%.o: %.c
+%.o: %.c $(DEPS)
 	@printf "\033[0;33mCompiling file: %-33.33s\r" $@
-	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $^ -o $@
+	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $< -o $@
 
-$(NAME): $(OBJS) $(DEPS)
+$(NAME): $(OBJS) 
 	@ $(MAKE) -C libft all --no-print-directory -s
 	@ $(MAKE) -C mlx_linux/ all -s
-	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o  $(NAME) 
+	@ $(CC) $(CFLAGS) $(OBJS) libft/libft.a mlx_linux/libmlx.a -lXext -lX11 -lm -o $(NAME) 
+	@ printf '\033[0;32mcompilation done\033[0m\n'
 
 all: $(NAME)
 	@ $(MAKE) -C libft all --no-print-directory -s

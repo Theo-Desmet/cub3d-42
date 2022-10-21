@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:16:46 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/20 11:07:10 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:09:22 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,6 @@ enum	e_map {
 	SIZE_TILE = (SIZE_MAP * 2) / VIS,
 	SIZE_PLAYER = SIZE_MAP / 6,
 	LEN_PL = (SIZE_PLAYER)
-};
-
-enum	e_error_msg
-{
-	NO_FILE,
-	TOO_MANY_FILE,
-	BAD_EXTENSION,
-	BAD_FORMAT,
-	NOT_FOUND,
-	INVALID_SYNTAX,
-	INVALID_CHAR,
-	MULTI_SPAWN,
-	NO_SPAWN,
-	COPY_ERROR,
-	INVALID_HEADER
 };
 
 typedef struct s_rgb
@@ -253,7 +238,6 @@ typedef struct s_game
 	int			nb_doors;
 	int			frame;
 	char		**textures_path;
-	char		**error_msg;
 	void		*mlx;
 	void		*win;
 	bool		forward;

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:14:31 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/10 10:43:12 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:21:30 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../mlx_linux/mlx.h"
 # include "../libft/includes/libft.h"
 # include "struct.h"
+# include "error_msg.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>

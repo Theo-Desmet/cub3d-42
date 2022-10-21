@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/20 11:13:40 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:21:09 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,16 @@ int	ft_check_ext_file(t_game *game, char *str, char *ext)
 	while (str[i])
 		i++;
 	if (ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
-		return (ft_err_file_name(game, 2, BAD_EXTENSION), 0);
+		return (ft_putstr_fd(BAD_EXT, 2), 0);
 	i -= ft_strlen(ext) + 1;
 	if (str[i] == '/')
-		return (ft_err_file_name(game, 2, BAD_FORMAT), 0);
+		return (ft_putstr_fd(BAD_FORMAT, 2), 0);
 	fd = open (str, O_RDONLY);
 	if (fd == -1)
-		return (ft_err_file_name(game, 2, NOT_FOUND), 0);
+		return (ft_putstr_fd(NOT_FOUND, 2), 0);
 	return (fd);
 }
+
 
 int	ft_parsing(t_game *game, int argc, char **argv)
 {

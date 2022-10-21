@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/19 08:20:24 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/21 14:24:22 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	ft_check_valid_head(t_game *game, t_check *check)
 {
 	if (!check->east || !check->weast || !check->north || !check->south
 		|| !check->floor || !check->ceiling)
-		return (ft_putstr_fd(game->error_msg[INVALID_HEADER], 2), 1);
+		return (ft_putstr_fd(INV_HDR, 2), 1);
 	return (0);
 }

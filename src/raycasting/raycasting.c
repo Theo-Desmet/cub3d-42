@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:49:59 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/09 11:22:21 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:24:24 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_render	*ft_init_render(void)
 	return (render);
 }
 
-void	ft_render(t_game *game)
+__attribute__((flatten)) void	ft_render(t_game *game)
 {
 	t_render	*render;
 
