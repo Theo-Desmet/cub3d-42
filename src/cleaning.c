@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:35:52 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 15:39:41 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:09:50 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	ft_free_all(t_game *game)
 		mlx_destroy_image(game->mlx, game->img->mlx_img);
 		free(game->img);
 	}
-	if (game->error_msg)
-		ft_free_tab((void **)game->error_msg);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free(game);

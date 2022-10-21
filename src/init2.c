@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:40:04 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/20 16:08:29 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:11:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,6 @@ t_map	*ft_alloc_map(void)
 	return (map);
 }
 
-char	**ft_init_error_messages(void)
-{
-	char	**arr;
-	int		i;
-
-	arr = ft_calloc(12, sizeof(char *));
-	if (!arr)
-		return (NULL);
-	ft_fill_error_msg(arr);
-	i = -1;
-	while (++i < 11)
-		if (!arr[i])
-			return (ft_free_tab((void **)arr), NULL);
-	return (arr);
-}
-
 t_game	*ft_init_game(int ac, char **av)
 {
 	t_game	*game;
@@ -63,9 +47,8 @@ t_game	*ft_init_game(int ac, char **av)
 	game->map = ft_alloc_map();
 	game->textures_path = ft_calloc(4, sizeof(char *));
 	game->player = ft_init_player();
-	game->error_msg = ft_init_error_messages();
 	game->plane = ft_init_vector(1, 0);
-	if (!game->map || !game->textures_path || !game->player || !game->error_msg
+	if (!game->map || !game->textures_path || !game->player
 		|| !game->plane || !ft_parsing(game, ac, av))
 		return (ft_free_all(game), NULL);
 	game->assets = ft_init_assets(game, game->mlx);
@@ -73,7 +56,7 @@ t_game	*ft_init_game(int ac, char **av)
 		return (ft_free_all(game), NULL);
 	game->ray = ft_init_ray();
 	game->img = ft_init_img(game->mlx, NULL, S_WIDTH, S_HEIGHT);
-	game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "cub3d");
+	game->win = mlx_new_window(game->mlx, S_WIDTH, S_HEIGHT, "cub3D");
 	if (!game->ray || !game->img || !game->win)
 		return (ft_free_all(game), NULL);
 	return (game);

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/19 08:18:14 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/21 16:00:52 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			ft_check_is_a_border(t_game *game, int **map, int x, int y);
 /*                      FILE = src/parsing/err_parsing.c                      */
 /* -------------------------------------------------------------------------- */
 void		ft_err_file_name(t_game *game, int argc, int error);
-char		*ft_get_error_msg(t_game *game, int error);
+void		ft_get_error_msg(int error);
 void		ft_err_in_file(t_game *game, int error, int line);
 void		ft_err_copy_map(t_game *game);
 void		ft_err_bordere(int x, int y);
