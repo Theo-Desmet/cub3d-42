@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/17 15:06:31 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:08:08 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 
 	asset = malloc(sizeof(t_assets));
 	if (!asset)
-		return (ft_putstr_fd("Error while init assets !\n", 2), NULL);
+		return (ft_putstr_fd(ERROR_ASSETS, 2), NULL);
 	asset->wall_e = ft_init_img(mlx, game->textures_path[0],
 			SP_SIZE, SP_SIZE);
 	asset->wall_n = ft_init_img(mlx, game->textures_path[2],
@@ -52,7 +52,7 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 	asset->wall_w = ft_init_img(mlx, game->textures_path[1],
 			SP_SIZE, SP_SIZE);
 	if (!asset->wall_e || !asset->wall_n || !asset->wall_s || !asset->wall_w)
-		return (ft_putstr_fd("Error while init assets !\n", 2),
+		return (ft_putstr_fd(ERROR_ASSETS, 2),
 			ft_free_assets(asset, mlx), NULL);
 	return (asset);
 }

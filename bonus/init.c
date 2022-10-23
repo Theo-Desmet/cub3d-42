@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:38:20 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/19 08:24:32 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/23 20:08:33 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_assets	*ft_init_assets(t_game *game, void *mlx)
 	if (!asset->wall_e || !asset->wall_n || !asset->wall_s || !asset->wall_w
 		|| !asset->gun || !asset->ceil || !asset->floor
 		|| !asset->door || !asset->obj || !asset->light || !asset->door_frame)
-		return (ft_free_assets(asset, mlx), NULL);
+		return (ft_putstr_fd(ERROR_ASSETS, 2),
+			ft_free_assets(asset, mlx), NULL);
 	return (asset);
 }
 
