@@ -66,10 +66,10 @@ int	ft_check_ext_file(t_game *game, char *str, char *ext)
 	i = 0;
 	while (str[i])
 		i++;
-	if (ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
+	if (i == 4 || ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
 		return (ft_putstr_fd(BAD_EXT, 2), 0);
 	i -= ft_strlen(ext) + 1;
-	if (str[i] == '/')
+	if (str[i] == '/' || (str[i] == '.'))
 		return (ft_putstr_fd(BAD_FORMAT, 2), 0);
 	fd = open (str, O_RDONLY);
 	if (fd == -1)
