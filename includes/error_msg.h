@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:46:44 by bbordere          #+#    #+#             */
-/*   Updated: 2022/10/21 14:21:06 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:21:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define NO_FILE "Error\nBad file: Please add file with '.cub' extension !\n"
 # define TOO_MANY_FILES "Error\nBad file: Too many files, please use only one !\n"
 # define BAD_EXT "Error\nBad file extension: File must have '.cub' extension !\n"
-# define BAD_FORMAT "Error\nBad filename: Please use a valid filenam !\n"
+# define BAD_FORMAT "Error\nBad filename: Please use a valid filename !\n"
 # define NOT_FOUND "Error\nBad filename: File not found !\n"
 # define INV_SYN ": Use or redefine of an invalid syntax !\n"
 # define INV_CHAR ": Use of an invalid char on map !\n"

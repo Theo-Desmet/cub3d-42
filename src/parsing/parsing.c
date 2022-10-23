@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/21 15:55:54 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 23:02:43 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_getpath(const char *line)
 	return (path);
 }
 
-int	ft_check_ext_file(t_game *game, char *str, char *ext)
+int	ft_check_ext_file(char *str, char *ext)
 {
 	int	i;
 	int	fd;
@@ -71,7 +71,7 @@ int	ft_check_ext_file(t_game *game, char *str, char *ext)
 	i -= ft_strlen(ext) + 1;
 	if (str[i] == '/' || (str[i] == '.'))
 		return (ft_putstr_fd(BAD_FORMAT, 2), 0);
-	fd = open (str, O_RDONLY);
+	fd = open (str, __O_NOFOLLOW | O_RDONLY);
 	if (fd == -1)
 		return (ft_putstr_fd(NOT_FOUND, 2), 0);
 	return (fd);
@@ -83,8 +83,8 @@ int	ft_parsing(t_game *game, int argc, char **argv)
 	t_check	*check;
 
 	if (argc != 2)
-		return (ft_err_file_name(game, argc, 0), 0);
-	fd = ft_check_ext_file(game, argv[1], ".cub");
+		return (ft_err_file_name(argc), 0);
+	fd = ft_check_ext_file(argv[1], ".cub");
 	if (!fd)
 		return (0);
 	check = malloc(sizeof(t_check));

@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:13:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/21 16:00:52 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 23:01:16 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t		ft_get_texture_index(const char *id);
 int			ft_check_valid_path(t_game *game, const char *line,
 				const char *str);
 char		*ft_getpath(const char *line);
-int			ft_check_ext_file(t_game *game, char *str, char *ext);
+int			ft_check_ext_file(char *str, char *ext);
 int			ft_parsing(t_game *game, int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
@@ -47,7 +47,7 @@ int			ft_check_is_a_border(t_game *game, int **map, int x, int y);
 /* -------------------------------------------------------------------------- */
 /*                      FILE = src/parsing/err_parsing.c                      */
 /* -------------------------------------------------------------------------- */
-void		ft_err_file_name(t_game *game, int argc, int error);
+void		ft_err_file_name(int argc);
 void		ft_get_error_msg(int error);
 void		ft_err_in_file(t_game *game, int error, int line);
 void		ft_err_copy_map(t_game *game);
@@ -68,6 +68,6 @@ int			ft_check_file(t_game *game, int fd, t_check *check);
 /* -------------------------------------------------------------------------- */
 int			ft_check_map_head(t_game *game, char *line, t_check *check);
 int			ft_check_is_head(char *str);
-int			ft_check_valid_head(t_game *game, t_check *check);
+int			ft_check_valid_head(t_check *check);
 
 #endif

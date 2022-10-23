@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:17:55 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/21 13:43:29 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:54:31 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 # define DOOR_SPEED 0.07
 # define FOG_COLOR 0x757575
-// # define FOG_COLOR 0x222222
 
 # define FORWARD_KEY 'w'
 # define BACKWARD_KEY 's'

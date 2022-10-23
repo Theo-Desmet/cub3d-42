@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/21 16:08:45 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 22:55:29 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_err_file_name(t_game *game, int argc, int error)
+void	ft_err_file_name(int argc)
 {
 	if (argc < 2)
 		ft_putstr_fd(NO_FILE, 2);

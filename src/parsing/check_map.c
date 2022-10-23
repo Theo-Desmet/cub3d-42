@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/17 11:42:31 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/23 23:00:14 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 			break ;
 		check->line_cnt++;
 		if (check->is_head && !ft_check_is_head(check->line))
-			check->is_head = ft_check_valid_head(game, check);
+			check->is_head = ft_check_valid_head(check);
 		if (check->is_head && !ft_check_map_head(game, check->line, check))
 			return (free(check->line),
 				ft_err_in_file(game, 0, check->line_cnt), 0);

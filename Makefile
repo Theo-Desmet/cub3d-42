@@ -6,32 +6,32 @@
 #    By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/14 08:53:24 by tdesmet           #+#    #+#              #
-#    Updated: 2022/10/21 14:24:42 by bbordere         ###   ########.fr        #
+#    Updated: 2022/10/23 23:11:57 by bbordere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
+CC = clang
 
-CFLAGS = -I includes/ #-Wall -Werror -Wextra
+CFLAGS = -I includes/ -Wall -Werror -Wextra
 
-FILES = src/raycasting/floor.c\
-		src/raycasting/ray.c\
-		src/raycasting/raycasting.c\
-		src/parsing/atorgb.c\
-		src/parsing/check_map.c\
-		src/parsing/check_map_head.c\
-		src/parsing/check_border.c\
-		src/parsing/fill_map.c\
-		src/parsing/err_parsing.c\
-		src/parsing/parsing.c\
-		src/cleaning.c\
-		src/drawing.c\
-		src/init2.c\
-		src/init.c\
-		src/key.c\
-		src/main.c\
-		src/move.c\
-		src/utils.c\
+FILES = 	src/raycasting/floor.c\
+			src/raycasting/ray.c\
+			src/raycasting/raycasting.c\
+			src/parsing/atorgb.c\
+			src/parsing/check_map.c\
+			src/parsing/check_map_head.c\
+			src/parsing/check_border.c\
+			src/parsing/fill_map.c\
+			src/parsing/err_parsing.c\
+			src/parsing/parsing.c\
+			src/cleaning.c\
+			src/drawing.c\
+			src/init2.c\
+			src/init.c\
+			src/key.c\
+			src/main.c\
+			src/move.c\
+			src/utils.c\
 
 BFILES =	bonus/cleaning2.c\
 			bonus/door.c\
@@ -66,17 +66,17 @@ BFILES =	bonus/cleaning2.c\
 			bonus/enemy/random.c\
 			bonus/enemy/utils_enemy.c\
 
+DEPS =		includes/define.h\
+			includes/enemy.h\
+			includes/parsing.h\
+			includes/struct.h\
+			Makefile
+
 OBJS = $(FILES:.c=.o)
 
 BOBJS = $(BFILES:.c=.o)
 
 NAME = cub3D
-
-DEPS =	includes/define.h\
-		includes/enemy.h\
-		includes/parsing.h\
-		includes/struct.h\
-		Makefile
 
 BNAME = cub3D_bonus
 

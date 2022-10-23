@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:15:02 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/17 18:32:03 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 23:03:13 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_is_valid_map_line(t_game *game, char *line)
 	int	i;
 
 	i = 0;
-	while (ft_strchr("01EWSN235 ", line[i]))
+	while (line[i] && ft_strchr("01EWSN235 ", line[i]))
 		i++;
 	if (!line[i] || line[i] == '\n')
 	{
@@ -93,7 +93,7 @@ int	ft_check_file(t_game *game, int fd, t_check *check)
 			break ;
 		check->line_cnt++;
 		if (check->is_head && !ft_check_is_head(check->line))
-			check->is_head = ft_check_valid_head(game, check);
+			check->is_head = ft_check_valid_head(check);
 		if (check->is_head && !ft_check_map_head(game, check->line, check))
 			return (free(check->line),
 				ft_err_in_file(game, 0, check->line_cnt), 0);

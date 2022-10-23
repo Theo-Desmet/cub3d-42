@@ -6,13 +6,13 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:03:06 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/21 16:20:50 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 23:03:44 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	ft_err_file_name(t_game *game, int argc, int error)
+void	ft_err_file_name(int argc)
 {
 	if (argc < 2)
 		ft_putstr_fd(NO_FILE, 2);
@@ -64,4 +64,3 @@ void	ft_err_bordere(int x, int y)
 	ft_putnbr_fd(y, 2);
 	ft_putstr_fd(": the map is open\n", 2);
 }
-

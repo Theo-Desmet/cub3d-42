@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 13:17:41 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/20 17:12:15 by tdesmet          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:36:45 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_check_border(t_game *game, int **map)
 
 int	ft_check_is_a_border(t_game *game, int **map, int y, int x)
 {
-	if (y == game->map->height - 1 || x == game->map->width - 1 || y == 0 || x == 0)
+	if (y == game->map->height - 1 || x == game->map->width - 1 || !y || !x)
 		return (ft_err_bordere(y, x), 0);
 	if (y != 0 && x != 0 && map[y - 1][x - 1] == -1)
 		return (ft_err_bordere(y - 1, x - 1), 0);
@@ -72,4 +72,3 @@ int	ft_check_is_a_border(t_game *game, int **map, int y, int x)
 		return (ft_err_bordere(y + 1, x + 1), 0);
 	return (1);
 }
-

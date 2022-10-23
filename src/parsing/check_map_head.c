@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 11:42:10 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/21 14:24:22 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/23 23:07:39 by bbordere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_check_is_head(char *str)
 	return (0);
 }
 
-int	ft_check_valid_head(t_game *game, t_check *check)
+int	ft_check_valid_head(t_check *check)
 {
 	if (!check->east || !check->weast || !check->north || !check->south
 		|| !check->floor || !check->ceiling)
