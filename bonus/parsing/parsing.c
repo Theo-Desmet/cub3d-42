@@ -6,7 +6,7 @@
 /*   By: bbordere <bbordere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 09:49:15 by tdesmet           #+#    #+#             */
-/*   Updated: 2022/10/23 23:04:14 by bbordere         ###   ########.fr       */
+/*   Updated: 2022/10/24 09:18:24 by tdesmet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ int	ft_check_ext_file(char *str, char *ext)
 	i = 0;
 	while (str[i])
 		i++;
-	if (i == 4 || ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
+	if (i < 5 || ft_strncmp(&str[i - ft_strlen(ext)], ext, ft_strlen(ext)))
 		return (ft_putstr_fd(BAD_EXT, 2), 0);
 	i -= ft_strlen(ext) + 1;
-	if (str[i] == '/' || (str[i] == '.'))
+	if (str[i] == '/' || (str[i] == '.')
+		|| (str[i] == '.' && str[i - 1] == '/'))
 		return (ft_putstr_fd(BAD_FORMAT, 2), 0);
 	fd = open (str, __O_NOFOLLOW | O_RDONLY);
 	if (fd == -1)
