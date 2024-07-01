@@ -1,4 +1,4 @@
-#cub3D
+# cub3D
 
 cub3D is a small 3D game project developed as part of the 42 cursus. It's a labyrinth game in first-person view in which the player navigates through a maze. We had to use ray-casting to achieve the rendering.
 Overview
